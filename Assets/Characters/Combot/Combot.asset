@@ -1643,9 +1643,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d37c324b8abaad84c873996910bede27, type: 2}
     - {fileID: 11400000, guid: 6ef6ab156630436469c41b2bb31539b1, type: 2}
     - {fileID: 11400000, guid: 53597325d83de1e4096716e1787b84dd, type: 2}
+    - {fileID: 11400000, guid: 5cededb05831b4c449c2aff24863d950, type: 2}
+    - {fileID: 11400000, guid: 6e3e9e54dbef886479cc3009f7950ca5, type: 2}
     enabledBasicMovesToggle: 1
     basicMovesToggle: 1
-    attackMovesToggle: 1
+    attackMovesToggle: 0
   aiInstructionsSet:
   - aiInfo: {fileID: 11400000, guid: 381a98fe3348ea640801d8072511a960, type: 2}
     behavior: 4

@@ -68,7 +68,7 @@ MonoBehaviour:
     introScreen: {fileID: 11400002, guid: 70fb6f5004bbf493190d7b2f011adfdf, type: 2}
     mainMenuScreen: {fileID: 11432508, guid: 2ee48ca1981b3bb4b8619da181106feb, type: 2}
     optionsScreen: {fileID: 11400056, guid: 2737f2cf99cd3416b9a9d13df2abbe04, type: 2}
-    skillTreeScreen: {fileID: 0}
+    skillTreeScreen: {fileID: 11458744, guid: 359c12efe7c12614d849d7da41e14902, type: 2}
     creditsScreen: {fileID: 11400010, guid: aa93c5bcd99024642a42c5a1f110eeb1, type: 2}
     pauseScreen: {fileID: 11400000, guid: 6241d31f6482b42a88a8e7c8b62e2716, type: 2}
     characterSelectionScreen: {fileID: 11400026, guid: fbff3d70d06804e6790e3cc5c560a542,

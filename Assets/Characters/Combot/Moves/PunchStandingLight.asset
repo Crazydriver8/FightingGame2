@@ -24,7 +24,7 @@ MonoBehaviour:
   invertRotationRight: 0
   autoCorrectRotation: 0
   frameWindowRotation: 0
-  gaugeToggle: 1
+  gaugeToggle: 0
   gaugeUsage: 0
   gaugeGainOnMiss: 0
   gaugeGainOnHit: 20
@@ -50,12 +50,12 @@ MonoBehaviour:
   disableHeadLook: 1
   wrapMode: 0
   fixedSpeed: 1
-  animationSpeed: 2.5
+  animationSpeed: 2
   animSpeedKeyFrame: []
-  totalFrames: 9
+  totalFrames: 12
   startUpFrames: 5
   activeFrames: 2
-  recoveryFrames: 6
+  recoveryFrames: 2
   applyRootMotion: 0
   forceGrounded: 0
   rootMotionNode: 0
@@ -73,55 +73,7 @@ MonoBehaviour:
   buttonSequence: 
   buttonExecution: 04000000
   previousMoves: []
-  frameLinks:
-  - linkType: 0
-    allowBuffer: 1
-    onStrike: 1
-    onBlock: 1
-    onParry: 1
-    activeFramesBegins: 8
-    activeFramesEnds: 13
-    counterMoveType: 0
-    counterMoveFilter: {fileID: 0}
-    disableHitImpact: 1
-    anyHitStrength: 1
-    hitStrength: 0
-    anyStrokeHitBox: 1
-    hitBoxType: 0
-    anyHitType: 1
-    hitType: 0
-    ignoreInputs: 0
-    ignorePlayerConditions: 0
-    nextMoveStartupFrame: 4
-    linkableMoves:
-    - {fileID: 11400000, guid: ed8fe64afd430fb40a6208419e3df4f8, type: 2}
-    linkableMovesToggle: 1
-    hitConfirmToggle: 0
-    counterMoveToggle: 1
-  - linkType: 0
-    allowBuffer: 1
-    onStrike: 1
-    onBlock: 1
-    onParry: 1
-    activeFramesBegins: 1
-    activeFramesEnds: 13
-    counterMoveType: 0
-    counterMoveFilter: {fileID: 0}
-    disableHitImpact: 1
-    anyHitStrength: 1
-    hitStrength: 0
-    anyStrokeHitBox: 1
-    hitBoxType: 0
-    anyHitType: 1
-    hitType: 0
-    ignoreInputs: 0
-    ignorePlayerConditions: 0
-    nextMoveStartupFrame: 7
-    linkableMoves:
-    - {fileID: 11400000, guid: 4b9d5ea5671119d4880ef55ab362d82f, type: 2}
-    linkableMovesToggle: 1
-    hitConfirmToggle: 0
-    counterMoveToggle: 0
+  frameLinks: []
   particleEffects: []
   appliedForces: []
   slowMoEffects: []

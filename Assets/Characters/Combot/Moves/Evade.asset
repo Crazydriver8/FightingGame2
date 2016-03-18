@@ -34,7 +34,7 @@ MonoBehaviour:
   opGaugeGainOnHit: 0
   possibleStates: 
   possibleMoveStates: []
-  animationClip: {fileID: 7400000, guid: 7dbb631208b1ee74f8249d8286c57384, type: 2}
+  animationClip: {fileID: 7400000, guid: ee33e19f0b05afd4c81f04f870d0c8d1, type: 2}
   disableHeadLook: 1
   wrapMode: 0
   fixedSpeed: 1

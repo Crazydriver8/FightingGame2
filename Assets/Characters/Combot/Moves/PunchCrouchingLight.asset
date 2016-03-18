@@ -18,8 +18,10 @@ MonoBehaviour:
   ignoreGravity: 0
   ignoreFriction: 0
   cancelMoveWheLanding: 0
-  forceMirror: 0
-  invertRotation: 0
+  forceMirrorLeft: 0
+  forceMirrorRight: 0
+  invertRotationLeft: 0
+  invertRotationRight: 0
   autoCorrectRotation: 0
   frameWindowRotation: 0
   gaugeToggle: 0
@@ -47,56 +49,35 @@ MonoBehaviour:
   animationClip: {fileID: 7400000, guid: fafae07cd80f2ac49bcc0ee64cb622f9, type: 2}
   disableHeadLook: 1
   wrapMode: 0
+  fixedSpeed: 1
   animationSpeed: 2
+  animSpeedKeyFrame: []
   totalFrames: 12
   startUpFrames: 4
   activeFrames: 2
   recoveryFrames: 6
   applyRootMotion: 0
+  forceGrounded: 0
   rootMotionNode: 0
   overrideBlendingIn: 1
   overrideBlendingOut: 0
   blendingIn: 0
   blendingOut: 0
   chargeMove: 0
-  chargeTiming: .699999988
+  chargeTiming: 0.7
   allowInputLeniency: 0
+  allowNegativeEdge: 1
   leniencyBuffer: 0
   onReleaseExecution: 0
   onPressExecution: 1
   buttonSequence: 
   buttonExecution: 04000000
   previousMoves: []
-  frameLinks:
-  - linkType: 0
-    allowBuffer: 1
-    onStrike: 1
-    onBlock: 1
-    onParry: 1
-    activeFramesBegins: 6
-    activeFramesEnds: 12
-    counterMoveType: 0
-    counterMoveFilter: {fileID: 0}
-    disableHitImpact: 1
-    anyHitStrength: 1
-    hitStrength: 0
-    anyStrokeHitBox: 1
-    hitBoxType: 0
-    anyHitType: 1
-    hitType: 0
-    ignoreInputs: 0
-    ignorePlayerConditions: 0
-    nextMoveStartupFrame: 1
-    linkableMoves:
-    - {fileID: 11400000, guid: e181327f5f2e27e45abdbd912ae82758, type: 2}
-    - {fileID: 11400000, guid: e2d55f65ba33fce4eac62f440f5d167d, type: 2}
-    cancelable: 0
-    linkableMovesToggle: 1
-    hitConfirmToggle: 0
-    counterMoveToggle: 0
+  frameLinks: []
   particleEffects: []
   appliedForces: []
   slowMoEffects: []
+  bodyPartVisibilityChanges: []
   opponentOverride: []
   soundEffects:
   - castingFrame: 0
@@ -116,24 +97,43 @@ MonoBehaviour:
     techable: 1
     armorBreaker: 0
     continuousHit: 0
+    unblockable: 0
     spaceBetweenHits: 0
     groundHit: 1
+    crouchingHit: 1
     airHit: 1
     stunHit: 1
+    opponentConditions:
+      basicMoveLimitation: 
+      possibleMoveStates: []
+      basicMovesToggle: 0
+      statesToggle: 0
     downHit: 0
     resetPreviousHitStun: 1
-    cornerPush: 1
+    resetCrumples: 0
     overrideHitEffects: 0
     hitEffects:
       hitParticle: {fileID: 0}
       killTime: 0
       hitSound: {fileID: 0}
+      spawnPoint: 1
       freezingTime: 0
-      animationSpeed: .100000001
+      animationSpeed: 0.1
+      autoHitStop: 1
+      hitStop: 0.1
       shakeCharacterOnHit: 1
       shakeCameraOnHit: 1
-      shakeDensity: .800000012
+      shakeDensity: 0.8
       editorToggle: 0
+    overrideEffectSpawnPoint: 0
+    spawnPoint: 1
+    overrideHitAnimationBlend: 0
+    newHitBlendingIn: 0
+    overrideAirRecoveryType: 0
+    newAirRecoveryType: 0
+    instantAirRecovery: 0
+    overrideHitAnimation: 0
+    newHitAnimation: 27
     hitStrength: 0
     hitStunType: 1
     hitStunOnHit: 30
@@ -152,6 +152,23 @@ MonoBehaviour:
     resetPreviousHorizontal: 0
     resetPreviousVertical: 0
     appliedForce: {x: 0, y: 0}
+    cornerPush: 1
+    groundBounce: 1
+    overrideForcesOnGroundBounce: 0
+    resetGroundBounceHorizontalPush: 0
+    resetGroundBounceVerticalPush: 0
+    groundBouncePushForce: {x: 0, y: 0}
+    wallBounce: 0
+    knockOutOnWallBounce: 0
+    overrideForcesOnWallBounce: 0
+    resetWallBounceHorizontalPush: 0
+    resetWallBounceVerticalPush: 0
+    wallBouncePushForce: {x: 0, y: 0}
+    bounceOnCameraEdge: 0
+    overrideCameraSpeed: 0
+    newMovementSpeed: 0
+    newRotationSpeed: 0
+    cameraSpeedDuration: 0
     hurtBoxes:
     - bodyPart: 8
       shape: 0
@@ -163,15 +180,9 @@ MonoBehaviour:
         height: 4
       followXBounds: 0
       followYBounds: 0
-      radius: .600000024
+      radius: 0.6
       offSet: {x: 0, y: 0}
-      position: {x: 0, y: 0, z: 0}
-      rendererBounds:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
+      isBlock: 0
     - bodyPart: 6
       shape: 0
       rect:
@@ -182,15 +193,9 @@ MonoBehaviour:
         height: 4
       followXBounds: 0
       followYBounds: 0
-      radius: .600000024
+      radius: 0.6
       offSet: {x: 0, y: 0}
-      position: {x: 0, y: 0, z: 0}
-      rendererBounds:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
+      isBlock: 0
     - bodyPart: 4
       shape: 0
       rect:
@@ -201,37 +206,35 @@ MonoBehaviour:
         height: 4
       followXBounds: 0
       followYBounds: 0
-      radius: .699999988
+      radius: 0.7
       offSet: {x: 0, y: 0}
-      position: {x: 0, y: 0, z: 0}
-      rendererBounds:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
+      isBlock: 0
     pullEnemyIn:
       speed: 50
       forceStand: 1
       characterBodyPart: 0
       enemyBodyPart: 0
-      targetDistance: .5
+      targetDistance: 0.5
       position: {x: 0, y: 0, z: 0}
     pullSelfIn:
       speed: 50
       forceStand: 1
       characterBodyPart: 0
       enemyBodyPart: 0
-      targetDistance: .5
+      targetDistance: 0.5
       position: {x: 0, y: 0, z: 0}
-    hasHit: 0
-    disabled: 0
     damageOptionsToggle: 0
     hitStunOptionsToggle: 1
     forceOptionsToggle: 1
+    opponentForceToggle: 0
+    selfForceToggle: 0
+    stageReactionsToggle: 0
+    overrideEventsToggle: 0
     hitConditionsToggle: 0
     pullInToggle: 0
     hurtBoxesToggle: 0
+    wallBounceToggle: 0
+    groundBounceToggle: 0
   blockableArea:
     activeFramesBegin: 1
     activeFramesEnds: 9
@@ -257,11 +260,14 @@ MonoBehaviour:
       hitParticle: {fileID: 0}
       killTime: 0
       hitSound: {fileID: 0}
+      spawnPoint: 1
       freezingTime: 0
-      animationSpeed: .100000001
+      animationSpeed: 0.1
+      autoHitStop: 1
+      hitStop: 0.1
       shakeCharacterOnHit: 1
       shakeCameraOnHit: 1
-      shakeDensity: .800000012
+      shakeDensity: 0.8
       editorToggle: 0
     hitAbsorption: 0
     damageAbsorption: 0
@@ -300,3 +306,4 @@ MonoBehaviour:
     anyAttackType: 1
     anyHitType: 1
     anyHitConfirmType: 1
+  speedKeyFrameToggle: 0
