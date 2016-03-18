@@ -761,7 +761,7 @@ GameObject:
   - 4: {fileID: 400100}
   - 114: {fileID: 11400000}
   - 95: {fileID: 9500000}
-  - 114: {fileID: 11409348}
+  - 114: {fileID: 11450630}
   m_Layer: 0
   m_Name: Robot Kyle
   m_TagString: Untagged
@@ -1739,7 +1739,7 @@ MonoBehaviour:
   controlsScript: {fileID: 0}
   previewInvertRotation: 0
   previewMirror: 0
---- !u!114 &11409348
+--- !u!114 &11450630
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1747,7 +1747,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32712799d06417c4cbdf78384b212ca8, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f69f5361df42514abfbb0e8ff720533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!137 &13700000

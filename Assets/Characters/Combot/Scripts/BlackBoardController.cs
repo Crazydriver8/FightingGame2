@@ -44,6 +44,8 @@ public class BlackBoardController : MonoBehaviour {
         Debug.Log("Input is " + (int)move.buttonExecution[0]);
 
         // Record the current time
+        Debug.Log(Time.time);
+        
         // Save the state of the BlackBoard
     }
 
