@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e5269517f28664db5ccd78cbd208b1, type: 3}
+  m_Name: New Character
+  m_EditorClassIdentifier: 
+  profilePictureSmall: {fileID: 0}
+  profilePictureBig: {fileID: 0}
+  characterName: 
+  gender: 0
+  characterDescription: 
+  enableAlternativeColor: 0
+  alternativeColor: {r: 0, g: 0, b: 0, a: 0}
+  selectionAnimation: {fileID: 0}
+  selectionSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  height: 0
+  age: 0
+  bloodType: 
+  lifePoints: 1000
+  maxGaugePoints: 0
+  characterPrefab: {fileID: 0}
+  physics:
+    moveForwardSpeed: 4
+    moveBackSpeed: 3.5
+    highMovingFriction: 1
+    friction: 30
+    canCrouch: 1
+    crouchDelay: 2
+    standingDelay: 2
+    canJump: 1
+    jumpForce: 20
+    jumpDistance: 8
+    cumulativeForce: 1
+    multiJumps: 1
+    weight: 175
+    jumpDelay: 3
+    landingDelay: 7
+    groundCollisionMass: 2
+  headLook:
+    enabled: 0
+    segments: []
+    nonAffectedJoints: []
+    target: 1
+    effect: 1
+    overrideAnimation: 1
+    disableOnHit: 1
+  executionTiming: 0.3
+  possibleAirMoves: 1
+  blendingTime: 0.1
+  animationType: 0
+  avatar: {fileID: 0}
+  applyRootMotion: 0
+  animationFlow: 0
+  moves: []
+  aiInstructionsSet: []
