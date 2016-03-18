@@ -33,4 +33,10 @@ public class MainMenuScreen : UFEScreen {
 	public virtual void GoToCreditsScreen(){
 		UFE.StartCreditsScreen();
 	}
+
+    public virtual void GoToSkillTreeScreen()
+    {
+        Debug.Log("Skill Tree Screen Clicked");
+        UFE.StartSkillTreeScreen();
+    }
 }

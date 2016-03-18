@@ -515,7 +515,12 @@ public class UFE : MonoBehaviour {
 		return UFE.config.gameGUI.optionsScreen;
 	}
 
-	public static StageSelectionScreen GetStageSelectionScreen(){
+    public static SkillTreeScreen GetSkillTreeScreen()
+    {
+        return UFE.config.gameGUI.skillTreeScreen;
+    }
+
+    public static StageSelectionScreen GetStageSelectionScreen(){
 		return UFE.config.gameGUI.stageSelectionScreen;
 	}
 
@@ -773,7 +778,24 @@ public class UFE : MonoBehaviour {
 		);
 	}
 
-	public static void StartPlayerVersusPlayer(){
+    public static void StartSkillTreeScreen()
+    {
+        UFE.StartSkillTreeScreen(UFE.config.gameGUI.screenFadeDuration);
+    }
+
+    public static void StartSkillTreeScreen(float fadeTime)
+    {
+        UFE.eventSystem.enabled = false;
+        CameraFade.StartAlphaFade(
+            UFE.config.gameGUI.screenFadeColor,
+            false,
+            fadeTime / 2f,
+            0f,
+            () => { UFE.eventSystem.enabled = true; UFE._StartSkillTreeScreen(fadeTime / 2f); }
+        );
+    }
+
+    public static void StartPlayerVersusPlayer(){
 		UFE.StartPlayerVersusPlayer(UFE.config.gameGUI.screenFadeDuration);
 	}
 
@@ -2534,7 +2556,24 @@ public class UFE : MonoBehaviour {
 		}
 	}
 
-	public static void _StartStoryModeBattle(float fadeTime){
+    private static void _StartSkillTreeScreen(float fadeTime)
+    {
+        CameraFade.StartAlphaFade(UFE.config.gameGUI.screenFadeColor, true, fadeTime);
+
+        UFE.EndGame();
+        UFE.HideScreen(UFE.currentScreen);
+        if (UFE.config.gameGUI.skillTreeScreen == null)
+        {
+            Debug.LogError("Skill Tree Screen not found! Make sure you have set the prefab correctly in the Global Editor");
+            UFE._StartMainMenuScreen(fadeTime);
+        }
+        else
+        {
+            UFE.ShowScreen(UFE.config.gameGUI.skillTreeScreen);
+        }
+    }
+
+    public static void _StartStoryModeBattle(float fadeTime){
 		// If the player 1 won the last battle, load the information of the next battle. 
 		// Otherwise, repeat the last battle...
 		CharacterInfo character = UFE.GetPlayer(1);

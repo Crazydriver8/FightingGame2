@@ -1,15 +1,52 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
+using System.Reflection;
 
-public class SkillTreeScreen : MonoBehaviour {
+public class SkillTreeScreen : UFEScreen
+{
+    public virtual void Quit()
+    {
+        UFE.Quit();
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public virtual void GoToStoryModeScreen()
+    {
+        UFE.StartStoryMode();
+    }
+
+    public virtual void GoToVersusModeScreen()
+    {
+        UFE.StartVersusModeScreen();
+    }
+
+    public virtual void GoToTrainingModeScreen()
+    {
+        UFE.StartTrainingMode();
+    }
+
+    public virtual void GoToNetworkPlayScreen()
+    {
+        UFE.StartNetworkGameScreen();
+    }
+
+    public virtual void GoToOptionsScreen()
+    {
+        UFE.StartOptionsScreen();
+    }
+
+    public virtual void GoToMainMenuScreen()
+    {
+        UFE.StartMainMenuScreen();
+
+    }
+
+    public virtual void GoToCreditsScreen()
+    {
+        UFE.StartCreditsScreen();
+    }
+
+    public virtual void GoToSkillTreeScreen()
+    {
+        UFE.StartSkillTreeScreen();
+    }
 }
