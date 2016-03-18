@@ -1647,7 +1647,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 6e3e9e54dbef886479cc3009f7950ca5, type: 2}
     enabledBasicMovesToggle: 1
     basicMovesToggle: 1
-    attackMovesToggle: 0
+    attackMovesToggle: 1
   aiInstructionsSet:
   - aiInfo: {fileID: 11400000, guid: 381a98fe3348ea640801d8072511a960, type: 2}
     behavior: 4

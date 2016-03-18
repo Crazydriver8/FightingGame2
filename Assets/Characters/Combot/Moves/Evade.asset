@@ -38,9 +38,9 @@ MonoBehaviour:
   disableHeadLook: 1
   wrapMode: 0
   fixedSpeed: 1
-  animationSpeed: 1
+  animationSpeed: 0.39
   animSpeedKeyFrame: []
-  totalFrames: 15
+  totalFrames: 10
   startUpFrames: 0
   activeFrames: 1
   recoveryFrames: 2
