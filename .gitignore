@@ -31,5 +31,20 @@ sysinfo.txt
 
 
 # Paid Content
-/Assets/UFE/*
+/Assets/UFE/Characters/*
+/Assets/UFE/Editor/*
+/Assets/UFE/GUI/*
+/Assets/UFE/MecanimAssets/*
+/Assets/UFE/Particles/*
+/Assets/UFE/ProjectSettings/*
+/Assets/UFE/Resources/*
+/Assets/UFE/Scenes/*
+/Assets/UFE/Sounds/*
+/Assets/UFE/Stages/*
+/Assets/UFE/ThirdPartyAssets/*
+/Assets/UFE/*.meta
+/Assets/UFE/*.7z
+/Assets/UFE/*.pdf
+/Assets/UFE/*.txt
+/Assets/UFE/*.prefab
 /Assets/UFE Addons/*
