@@ -8,25 +8,25 @@ using System.Collections;
  */
 public class BlackBoardController : MonoBehaviour {
 
-    // Happens when the object is created
-    void OnAwake()
+    // Happens when the object is enabled
+    void OnEnable()
     {
         // Subscribe to UFE events
         UFE.OnMove += OnMove;
         UFE.OnHit += OnHit;
     }
 
-    // Happens when the object is destroyed
+    // Happens when the object is disabled
     void OnDisable()
     {
-        // Unsubscribe from UFE events
+        // Subscribe to UFE events
         UFE.OnMove -= OnMove;
         UFE.OnHit -= OnHit;
     }
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         //Debug.Log("BlackBoard stuff");
 	}
 	
@@ -41,12 +41,23 @@ public class BlackBoardController : MonoBehaviour {
     void OnMove(MoveInfo move, CharacterInfo player)
     {
         // Record the button that was pressed
-        Debug.Log("Input is " + (int)move.buttonExecution[0]);
+        Debug.Log("Player " + player.GetInstanceID() + " inputted " + (int)move.buttonExecution[0]);
 
         // Record the current time
         Debug.Log(Time.time);
         
         // Save the state of the BlackBoard
+
+
+        // Ambiently change the BlackBoard by resolving the skill tree
+        switch(move.moveName)
+        {
+            case "Evade":
+                break;
+            
+            default:
+                break;
+        }
     }
 
     void OnHit(HitBox strokeHitBox, MoveInfo move, CharacterInfo hitter)
