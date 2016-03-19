@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+
+using SimpleJSON;
 
 
 /* Defines both a move and its associated skill tree
@@ -8,53 +11,58 @@ using System.Collections.Generic;
 public class SkillTree : MonoBehaviour {
     /* Fields */
 
-    // The root node
-    SkillTreeNode root = null;
-
-    // Which move is this skill tree for?
-    public string move;
-
-    // How much weight can the skill tree hold?
+    // Move properties
+    SkillTreeStructure root; // The skill tree is represented as strings
+    public string filename = "skilltree.json"; // Where the skill tree data is stored
+    public string move; // Which move is this skill tree for
+    public bool defensive = false; // Is this a defensive move?
     public int maxWeight,
-               currWeight;
+               currWeight; // How much weight can the skill tree hold?
 
-    // Defines hitbox
-    public Vector3 center;
-    public Vector3 range;
+    // Looks up the node to resolve in all possible nodes
+    Dictionary<string, Action<bool>> possibleNodes = new Dictionary<string, Action<bool>>();
 
-    // Defines DPS
+    // Changes skills
     public int speed,
                minRawDamage,
-               maxRawDamage;
-
-    // Modifier for numerical stats
+               maxRawDamage; // Defines DPS
     public struct Modifier
     {
-        public Vector3 center;
-        public Vector3 range;
         public int speed,
                    minRawDamage,
                    maxRawDamage;
     }
-    private Modifier mods;
+    private Modifier mods; // Modifier for numerical stats
 
     // Special effects that apply in the order they are added
     // Move designer should add default effects on Awake()
     private List<string> effects = new List<string>();
 
+    // Somewhere out there, there's a file that loaded all of the nodes
+    public GameObject loader;
+    private NodeLoader nodeLoader;
+
+
+    // Use this on initialization
+    void Start()
+    {
+        nodeLoader = loader.GetComponent<NodeLoader>();
+    }
+
 
     /* Constructing a skill tree
      */
-    // Add a node to the tree
-    public bool AddRoot(SkillTreeNode node)
+    // Rebuild a skill tree given the file that it's stored in
+    void GetTree()
     {
-        if (root == null && node.parent == Constants.ROOT_NODE)
-        {
-            root = node;
-            return true;
-        }
+        // Grab raw text
+        string path = Constants.SKILL_TREE_DIR + filename.Replace(".json", "");
+        string content = Resources.Load<TextAsset>(path).text;
 
-        return false;
+        // Parse as JSON
+        var skillTree = JSON.Parse(content);
+
+        // Build the tree by converting the JSON to the summary struct
     }
 
 
@@ -79,19 +87,20 @@ public class SkillTree : MonoBehaviour {
     }
     
     // Resolve all skill tree nodes to produce a modified move
-    public virtual void Resolve ()
+    public virtual void Resolve (bool passive = true)
     {
-        List<SkillTreeNode> frontier = new List<SkillTreeNode>();
+        /*List<string> frontier = new List<string>();
+        frontier.Add(root.name);
 
         // Starting from root, resolve all the tree nodes
-        SkillTreeNode temp = root;
-        while (temp != null)
+        SkillTreeStructure temp = root;
+        while (frontier.Count > 0)
         {
             // Add children to frontier
             frontier.AddRange(temp.GetChildren());
 
             // Add effects and modifiers
-            root.Resolve(this);
+            root.Resolve(this, passive);
 
             // Get the next child
             if (frontier.Count > 0)
@@ -101,6 +110,32 @@ public class SkillTree : MonoBehaviour {
             }
             else
                 temp = null;
-        }
+        }*/
+    }
+}
+
+public struct SkillTreeStructure
+{
+    public string name,
+                  up,
+                  left,
+                  right,
+                  down;
+
+    public int parent;
+
+    public List<string> GetChildren()
+    {
+        List<string> children = new List<string>();
+
+        // Resolution order for BFS is left, right, down
+        if (left != null)
+            children.Add(left);
+        if (right != null)
+            children.Add(right);
+        if (down != null)
+            children.Add(down);
+
+        return children;
     }
 }

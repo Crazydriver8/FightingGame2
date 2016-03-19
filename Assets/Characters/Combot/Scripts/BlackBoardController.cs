@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 
 /* Pushes updates about this object to the BlackBoard
@@ -7,6 +9,13 @@ using System.Collections;
  * In addition, exports collected data at the end of each round
  */
 public class BlackBoardController : MonoBehaviour {
+
+    /* Fields */
+
+    // SkillTree handlers
+    Dictionary<string, Action<bool>> handlers = new Dictionary<string, Action<bool>>();
+    Evade evade;
+    
 
     // Happens when the object is enabled
     void OnEnable()
@@ -28,10 +37,14 @@ public class BlackBoardController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Debug.Log("BlackBoard stuff");
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        // Get all of the moves' SkillTree handlers
+        Evade evade = GetComponent<Evade>();
+        handlers["Evade"] = evade.Resolve;
+    }
+
+    // Update is called once per frame
+    void Update () {
 	    
 	}
 
@@ -45,25 +58,19 @@ public class BlackBoardController : MonoBehaviour {
 
         // Record the current time
         Debug.Log(Time.time);
-        
+
         // Save the state of the BlackBoard
-
-
-        // Ambiently change the BlackBoard by resolving the skill tree
-        switch(move.moveName)
-        {
-            case "Evade":
-                break;
-            
-            default:
-                break;
-        }
+        Debug.Log("Saved BlackBoard state");
     }
 
     void OnHit(HitBox strokeHitBox, MoveInfo move, CharacterInfo hitter)
     {
         // Calculate passive effects
+        Action<bool> resolver;
+        if (handlers.TryGetValue(move.moveName, out resolver))
+            resolver(true);
 
         // Record the amount of damage done
+        Debug.Log("Hit damage: " + move.hits[0].damageOnHit);
     }
 }

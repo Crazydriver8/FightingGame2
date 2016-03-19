@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-/* If you're doing badly, add some damage or a disable after being hit
- */
-public class Anger : MonoBehaviour {
+public class Rally : Strip {
 
 	// Use this for initialization
 	void Start () {

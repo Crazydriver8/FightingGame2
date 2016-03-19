@@ -19,6 +19,13 @@ public class SkillTreeNode : AmbientObject {
     // Which attack is this node bound to (which move is it modifying)?
     public string attack;
 
+    // Is this node a defensive mod or an offensive mod?
+    public bool defensive = false;
+
+    // Give this node a name and description so that it can be easily identified
+    public string skillName,
+                  skillDescription;
+
 
     /* Tree construction
      */
@@ -112,7 +119,7 @@ public class SkillTreeNode : AmbientObject {
     }
 
     
-    /* Apply the state to the player when PASSIVE and the player's move when ACTIVE
+    /* Resolve the effects that this node causes
      */
     // Get the children of this node for traversal
     public List<SkillTreeNode> GetChildren()
@@ -131,7 +138,7 @@ public class SkillTreeNode : AmbientObject {
     }
     
     // Changes parameters of move
-    public virtual void Resolve(SkillTree move)
+    public virtual void Resolve(SkillTree move, bool passive)
     {
         
     }
