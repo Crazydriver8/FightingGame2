@@ -18,7 +18,7 @@ public class DragPanel : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoin
 
     //Draw line utilities
     private Vector2 startPos;
-    public float linkRange = 2.0f;
+    public float linkRange = 50f;
     private GameObject[] lines = new GameObject[2]
     {
         null,
@@ -98,24 +98,71 @@ public class DragPanel : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoin
     bool CanDrawLine(Vector2 direction)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, direction, out hit, maxDistance: linkRange))
+        if (Physics.Raycast(panelRectTransform.localPosition, direction, out hit, maxDistance: linkRange))
         {
+            Debug.Log("Object hit! "+hit.transform.gameObject.tag);
             if (direction == Vector2.up && (hit.transform.gameObject.tag == baseTag || hit.transform.gameObject.tag == nodeTag))
             {
-                StartCoroutine(DrawLine(transform.position, hit.transform.position, Color.red, 0));
+                Debug.Log("Can Draw Top Line");
+                StartCoroutine(DrawLine(transform.localPosition, hit.transform.localPosition, Color.red, 0));
                 return true;
             }
             else if (direction == Vector2.left && hit.transform.gameObject.tag == nodeTag)
             {
                 // Firing a ray to the left and hitting means that this is a right child
-                StartCoroutine(DrawLine(transform.position, hit.transform.position, Color.red, 2));
+                Debug.Log("Can Draw Left Line");
+                StartCoroutine(DrawLine(transform.localPosition, hit.transform.localPosition, Color.red, 2));
                 return true;
             }
             else if (direction == Vector2.right && hit.transform.gameObject.tag == nodeTag)
             {
                 // Firing a ray to the right and hitting means that this is a left child
-                StartCoroutine(DrawLine(transform.position, hit.transform.position, Color.red, 1));
+                Debug.Log("Can Draw Right Line");
+                StartCoroutine(DrawLine(transform.localPosition, hit.transform.localPosition, Color.red, 1));
                 return true;
+            }
+        } else
+        {
+
+            //Find distance from node to root
+            var root = GameObject.FindGameObjectWithTag(baseTag);
+            var rootDist = Vector2.Distance(root.transform.position, panelRectTransform.position);
+
+            if (direction == Vector2.up && rootDist < 70 && rootDist > 50)
+            {
+                Debug.Log("Close to Root");
+                StartCoroutine(DrawLine(transform.localPosition, hit.transform.localPosition, Color.red, 0));
+                return true;
+            }
+
+            //Find distance from node to node if root too far
+            var objects = GameObject.FindGameObjectsWithTag(nodeTag);
+
+            foreach (GameObject o in objects)
+            {
+                if (o.name != this.name)
+                {
+                    var nodeDist = Vector2.Distance(o.transform.position, panelRectTransform.position);
+                    Debug.Log("Object " + o.name + " is [" + nodeDist + "] away");
+                    if (direction == Vector2.up && nodeDist < 70 && nodeDist > 50)
+                    {
+                        Debug.Log("Close to Up Node");
+                        StartCoroutine(DrawLine(transform.localPosition, o.transform.localPosition, Color.red, 0));
+                        return true;
+                    }
+                    if (direction == Vector2.left && nodeDist < 70 && nodeDist > 50)
+                    {
+                        Debug.Log("Close to Left Node");
+                        StartCoroutine(DrawLine(transform.localPosition, o.transform.localPosition, Color.red, 2));
+                        return true;
+                    }
+                    if (direction == Vector2.right && nodeDist < 70 && nodeDist > 50)
+                    {
+                        Debug.Log("Close to Right Node");
+                        StartCoroutine(DrawLine(transform.localPosition, o.transform.localPosition, Color.red, 1));
+                        return true;
+                    }
+                }
             }
         }
         return false;
