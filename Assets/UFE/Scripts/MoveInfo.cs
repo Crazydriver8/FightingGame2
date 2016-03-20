@@ -871,35 +871,39 @@ public class MoveInfo: ScriptableObject {
         }
 
         // Damage adjustment
-        this.hits[0].damageOnHit += mod.minRawDamage;
+        if (hits.Length > 0)
+            this.hits[0].damageOnHit += mod.minRawDamage;
 
         // Effects
-        foreach (string effect in mod.effects)
+        if (mod.effects != null)
         {
-            switch(effect)
+            foreach (string effect in mod.effects)
             {
-                case Constants.STUN:
-                    break;
+                switch (effect)
+                {
+                    case Constants.STUN:
+                        break;
 
-                case Constants.KNOCKBACK:
-                    break;
-                
-                case Constants.KNOCKDOWN:
-                    break;
+                    case Constants.KNOCKBACK:
+                        break;
 
-                case Constants.IFRAME:
-                    // Configure the iFrame
-                    InvincibleBodyParts iFrame = new InvincibleBodyParts();
-                    iFrame.activeFramesBegin = 2;
-                    iFrame.activeFramesEnds = this.totalFrames - 1;
+                    case Constants.KNOCKDOWN:
+                        break;
 
-                    // Add it to the array
-                    Array.Resize(ref this.invincibleBodyParts, this.invincibleBodyParts.Length + 1);
-                    this.invincibleBodyParts[this.invincibleBodyParts.Length - 1] = (InvincibleBodyParts)iFrame.Clone();
-                    break;
+                    case Constants.IFRAME:
+                        // Configure the iFrame
+                        InvincibleBodyParts iFrame = new InvincibleBodyParts();
+                        iFrame.activeFramesBegin = 2;
+                        iFrame.activeFramesEnds = this.totalFrames - 1;
 
-                default:
-                    break;
+                        // Add it to the array
+                        Array.Resize(ref this.invincibleBodyParts, this.invincibleBodyParts.Length + 1);
+                        this.invincibleBodyParts[this.invincibleBodyParts.Length - 1] = (InvincibleBodyParts)iFrame.Clone();
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
     }
