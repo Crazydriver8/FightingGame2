@@ -57,6 +57,15 @@ public static class Constants {
     public static int MAX_BALANCE = 100;
 
 
+    /* Move modifications */
+
+    // Special effects on moves
+    public const string STUN = "stun",
+                        KNOCKBACK = "knockback",
+                        KNOCKDOWN = "knockdown",
+                        IFRAME = "invincible";
+
+
     /* Keeping track of players */
     public static string p1Key = "Player1",
                          p2Key = "Player2";

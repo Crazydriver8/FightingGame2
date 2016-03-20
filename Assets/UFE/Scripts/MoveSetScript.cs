@@ -1113,6 +1113,7 @@ public class MoveSetScript : MonoBehaviour {
                 //Debug.Log("grab");
             }
 
+            // Apply replacements externally before anything else
             if (mod.replaceWithMove != "")
             {
                 foreach (MoveInfo attack in controlsScript.myInfo.moves[0].attackMoves)
@@ -1124,6 +1125,9 @@ public class MoveSetScript : MonoBehaviour {
                     }
                 }
             }
+
+            // Apply all other mods
+            move.Apply(mod);
 
             MoveInfo newMove = InstantiateMove(move);
 			UFE.FireMove(newMove, controlsScript.myInfo);

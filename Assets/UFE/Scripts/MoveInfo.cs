@@ -853,6 +853,54 @@ public class MoveInfo: ScriptableObject {
     // Changes this move dynamically (assuming that the move has been replaced, if applicable)
     public void Apply(Modifier mod)
     {
+        // Speed adjustment
+        if (mod.speed > 0)
+        {
+            this.moveClassification.startupSpeed = FrameSpeed.Fast;
+            this.moveClassification.recoverySpeed = FrameSpeed.Fast;
+        }
+        else if (mod.speed < 0)
+        {
+            this.moveClassification.startupSpeed = FrameSpeed.Slow;
+            this.moveClassification.recoverySpeed = FrameSpeed.Slow;
+        }
+        else
+        {
+            this.moveClassification.startupSpeed = FrameSpeed.Normal;
+            this.moveClassification.recoverySpeed = FrameSpeed.Normal;
+        }
 
+        // Damage adjustment
+        this.hits[0].damageOnHit += mod.minRawDamage;
+
+        // Effects
+        foreach (string effect in mod.effects)
+        {
+            switch(effect)
+            {
+                case Constants.STUN:
+                    break;
+
+                case Constants.KNOCKBACK:
+                    break;
+                
+                case Constants.KNOCKDOWN:
+                    break;
+
+                case Constants.IFRAME:
+                    // Configure the iFrame
+                    InvincibleBodyParts iFrame = new InvincibleBodyParts();
+                    iFrame.activeFramesBegin = 2;
+                    iFrame.activeFramesEnds = this.totalFrames - 1;
+
+                    // Add it to the array
+                    Array.Resize(ref this.invincibleBodyParts, this.invincibleBodyParts.Length + 1);
+                    this.invincibleBodyParts[this.invincibleBodyParts.Length - 1] = (InvincibleBodyParts)iFrame.Clone();
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 }
