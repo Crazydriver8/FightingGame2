@@ -72,13 +72,27 @@ public class BlackBoardController : MonoBehaviour {
             { Constants.indexLifePoints, p1.currentLifePoints.ToString() },
             { Constants.indexFavor, Constants.MIN_FAVOR.ToString() },
             { Constants.indexRally, Constants.MIN_RALLY.ToString() },
-            { Constants.indexBalance, Constants.STARTING_BALANCE.ToString() }
+            { Constants.indexBalance, Constants.STARTING_BALANCE.ToString() },
+            { Constants.lastHitDamage, "0"},
+            { Constants.lastAttackByPlayer, ""},
+            { Constants.landedLastAttack, "" },
+            { Constants.lastEvade, "" },
+            { Constants.lastEvadeSuccessful, "" },
+            { Constants.lastAttackByOpponent, "" },
+            { Constants.opponentLandedLastAttack, "" }
         });
         bb.Register(Constants.p2Key, new Dictionary<string, string>() {
             { Constants.indexLifePoints, p2.currentLifePoints.ToString() },
             { Constants.indexFavor, Constants.MIN_FAVOR.ToString() },
             { Constants.indexRally, Constants.MIN_RALLY.ToString() },
-            { Constants.indexBalance, Constants.STARTING_BALANCE.ToString() }
+            { Constants.indexBalance, Constants.STARTING_BALANCE.ToString() },
+            { Constants.lastHitDamage, "0"},
+            { Constants.lastAttackByPlayer, ""},
+            { Constants.landedLastAttack, "" },
+            { Constants.lastEvade, "" },
+            { Constants.lastEvadeSuccessful, "" },
+            { Constants.lastAttackByOpponent, "" },
+            { Constants.opponentLandedLastAttack, "" }
         });
     }
 
@@ -95,25 +109,80 @@ public class BlackBoardController : MonoBehaviour {
         // Record the button that was pressed and the time it was pressed
         Debug.Log("[" + Time.time + "] Player " + player.GetInstanceID() + " inputted " + (int)move.buttonExecution[0]);
 
+        // Record move information
+        if (player.GetInstanceID() == p1.GetInstanceID())
+        {
+            if (move.moveName != "Evade")
+            {
+                bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByPlayer, move.moveName);
+                bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByOpponent, move.moveName);
+
+                // Wait to see if it missed
+                AttackMissed(move, player);
+            }
+            else
+            {
+                bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.TRUE);
+            }
+        }
+        else
+        {
+            if (move.moveName != "Evade")
+            {
+                bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByPlayer, move.moveName);
+                bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByOpponent, move.moveName);
+
+                // Wait to see if it missed
+                AttackMissed(move, player);
+            }
+            else
+            {
+                bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.TRUE);
+            }
+        }
+
         // Save the state of the BlackBoard
         Debug.Log("Saved BlackBoard state");
     }
 
     void OnHit(HitBox strokeHitBox, MoveInfo move, CharacterInfo hitter)
     {
-        // Calculate passive effects
-        Func<MoveInfo, bool, bool, Modifier> resolver;
-        if (handlers.TryGetValue(move.moveName, out resolver))
-            resolver(move, hitter.GetInstanceID() == p1.GetInstanceID(), true);
-
+        // Stuff that happens regardless of ambient effects
         // Record the amount of damage done
         Debug.Log("Hit damage: " + move.hits[0].damageOnHit);
 
         // Update BlackBoard with new life totals
         if (p1.GetInstanceID() == hitter.GetInstanceID())
+        {
             bb.UpdateProperty(Constants.p2Key, "Current Life Points", p2.currentLifePoints.ToString()); // Hitter is p1 -> p2 got hit
+            bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.TRUE);
+            bb.UpdateProperty(Constants.p1Key, Constants.landedLastAttack, Constants.TRUE);
+
+            // Did the other player try to evade?
+            if (bb.GetProperties(Constants.p2Key)[Constants.lastEvade] == Constants.TRUE)
+            {
+                bb.UpdateProperty(Constants.p2Key, Constants.lastEvadeSuccessful, Constants.FALSE);
+                bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.FALSE);
+            }
+        }
         else
+        {
             bb.UpdateProperty(Constants.p1Key, "Current Life Points", p1.currentLifePoints.ToString()); // And vice versa
+            bb.UpdateProperty(Constants.p1Key, Constants.opponentLandedLastAttack, Constants.TRUE);
+            bb.UpdateProperty(Constants.p2Key, Constants.landedLastAttack, Constants.TRUE);
+
+            // Did the other player try to evade?
+            if (bb.GetProperties(Constants.p1Key)[Constants.lastEvade] == Constants.TRUE)
+            {
+                bb.UpdateProperty(Constants.p1Key, Constants.lastEvadeSuccessful, Constants.FALSE);
+                bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.FALSE);
+            }
+        }
+
+        // Calculate passive effects
+        Func<MoveInfo, bool, bool, Modifier> resolver;
+        if (handlers.TryGetValue(move.moveName, out resolver))
+            resolver(move, hitter.GetInstanceID() == p1.GetInstanceID(), true);
     }
 
 
@@ -139,5 +208,57 @@ public class BlackBoardController : MonoBehaviour {
             return Constants.GRAB;
 
         return "Invalid";
+    }
+
+    // Hit detector; sets hit to FALSE after .6 seconds
+    IEnumerator AttackMissed(MoveInfo move, CharacterInfo player)
+    {
+        yield return new WaitForSeconds(0.6f);
+
+        Dictionary<string, string> p1Properties = bb.GetProperties(Constants.p1Key);
+        Dictionary<string, string> p2Properties = bb.GetProperties(Constants.p2Key);
+
+        if (player.GetInstanceID() == p1.GetInstanceID())
+        {
+            // Did the attack land?
+            if (p1Properties[Constants.landedLastAttack] != Constants.TRUE)
+            {
+                // Updates that happen regardless of ambient effects
+                bb.UpdateProperty(Constants.p1Key, Constants.landedLastAttack, Constants.FALSE);
+
+                // Did the other player evade?
+                if (p2Properties[Constants.lastEvade] == Constants.TRUE)
+                {
+                    bb.UpdateProperty(Constants.p2Key, Constants.lastEvadeSuccessful, Constants.TRUE);
+                    bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.FALSE);
+                }
+                else
+                {
+                    bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.TRUE);
+                }
+            }
+        }
+        else
+        {
+            // Did the attack land?
+            if (p2Properties[Constants.landedLastAttack] != Constants.TRUE)
+            {
+                // Updates that happen regardless of ambient effects
+                bb.UpdateProperty(Constants.p2Key, Constants.landedLastAttack, Constants.FALSE);
+
+                // Did the other player evade?
+                if (p1Properties[Constants.lastEvade] == Constants.TRUE)
+                {
+                    bb.UpdateProperty(Constants.p1Key, Constants.lastEvadeSuccessful, Constants.TRUE);
+                    bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.FALSE);
+                }
+                else
+                {
+                    bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.FALSE);
+                }
+            }
+        }
+
+        yield return null;
     }
 }

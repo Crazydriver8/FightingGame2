@@ -55,7 +55,7 @@ MonoBehaviour:
   totalFrames: 12
   startUpFrames: 5
   activeFrames: 2
-  recoveryFrames: 2
+  recoveryFrames: 5
   applyRootMotion: 0
   forceGrounded: 0
   rootMotionNode: 0
@@ -371,7 +371,7 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
     damageOptionsToggle: 1
     hitStunOptionsToggle: 0
-    forceOptionsToggle: 1
+    forceOptionsToggle: 0
     opponentForceToggle: 1
     selfForceToggle: 0
     stageReactionsToggle: 0

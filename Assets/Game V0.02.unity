@@ -450,6 +450,8 @@ GameObject:
   - 4: {fileID: 2117260266}
   - 114: {fileID: 2117260265}
   - 114: {fileID: 2117260264}
+  - 114: {fileID: 2117260267}
+  - 114: {fileID: 2117260268}
   m_Layer: 0
   m_Name: SkillTreeNodes
   m_TagString: Untagged
@@ -515,3 +517,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &2117260267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2117260263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022bcc6da9a86954ea3f5e2ec072b306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Golf Clap
+  interactDist: 10
+  transitionWait: 0
+  targets: []
+  startState: 0
+  easeFactor: 1
+  blackBoard: {fileID: 290129289}
+  stripControl: []
+  parent: 0
+  childPossible: 00010101
+  minDepth: -1
+  maxDepth: -1
+  attack: 
+  defensive: 0
+  skillName: Golf Clap
+  skillDescription: Gain small amounts of favor upon landing a hit
+  cooldown: 1
+--- !u!114 &2117260268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2117260263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe378f6eb8b60d84c864c1c4ee16901a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Applause
+  interactDist: 10
+  transitionWait: 0
+  targets: []
+  startState: 0
+  easeFactor: 1
+  blackBoard: {fileID: 290129289}
+  stripControl: []
+  parent: 0
+  childPossible: 00010101
+  minDepth: -1
+  maxDepth: -1
+  attack: 
+  defensive: 0
+  skillName: Applause
+  skillDescription: Gain medium amounts of favor upon landing a hit
+  cooldown: 2

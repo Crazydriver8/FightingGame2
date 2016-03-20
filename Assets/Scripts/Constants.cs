@@ -31,6 +31,17 @@ public static class Constants {
                          indexFavor = "Favor",
                          indexRally = "Rally",
                          indexBalance = "Balance";
+    public static string lastHitDamage = "Last Hit", // float
+                         lastAttackByPlayer = "Last Attack by Player", // string
+                         landedLastAttack = "Landed Last Attack", // bool
+                         lastEvade = "Last Evade", // bool
+                         lastEvadeSuccessful = "Successful Evade", // bool
+                         lastAttackByOpponent = "Last Attack by Opponent", // string
+                         opponentLandedLastAttack = "Opponent Landed Last Attack"; // bool
+
+    // Booleans
+    public const string TRUE = "true",
+                        FALSE = "false";
 
     // Favor
     public static int MIN_FAVOR = 0;

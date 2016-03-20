@@ -16,7 +16,7 @@ public class Rally : Strip {
 
     /* Battle effects
      */
-    // Changes the amount of favor
+    // Changes the amount of rally
     public void PassiveEffect(float deltaRally, string player)
     {
         Dictionary<string, string> properties = bb.GetProperties(player);

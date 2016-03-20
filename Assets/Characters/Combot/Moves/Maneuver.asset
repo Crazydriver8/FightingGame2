@@ -59,7 +59,7 @@ MonoBehaviour:
   onReleaseExecution: 0
   onPressExecution: 1
   buttonSequence: 
-  buttonExecution: 08000000
+  buttonExecution: 
   previousMoves: []
   frameLinks: []
   particleEffects: []

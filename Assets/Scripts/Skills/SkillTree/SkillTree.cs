@@ -183,7 +183,7 @@ public struct Modifier
                  minRawDamage,
                  maxRawDamage;
 
-    // Special effects (stun, knockback, knockdown)
+    // Special effects (stun, knockback, knockdown, invincible)
     public List<string> effects;
 
     // Complete overhaul of the move (replace with a new move)

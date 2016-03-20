@@ -11,6 +11,17 @@ public class NodeLoader : MonoBehaviour {
     void Start () {
         // For every node, make sure that it gets loaded in here!
         // All of the nodes should be attached to the same object that this script is attached to
+
+        // Passive only
+        GolfClap golfClap = GetComponent<GolfClap>();
+        handlers[golfClap.name] = golfClap.Resolve;
+        Applause applause = GetComponent<Applause>();
+        handlers[applause.name] = applause.Resolve;
+        Coach coach = GetComponent<Coach>();
+        handlers[coach.name] = coach.Resolve;
+
+
+        // Has an active
         Ghost ghost = GetComponent<Ghost>();
         handlers[ghost.name] = ghost.Resolve;
 	}
