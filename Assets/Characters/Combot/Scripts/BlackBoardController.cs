@@ -62,10 +62,25 @@ public class BlackBoardController : MonoBehaviour {
         p2 = player2;
 
         // Get all of the moves' SkillTree handlers
+        Basic basic = GetComponent<Basic>();
+        basic.GetTree(p1, true);
+        basic.GetTree(p2, false);
+        handlers["Basic"] = basic.Resolve;
+
+        Strong strong = GetComponent<Strong>();
+        strong.GetTree(p1, true);
+        strong.GetTree(p2, false);
+        handlers["Strong"] = strong.Resolve;
+
         Evade evade = GetComponent<Evade>();
         evade.GetTree(p1, true);
         evade.GetTree(p2, false);
         handlers["Evade"] = evade.Resolve;
+
+        Grab grab = GetComponent<Grab>();
+        grab.GetTree(p1, true);
+        grab.GetTree(p2, false);
+        handlers["Grab"] = evade.Resolve;
 
         // Add information about each player to Blackboard
         bb.Register(Constants.p1Key, new Dictionary<string, string>() {

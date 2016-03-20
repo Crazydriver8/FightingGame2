@@ -28,8 +28,8 @@ public class Surprise : SkillTreeNode
 
     // Use this for initialization
     void Start () {
-	
-	}
+	    balanceScript = GameObject.Find("STRIPs").GetComponent<Balance>();
+    }
 	
 	// Update is called once per frame
 	void Update () {

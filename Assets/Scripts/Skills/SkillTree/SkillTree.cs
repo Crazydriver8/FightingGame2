@@ -71,6 +71,21 @@ public class SkillTree : MonoBehaviour {
             var skillTree = JSON.Parse(content);
             */
             // Build the tree by converting the JSON to the summary struct
+
+            // Default tree for demonstration purposes only
+            p1Root = new SkillTreeStructure();
+            p1Root.name = "Ghost";
+            p1Root.connections = new SkillTreeStructure[4];
+            p1Root.connections[(int)Constants.Branch.UP] = new SkillTreeStructure(); // Parent is null
+            p1Root.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
+            p1Root.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure();
+            p1Root.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure();
+                p1Root.connections[(int)Constants.Branch.DOWN].name = "Surprise";
+                p1Root.connections[(int)Constants.Branch.DOWN].connections = new SkillTreeStructure[4];
+                p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = p1Root; // Parent is null
+                p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
+                    p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].name = "Applause";
+                    p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].connections = null;
         }
         else
         {
@@ -86,6 +101,21 @@ public class SkillTree : MonoBehaviour {
             var skillTree = JSON.Parse(content);
             */
             // Build the tree by converting the JSON to the summary struct
+
+            // Default tree for demonstration purposes only
+            p2Root = new SkillTreeStructure();
+            p2Root.name = "Ghost";
+            p2Root.connections = new SkillTreeStructure[4];
+            p2Root.connections[(int)Constants.Branch.UP] = new SkillTreeStructure(); // Parent is null
+            p2Root.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
+            p2Root.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure();
+            p2Root.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure();
+                p2Root.connections[(int)Constants.Branch.DOWN].name = "Surprise";
+                p2Root.connections[(int)Constants.Branch.DOWN].connections = new SkillTreeStructure[4];
+                p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = p1Root; // Parent is null
+                p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
+                    p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].name = "Applause";
+                    p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].connections = null;
         }
     }
 
@@ -121,12 +151,13 @@ public class SkillTree : MonoBehaviour {
         {
             // Get the next thing to process
             temp = frontier[0];
-
+            
             // Add children to frontier
             frontier.AddRange(temp.GetChildren());
 
             // Add effects and modifiers
-            mod.Combine(nodeLoader.handlers[temp.name](this, ufeMove, p1UsedMove, passive));
+            Modifier modToAdd = nodeLoader.handlers[temp.name](this, ufeMove, p1UsedMove, passive);
+            mod.Combine(modToAdd);
 
             // Remove the thing we are done with
             frontier.RemoveAt(0);
@@ -158,12 +189,15 @@ public struct SkillTreeStructure
         List<SkillTreeStructure> children = new List<SkillTreeStructure>();
 
         // Resolution order for BFS is left, right, down
-        if (!connections[(int)Constants.Branch.LEFT].IsNull())
-            children.Add(connections[(int)Constants.Branch.LEFT]);
-        if (!connections[(int)Constants.Branch.RIGHT].IsNull())
-            children.Add(connections[(int)Constants.Branch.RIGHT]);
-        if (!connections[(int)Constants.Branch.DOWN].IsNull())
-            children.Add(connections[(int)Constants.Branch.DOWN]);
+        if (connections != null)
+        {
+            if (!connections[(int)Constants.Branch.LEFT].IsNull())
+                children.Add(connections[(int)Constants.Branch.LEFT]);
+            if (!connections[(int)Constants.Branch.RIGHT].IsNull())
+                children.Add(connections[(int)Constants.Branch.RIGHT]);
+            if (!connections[(int)Constants.Branch.DOWN].IsNull())
+                children.Add(connections[(int)Constants.Branch.DOWN]);
+        }
 
         return children;
     }
@@ -209,8 +243,16 @@ public struct Modifier
     /* Put two modifiers together */
     public Modifier Combine(Modifier other)
     {
-        List<string> temp = new List<string>(this.effects);
-        temp.AddRange(other.effects);
+        List<string> temp;
+        if (this.effects != null && this.effects.Count > 0)
+        {
+            temp = new List<string>(this.effects);
+            temp.AddRange(other.effects);
+        }
+        else
+        {
+            temp = new List<string>();
+        }
 
         return new Modifier(
             this.speed + other.speed,

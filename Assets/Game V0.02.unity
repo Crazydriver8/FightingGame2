@@ -592,7 +592,7 @@ MonoBehaviour:
   targets: []
   startState: 0
   easeFactor: 1
-  blackBoard: {fileID: 0}
+  blackBoard: {fileID: 290129289}
   stripControl: []
   parent: 0
   childPossible: 00010101
@@ -600,8 +600,8 @@ MonoBehaviour:
   maxDepth: -1
   attack: 
   defensive: 0
-  skillName: 
-  skillDescription: 
+  skillName: Surprise
+  skillDescription: Suddenly, a stronger attack
   maxAttacksInARow: 5
   baseDeltaBalance: 5
   maxBalance: 5
@@ -632,5 +632,5 @@ MonoBehaviour:
   maxDepth: -1
   attack: 
   defensive: 0
-  skillName: 
-  skillDescription: 
+  skillName: Coach
+  skillDescription: Helps rally you when you're doing poorly

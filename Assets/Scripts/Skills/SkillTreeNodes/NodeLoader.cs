@@ -14,18 +14,18 @@ public class NodeLoader : MonoBehaviour {
 
         // Passive only
         GolfClap golfClap = GetComponent<GolfClap>();
-        handlers[golfClap.name] = golfClap.Resolve;
+        handlers[golfClap.skillName] = golfClap.Resolve;
         Applause applause = GetComponent<Applause>();
-        handlers[applause.name] = applause.Resolve;
+        handlers[applause.skillName] = applause.Resolve;
         Coach coach = GetComponent<Coach>();
-        handlers[coach.name] = coach.Resolve;
+        handlers[coach.skillName] = coach.Resolve;
 
 
         // Has an active
         Ghost ghost = GetComponent<Ghost>();
-        handlers[ghost.name] = ghost.Resolve;
+        handlers[ghost.skillName] = ghost.Resolve;
         Surprise surprise = GetComponent<Surprise>();
-        handlers[surprise.name] = surprise.Resolve;
+        handlers[surprise.skillName] = surprise.Resolve;
 	}
 	
 	// Update is called once per frame

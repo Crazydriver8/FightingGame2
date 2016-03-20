@@ -15,8 +15,8 @@ public class Balance : Strip {
     
     // Use this for initialization
     void Start () {
-	    
-	}
+        Init();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -46,6 +46,8 @@ public class Balance : Strip {
     // Checks preconditions, given the minimum required properties
     public bool VerifyActiveEffect(Dictionary<string, string> atLeast, Dictionary<string, string> atMost, Dictionary<string, string> match, string key)
     {
-        return (atLeast == null || bb.IsAtLeast(key, atLeast)) && (atMost == null || bb.IsAtMost(key, atMost)) && (match == null || bb.IsMatch(key, match));
+        return (atLeast == null || bb.IsAtLeast(key, atLeast)) &&
+               (atMost == null || bb.IsAtMost(key, atMost)) &&
+               (match == null || bb.IsMatch(key, match));
     }
 }

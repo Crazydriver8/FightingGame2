@@ -12,8 +12,8 @@ public class Favor : Strip {
     
 	// Use this for initialization
 	void Start () {
-	
-	}
+        Init();
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -6,7 +6,7 @@ public class Rally : Strip {
 
 	// Use this for initialization
 	void Start () {
-	
+        Init();
 	}
 	
 	// Update is called once per frame
