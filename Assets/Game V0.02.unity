@@ -452,6 +452,8 @@ GameObject:
   - 114: {fileID: 2117260264}
   - 114: {fileID: 2117260267}
   - 114: {fileID: 2117260268}
+  - 114: {fileID: 2117260270}
+  - 114: {fileID: 2117260269}
   m_Layer: 0
   m_Name: SkillTreeNodes
   m_TagString: Untagged
@@ -573,3 +575,62 @@ MonoBehaviour:
   skillName: Applause
   skillDescription: Gain medium amounts of favor upon landing a hit
   cooldown: 2
+--- !u!114 &2117260269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2117260263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e20a69d1fe508a04a9757d9ae6ca6c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Surprise
+  interactDist: 10
+  transitionWait: 0
+  targets: []
+  startState: 0
+  easeFactor: 1
+  blackBoard: {fileID: 0}
+  stripControl: []
+  parent: 0
+  childPossible: 00010101
+  minDepth: -1
+  maxDepth: -1
+  attack: 
+  defensive: 0
+  skillName: 
+  skillDescription: 
+  maxAttacksInARow: 5
+  baseDeltaBalance: 5
+  maxBalance: 5
+  resetBalanceAt: 75
+  extraDamage: 15
+--- !u!114 &2117260270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2117260263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ea362028c846f44b9d382949e2f615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Coach
+  interactDist: 10
+  transitionWait: 0
+  targets: []
+  startState: 0
+  easeFactor: 1
+  blackBoard: {fileID: 290129289}
+  stripControl: []
+  parent: 0
+  childPossible: 00010101
+  minDepth: -1
+  maxDepth: -1
+  attack: 
+  defensive: 0
+  skillName: 
+  skillDescription: 
