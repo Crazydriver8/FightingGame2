@@ -26,23 +26,26 @@ public class Balance : Strip {
 
     /* Battle effects
      */
-    // Changes the balance value
-    public void PassiveEffect(float deltaBalance, string player)
+    // Changes numerical values using a delta or by setting it
+    public void PassiveEffect(float deltaBalance, string player, string index = "", bool set = false)
     {
         Dictionary<string, string> properties = bb.GetProperties(player);
 
-        float balance = float.Parse(properties[id]),
-              newBalance = balance + deltaBalance;
+        float balance = float.Parse(properties[(index == "" ? id : index)]),
+              newBalance = (set ? balance + deltaBalance : deltaBalance);
 
         // Write valid amounts only
-        if (balance >= 0 && balance <= 100)
-            bb.UpdateProperty(player, id, balance.ToString());
+        if (newBalance >= 0 && newBalance <= 100)
+            bb.UpdateProperty(player, id, newBalance.ToString());
+        else if (newBalance < 0)
+            bb.UpdateProperty(player, id, "0");
+        else
+            bb.UpdateProperty(player, id, "100");
     }
 
-    public void ActiveEffect(SkillTreeNode ability)
+    // Checks preconditions, given the minimum required properties
+    public bool VerifyActiveEffect(Dictionary<string, string> atLeast, Dictionary<string, string> atMost, Dictionary<string, string> match, string key)
     {
-        // Check preconditions
-        
-        // Change BlackBoard
+        return (atLeast == null || bb.IsAtLeast(key, atLeast)) && (atMost == null || bb.IsAtMost(key, atMost)) && (match == null || bb.IsMatch(key, match));
     }
 }

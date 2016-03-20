@@ -34,6 +34,12 @@ public class Strip : MonoBehaviour
         // Returns true if the id was accepted and put into the dictionary
         return bb.Register(id, values) == id;
     }
+
+    // Query a current value from the BlackBoard
+    public string CurrentValue(string key, string index)
+    {
+        return bb.GetProperties(key)[index];
+    }
     
     // Performs some action if the preconditions are satisfied
     // May change conditions

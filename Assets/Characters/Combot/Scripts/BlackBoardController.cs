@@ -73,26 +73,42 @@ public class BlackBoardController : MonoBehaviour {
             { Constants.indexFavor, Constants.MIN_FAVOR.ToString() },
             { Constants.indexRally, Constants.MIN_RALLY.ToString() },
             { Constants.indexBalance, Constants.STARTING_BALANCE.ToString() },
+            
+            // Extra data for conditioning on moves
             { Constants.lastHitDamage, "0"},
             { Constants.lastAttackByPlayer, ""},
             { Constants.landedLastAttack, "" },
             { Constants.lastEvade, "" },
             { Constants.lastEvadeSuccessful, "" },
             { Constants.lastAttackByOpponent, "" },
-            { Constants.opponentLandedLastAttack, "" }
+            { Constants.opponentLandedLastAttack, "" },
+
+            // Extra data for skill tree nodes
+
+            // Surprise
+            { Surprise.attackCount, "0" },
+            { Surprise.evadeCount, "0" }
         });
         bb.Register(Constants.p2Key, new Dictionary<string, string>() {
             { Constants.indexLifePoints, p2.currentLifePoints.ToString() },
             { Constants.indexFavor, Constants.MIN_FAVOR.ToString() },
             { Constants.indexRally, Constants.MIN_RALLY.ToString() },
             { Constants.indexBalance, Constants.STARTING_BALANCE.ToString() },
+
+            // Extra data for conditioning on moves
             { Constants.lastHitDamage, "0"},
             { Constants.lastAttackByPlayer, ""},
             { Constants.landedLastAttack, "" },
             { Constants.lastEvade, "" },
             { Constants.lastEvadeSuccessful, "" },
             { Constants.lastAttackByOpponent, "" },
-            { Constants.opponentLandedLastAttack, "" }
+            { Constants.opponentLandedLastAttack, "" },
+
+            // Extra data for skill tree nodes
+
+            // Surprise
+            { Surprise.attackCount, "0" },
+            { Surprise.evadeCount, "0" }
         });
     }
 
@@ -117,12 +133,18 @@ public class BlackBoardController : MonoBehaviour {
                 bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByPlayer, move.moveName);
                 bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByOpponent, move.moveName);
 
+                // This is an attack
+                bb.UpdateProperty(Constants.p1Key, Surprise.attackCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.attackCount]) + 1).ToString());
+
                 // Wait to see if it missed
                 AttackMissed(move, player);
             }
             else
             {
                 bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.TRUE);
+
+                // This is an evade
+                bb.UpdateProperty(Constants.p1Key, Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.evadeCount]) + 1).ToString());
             }
         }
         else
@@ -132,12 +154,18 @@ public class BlackBoardController : MonoBehaviour {
                 bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByPlayer, move.moveName);
                 bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByOpponent, move.moveName);
 
+                // This is an attack
+                bb.UpdateProperty(Constants.p2Key, Surprise.attackCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.attackCount]) + 1).ToString());
+
                 // Wait to see if it missed
                 AttackMissed(move, player);
             }
             else
             {
                 bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.TRUE);
+
+                // This is an evade
+                bb.UpdateProperty(Constants.p2Key, Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.evadeCount]) + 1).ToString());
             }
         }
 

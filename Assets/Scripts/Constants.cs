@@ -53,7 +53,7 @@ public static class Constants {
 
     // Balance is a value between 0 and 100
     public static int MIN_BALANCE = 0;
-    public static int STARTING_BALANCE = 50;
+    public static int STARTING_BALANCE = 33;
     public static int MAX_BALANCE = 100;
 
 

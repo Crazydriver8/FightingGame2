@@ -17,12 +17,12 @@ public class Rally : Strip {
     /* Battle effects
      */
     // Changes the amount of rally
-    public void PassiveEffect(float deltaRally, string player)
+    public void PassiveEffect(float deltaRally, string player, bool set = false)
     {
         Dictionary<string, string> properties = bb.GetProperties(player);
 
         float rally = float.Parse(properties[id]),
-              newRally = rally + deltaRally;
+              newRally = (set ? rally + deltaRally : deltaRally);
 
         // Write valid amounts only
         if (newRally >= 0 && newRally <= 100)

@@ -1013,7 +1013,7 @@ public class MoveSetScript : MonoBehaviour {
 			foreach(ButtonPress bp in move.buttonSequence) allbp2 += " "+ bp.ToString();
 			Debug.Log(allbp +"="+ allbp2 +"? "+ ArraysEqual<ButtonPress>(buttonPress, move.buttonExecution));
 			 */
-
+            
 
             List<ButtonPress> buttonPressesList = new List<ButtonPress>();
             foreach (ButtonSequenceRecord bsr in lastButtonPresses) {

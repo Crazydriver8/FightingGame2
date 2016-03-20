@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 /* Adds invincibility frames in a pinch
  */
-public class Ghost : SkillTreeNode {
-
+public class Ghost : SkillTreeNode
+{
     /* Fields */
     // STRIPs that this ability uses
     Rally rallyScript;

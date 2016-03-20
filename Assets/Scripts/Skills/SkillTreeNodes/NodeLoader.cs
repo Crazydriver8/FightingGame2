@@ -24,6 +24,8 @@ public class NodeLoader : MonoBehaviour {
         // Has an active
         Ghost ghost = GetComponent<Ghost>();
         handlers[ghost.name] = ghost.Resolve;
+        Surprise surprise = GetComponent<Surprise>();
+        handlers[surprise.name] = surprise.Resolve;
 	}
 	
 	// Update is called once per frame
