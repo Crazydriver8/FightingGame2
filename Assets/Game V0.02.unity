@@ -121,7 +121,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1918475677}
+  - {fileID: 1119733527}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1001 &1051212052
@@ -233,6 +235,280 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1119733523}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 290129291}
+  m_RootOrder: 1
+--- !u!1001 &1712395509
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468270, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+      propertyPath: blackBoard
+      value: 
+      objectReference: {fileID: 290129289}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1918475676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1918475677}
+  - 114: {fileID: 1918475679}
+  - 114: {fileID: 1918475678}
+  - 114: {fileID: 1918475680}
+  - 114: {fileID: 1918475682}
+  - 114: {fileID: 1918475681}
+  m_Layer: 0
+  m_Name: Skills
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1918475677
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1918475676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 290129291}
+  m_RootOrder: 0
+--- !u!114 &1918475678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1918475676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df55f5555a931b04eaf0318fdb807bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: Evade
+  moveUFE:
+  - Evade
+  defensive: 1
+  maxWeight: 0
+  currWeight: 0
+  loader: {fileID: 2117260263}
+  loaderName: SkillTreeNodes
+  players:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  p1Filename: skilltree1.json
+  p2Filename: skilltree2.json
+--- !u!114 &1918475679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1918475676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f69f5361df42514abfbb0e8ff720533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1918475680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1918475676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99f0a8a980f31514990966e1e7128462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: Grab
+  moveUFE:
+  - Throw Attempt
+  defensive: 0
+  maxWeight: 0
+  currWeight: 0
+  loader: {fileID: 2117260263}
+  loaderName: SkillTreeNodes
+  players:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  p1Filename: skilltree1.json
+  p2Filename: skilltree2.json
+--- !u!114 &1918475681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1918475676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d3d41ec867ad734d906eb616bee796d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: Basic
+  moveUFE:
+  - Light Punch
+  - Crouching Light Punch
+  defensive: 0
+  maxWeight: 0
+  currWeight: 0
+  loader: {fileID: 2117260263}
+  loaderName: SkillTreeNodes
+  players:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  p1Filename: skilltree1.json
+  p2Filename: skilltree2.json
+--- !u!114 &1918475682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1918475676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15fa4af28be36a44daed98dbe362449b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: Strong
+  moveUFE:
+  - Heavy Kick
+  - Crouching Heavy Kick
+  defensive: 0
+  maxWeight: 0
+  currWeight: 0
+  loader: {fileID: 2117260263}
+  loaderName: SkillTreeNodes
+  players:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  p1Filename: skilltree1.json
+  p2Filename: skilltree2.json
+--- !u!1 &2117260263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 126668, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+  m_PrefabInternal: {fileID: 1712395509}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2117260266}
+  - 114: {fileID: 2117260265}
+  - 114: {fileID: 2117260264}
+  m_Layer: 0
+  m_Name: SkillTreeNodes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2117260264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11474612, guid: 5c1c698abda81b7478d7e92352ab4af6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1712395509}
+  m_GameObject: {fileID: 2117260263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ac31e841fe7a74bb0cb18c11ca399f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2117260265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11468270, guid: 5c1c698abda81b7478d7e92352ab4af6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1712395509}
+  m_GameObject: {fileID: 2117260263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4e7df86552e1c647809579482ce67b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Ghost
+  interactDist: 10
+  transitionWait: 0
+  targets: []
+  startState: 0
+  easeFactor: 1
+  blackBoard: {fileID: 290129289}
+  stripControl: []
+  parent: 0
+  childPossible: 00010101
+  minDepth: -1
+  maxDepth: -1
+  attack: 
+  defensive: 1
+  skillName: Ghost
+  skillDescription: 'Passive: Stacks Rally when the player is doing poorly\nActive:
+    Adds invincibility frames to the attached move'
+  triggerDist: 5
+  basicPenalty: 5
+  strongPenalty: 5
+  evadePenalty: 10
+  grabPenalty: 5
+--- !u!4 &2117260266
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 485932, guid: 5c1c698abda81b7478d7e92352ab4af6, type: 2}
+  m_PrefabInternal: {fileID: 1712395509}
+  m_GameObject: {fileID: 2117260263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}

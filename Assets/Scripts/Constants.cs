@@ -6,6 +6,13 @@ using System.Collections;
  */
 public static class Constants {
 
+    /* The basic move types */
+    public const string BASIC = "Basic";
+    public const string STRONG = "Strong";
+    public const string EVADE = "Evade";
+    public const string GRAB = "Grab";
+
+
     /* Skill trees */
     // The possible branches where child nodes can go
     public enum Branch { UP, DOWN, LEFT, RIGHT };
@@ -19,6 +26,12 @@ public static class Constants {
 
     /* Ambient effects */
 
+    // BlackBoard indices
+    public static string indexLifePoints = "Current Life Points",
+                         indexFavor = "Favor",
+                         indexRally = "Rally",
+                         indexBalance = "Balance";
+
     // Favor
     public static int MIN_FAVOR = 0;
     public static int MAX_FAVOR = 100;
@@ -31,4 +44,15 @@ public static class Constants {
     public static int MIN_BALANCE = 0;
     public static int STARTING_BALANCE = 50;
     public static int MAX_BALANCE = 100;
+
+
+    /* Keeping track of players */
+    public static string p1Key = "Player1",
+                         p2Key = "Player2";
+
+    // Gets the right key for a player
+    public static string WhichPlayer(CharacterInfo player, CharacterInfo p1)
+    {
+        return (player.GetInstanceID() == p1.GetInstanceID() ? p1Key : p2Key);
+    }
 }

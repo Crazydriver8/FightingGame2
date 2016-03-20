@@ -969,6 +969,10 @@ public class MoveSetScript : MonoBehaviour {
 		return TestMoveExecution(move, currentMove, buttonPress, inputUp, fromSequence, false);
 	}
 
+    Basic basic = null;
+    Strong strong = null;
+    Evade evade = null;
+    Grab grab = null;
 	private MoveInfo TestMoveExecution(MoveInfo move, MoveInfo currentMove, ButtonPress[] buttonPress, bool inputUp, bool fromSequence, bool forceExecution) {
 		if (!hasEnoughGauge(move.gaugeUsage)) return null;
 		if (move.previousMoves.Length > 0 && currentMove == null) return null;
@@ -1077,28 +1081,47 @@ public class MoveSetScript : MonoBehaviour {
 		    UFE.config.executionBufferType == ExecutionBufferType.AnyMove){
 
             // Is this what you wanted?
-            float triggerDist = 5.0f;
-            if (move != null)
+            if (basic == null)
+                basic = GameObject.Find("Skills").GetComponent<Basic>();
+            if (strong == null)
+                strong = GameObject.Find("Skills").GetComponent<Strong>();
+            if (evade == null)
+                evade = GameObject.Find("Skills").GetComponent<Evade>();
+            if (grab == null)
+                grab = GameObject.Find("Skills").GetComponent<Grab>();
+
+            Modifier mod = new Modifier(0, 0, 0, "");
+
+            if (basic.RefersToThis(move.moveName))
             {
-                switch (move.moveName)
+                mod = basic.Resolve(move, controlsScript.myInfo.playerNum == 1, false);
+                //Debug.Log("basic");
+            }
+            else if (strong.RefersToThis(move.moveName))
+            {
+                mod = strong.Resolve(move, controlsScript.myInfo.playerNum == 1, false);
+                //Debug.Log("strong");
+            }
+            else if (evade.RefersToThis(move.moveName))
+            {
+                mod = evade.Resolve(move, controlsScript.myInfo.playerNum == 1, false);
+                //Debug.Log("evade");
+            }
+            else if (grab.RefersToThis(move.moveName))
+            {
+                mod = grab.Resolve(move, controlsScript.myInfo.playerNum == 1, false);
+                //Debug.Log("grab");
+            }
+
+            if (mod.replaceWithMove != "")
+            {
+                foreach (MoveInfo attack in controlsScript.myInfo.moves[0].attackMoves)
                 {
-                    case "Evade":
-                        if (Vector3.Distance(controlsScript.character.transform.position, controlsScript.opponent.transform.position) < triggerDist)
-                        {
-                            foreach (MoveInfo attack in controlsScript.myInfo.moves[0].attackMoves)
-                            {
-                                if (attack.moveName == "Maneuver")
-                                {
-                                    move = attack;
-                                    break;
-                                }
-                            }
-                        }
-
+                    if (attack.moveName == mod.replaceWithMove)
+                    {
+                        move = attack;
                         break;
-
-                    default:
-                        break;
+                    }
                 }
             }
 

@@ -849,4 +849,10 @@ public class MoveInfo: ScriptableObject {
 		}
 		return null;
 	}
+
+    // Changes this move dynamically (assuming that the move has been replaced, if applicable)
+    public void Apply(Modifier mod)
+    {
+
+    }
 }

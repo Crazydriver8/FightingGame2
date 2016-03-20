@@ -6,14 +6,11 @@ public class Evade : SkillTree
 {
     /* Fields */
 
-    // Just in case the move has other names in UFE
-    public string[] moveUFE = { "Evade" };
 
-    
     // Use this for initialization
     void Start () {
-        // Load skill tree from JSON file
-        //GetTree();
+        // Initialize loader
+        base.InitLoader();
     }
 
     // Update is called once per frame

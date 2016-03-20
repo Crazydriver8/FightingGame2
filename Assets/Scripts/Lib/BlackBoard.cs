@@ -127,9 +127,55 @@ public class BlackBoard : MonoBehaviour
 		
 		return false;
 	}
-	
-	// Add a single property at a given point in the dictionary
-	public bool AddProperty(string key, KeyValuePair<string, string> property)
+
+    // For a set of properties, checks that all other properties are AT LEAST the passed-in values (float only)
+    public bool IsAtLeast(string key, Dictionary<string, string> values)
+    {
+        Dictionary<string, string> test;
+        if (flags.TryGetValue(key, out test))
+        {
+            // When strict is enabled, fail to match if sizes are different
+            if (test.Count != values.Count)
+                return false;
+
+            // Check that the values are at least what is given
+            foreach (KeyValuePair<string, string> tuple in values)
+            {
+                if (float.Parse(test[tuple.Key]) < float.Parse(tuple.Value))
+                    return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // For a set of properties, checks that all other properties are AT MOST the passed-in values (float only)
+    public bool IsAtMost(string key, Dictionary<string, string> values)
+    {
+        Dictionary<string, string> test;
+        if (flags.TryGetValue(key, out test))
+        {
+            // When strict is enabled, fail to match if sizes are different
+            if (test.Count != values.Count)
+                return false;
+
+            // Check that the values are at most what is given
+            foreach (KeyValuePair<string, string> tuple in values)
+            {
+                if (float.Parse(test[tuple.Key]) > float.Parse(tuple.Value))
+                    return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // Add a single property at a given point in the dictionary
+    public bool AddProperty(string key, KeyValuePair<string, string> property)
 	{
         Dictionary<string, string> properties;
         if (flags.TryGetValue(key, out properties))
