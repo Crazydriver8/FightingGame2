@@ -66,26 +66,26 @@ MonoBehaviour:
       screenMatchMode: 0
       scaleMode: 1
     introScreen: {fileID: 11400002, guid: 70fb6f5004bbf493190d7b2f011adfdf, type: 2}
-    mainMenuScreen: {fileID: 11430438, guid: 1d702606fc3e7a842a9c5757e36a6505, type: 2}
-    optionsScreen: {fileID: 11400056, guid: 2737f2cf99cd3416b9a9d13df2abbe04, type: 2}
+    mainMenuScreen: {fileID: 11440746, guid: 0b3dca916ed1db74fa6ee9dbecec3560, type: 2}
+    optionsScreen: {fileID: 11493922, guid: e6df59a52dc9dc94bb580312ffbdd6d4, type: 2}
     skillTreeScreen: {fileID: 11445998, guid: dd24f4f00503cd34a8a0beb3bea45110, type: 2}
     creditsScreen: {fileID: 11454612, guid: d4020ba1cb1b41441bc097c4f5c95887, type: 2}
-    pauseScreen: {fileID: 11400000, guid: 6241d31f6482b42a88a8e7c8b62e2716, type: 2}
-    characterSelectionScreen: {fileID: 11400026, guid: fbff3d70d06804e6790e3cc5c560a542,
+    pauseScreen: {fileID: 11484438, guid: ded3355d2dfa34d4c88c320136efb3d5, type: 2}
+    characterSelectionScreen: {fileID: 11402440, guid: 75da003a04828e84a8d2bb9ad7bdd678,
       type: 2}
-    stageSelectionScreen: {fileID: 11400008, guid: 4e1ca63af339f4c6b84a167dd4fc7ede,
+    stageSelectionScreen: {fileID: 11435680, guid: 78f2e65869f4dc742b0dbc795987221e,
       type: 2}
-    loadingBattleScreen: {fileID: 11400008, guid: 238b7713a35be4f919fcef89a9d43a23,
+    loadingBattleScreen: {fileID: 11405156, guid: 1b12275aad698f343ad0b13f2de442fd,
       type: 2}
-    battleGUI: {fileID: 11400032, guid: 3cc97a7591eae4678bb26cd12746e0ec, type: 2}
+    battleGUI: {fileID: 11478862, guid: e8fc2588eb69e9847a8497d4f1cf12e5, type: 2}
     storyModeContinueScreen: {fileID: 11400018, guid: 979dfe6c6baae4df1ae04fdbd4bcbff1,
       type: 2}
     storyModeGameOverScreen: {fileID: 11400004, guid: 79e43a319a85a4c7ea68f019b05163cc,
       type: 2}
     storyModeCongratulationsScreen: {fileID: 11400002, guid: a49fe14e0eee247a9a37e3b60f3ba43c,
       type: 2}
-    versusModeScreen: {fileID: 11400002, guid: 6fdc52782d12e4326bba5e38d46c1a6d, type: 2}
-    versusModeAfterBattleScreen: {fileID: 11400022, guid: faff96cd836074bcf89bbe5e914bfd28,
+    versusModeScreen: {fileID: 11412620, guid: 650ad5f1023cca143ada06587d420461, type: 2}
+    versusModeAfterBattleScreen: {fileID: 11421330, guid: 42fc04e07e89dd54fb4cc00f19576809,
       type: 2}
     connectionLostScreen: {fileID: 11400056, guid: b7dfceca5ceb74e21acc87a67266dd9c,
       type: 2}
@@ -471,7 +471,7 @@ MonoBehaviour:
   player1_Inputs:
   - inputType: 0
     inputButtonName: P1KeyboardHorizontal
-    engineRelatedButton: 1
+    engineRelatedButton: 0
     joystickAxisName: P1JoystickHorizontal
     cInputPositiveKeyName: P1Right
     cInputPositiveDefaultKey: D
@@ -484,7 +484,7 @@ MonoBehaviour:
     activeIcon: {fileID: 2800000, guid: 0f1eb58df8917b74f804b8cb97615fd5, type: 3}
   - inputType: 1
     inputButtonName: P1KeyboardVertical
-    engineRelatedButton: 3
+    engineRelatedButton: 2
     joystickAxisName: P1JoystickVertical
     cInputPositiveKeyName: P1Up
     cInputPositiveDefaultKey: W
