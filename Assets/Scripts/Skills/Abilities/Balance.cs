@@ -32,7 +32,7 @@ public class Balance : Strip {
         Dictionary<string, string> properties = bb.GetProperties(player);
 
         float balance = float.Parse(properties[(index == "" ? id : index)]),
-              newBalance = (set ? balance + deltaBalance : deltaBalance);
+              newBalance = (set ? deltaBalance : balance + deltaBalance);
 
         // Write valid amounts only
         if (newBalance >= 0 && newBalance <= 100)

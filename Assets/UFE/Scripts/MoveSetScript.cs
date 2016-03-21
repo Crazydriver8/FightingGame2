@@ -1115,7 +1115,7 @@ public class MoveSetScript : MonoBehaviour {
             }
 
             // Apply replacements externally before anything else
-            if (mod.replaceWithMove != "")
+            if (mod.replaceWithMove != null && mod.replaceWithMove != "")
             {
                 foreach (MoveInfo attack in controlsScript.myInfo.moves[0].attackMoves)
                 {

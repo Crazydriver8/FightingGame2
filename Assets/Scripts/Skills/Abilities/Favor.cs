@@ -29,7 +29,7 @@ public class Favor : Strip {
         Dictionary<string, string> properties = bb.GetProperties(player);
 
         float favor = float.Parse(properties[id]),
-              newFavor = (set ? favor + deltaFavor : deltaFavor);
+              newFavor = (set ? deltaFavor : favor + deltaFavor);
 
         // Write valid amounts only
         if (newFavor >= 0 && newFavor <= 100)

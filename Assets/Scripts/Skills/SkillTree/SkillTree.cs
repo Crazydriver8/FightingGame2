@@ -75,16 +75,19 @@ public class SkillTree : MonoBehaviour {
             // Default tree for demonstration purposes only
             p1Root = new SkillTreeStructure();
             p1Root.name = "Ghost";
+            p1Root.parent = (int)Constants.Branch.UP;
             p1Root.connections = new SkillTreeStructure[4];
             p1Root.connections[(int)Constants.Branch.UP] = new SkillTreeStructure(); // Parent is null
             p1Root.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
             p1Root.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure();
             p1Root.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure();
                 p1Root.connections[(int)Constants.Branch.DOWN].name = "Surprise";
+                p1Root.connections[(int)Constants.Branch.DOWN].parent = (int)Constants.Branch.UP;
                 p1Root.connections[(int)Constants.Branch.DOWN].connections = new SkillTreeStructure[4];
                 p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = p1Root; // Parent is null
                 p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
                     p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].name = "Applause";
+                    p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].parent = (int)Constants.Branch.RIGHT;
                     p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].connections = null;
         }
         else
@@ -105,16 +108,19 @@ public class SkillTree : MonoBehaviour {
             // Default tree for demonstration purposes only
             p2Root = new SkillTreeStructure();
             p2Root.name = "Ghost";
+            p2Root.parent = (int)Constants.Branch.UP;
             p2Root.connections = new SkillTreeStructure[4];
             p2Root.connections[(int)Constants.Branch.UP] = new SkillTreeStructure(); // Parent is null
             p2Root.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
             p2Root.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure();
             p2Root.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure();
                 p2Root.connections[(int)Constants.Branch.DOWN].name = "Surprise";
+                p2Root.connections[(int)Constants.Branch.DOWN].parent = (int)Constants.Branch.UP;
                 p2Root.connections[(int)Constants.Branch.DOWN].connections = new SkillTreeStructure[4];
                 p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = p1Root; // Parent is null
                 p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
                     p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].name = "Applause";
+                    p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].parent = (int)Constants.Branch.RIGHT;
                     p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].connections = null;
         }
     }
@@ -157,7 +163,7 @@ public class SkillTree : MonoBehaviour {
 
             // Add effects and modifiers
             Modifier modToAdd = nodeLoader.handlers[temp.name](this, ufeMove, p1UsedMove, passive);
-            mod.Combine(modToAdd);
+            mod = mod.Combine(modToAdd);
 
             // Remove the thing we are done with
             frontier.RemoveAt(0);
@@ -258,7 +264,7 @@ public struct Modifier
             this.speed + other.speed,
             this.minRawDamage + other.minRawDamage,
             this.maxRawDamage + other.maxRawDamage,
-            other.replaceWithMove,
+            (other.replaceWithMove != null && other.replaceWithMove != "" ? other.replaceWithMove : this.replaceWithMove),
             temp
         );
     }

@@ -22,15 +22,15 @@ public class Rally : Strip {
         Dictionary<string, string> properties = bb.GetProperties(player);
 
         float rally = float.Parse(properties[id]),
-              newRally = (set ? rally + deltaRally : deltaRally);
+              newRally = (set ? deltaRally : rally + deltaRally);
 
         // Write valid amounts only
         if (newRally >= 0 && newRally <= 100)
-            bb.UpdateProperty(player, id, newRally.ToString());
+            bb.UpdateProperty(player, Constants.indexRally, newRally.ToString());
         else if (newRally < 0)
-            bb.UpdateProperty(player, id, "0");
+            bb.UpdateProperty(player, Constants.indexRally, "0");
         else
-            bb.UpdateProperty(player, id, "100");
+            bb.UpdateProperty(player, Constants.indexRally, "100");
     }
 
     // Checks preconditions, given the minimum required properties

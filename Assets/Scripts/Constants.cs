@@ -38,6 +38,7 @@ public static class Constants {
                          lastEvadeSuccessful = "Successful Evade", // bool
                          lastAttackByOpponent = "Last Attack by Opponent", // string
                          opponentLandedLastAttack = "Opponent Landed Last Attack"; // bool
+    public static string winner = "Winner"; // bool
 
     // Booleans
     public const string TRUE = "true",

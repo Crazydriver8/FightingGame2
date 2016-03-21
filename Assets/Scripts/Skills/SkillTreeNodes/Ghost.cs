@@ -77,9 +77,9 @@ public class Ghost : SkillTreeNode
                 case Constants.EVADE:
                     Dictionary<string, string> atLeast = new Dictionary<string, string>() { { Constants.indexRally, evadePenalty.ToString() } };
 
-                    if (Vector3.Distance(move.playerObjects[0].transform.position, move.playerObjects[1].transform.position) <= triggerDist)
+                    if (Vector3.Distance(UFE.GetPlayer1ControlsScript().transform.position, UFE.GetPlayer2ControlsScript().transform.position) <= triggerDist)
                     {
-                        if (p1UsedMove && move.players[0].currentLifePoints > move.players[1].currentLifePoints)
+                        if (p1UsedMove && UFE.GetPlayer1().currentLifePoints < UFE.GetPlayer2().currentLifePoints)
                         {
                             if (rallyScript.VerifyActiveEffect(atLeast, null, null, Constants.p1Key))
                             {
@@ -89,7 +89,7 @@ public class Ghost : SkillTreeNode
                                 rallyScript.PassiveEffect(-1.0f * evadePenalty, (p1UsedMove ? Constants.p1Key : Constants.p2Key));
                             }
                         }
-                        else if (!p1UsedMove && move.players[1].currentLifePoints > move.players[0].currentLifePoints)
+                        else if (!p1UsedMove && UFE.GetPlayer2().currentLifePoints < UFE.GetPlayer1().currentLifePoints)
                         {
                             if (rallyScript.VerifyActiveEffect(atLeast, null, null, Constants.p2Key))
                             {

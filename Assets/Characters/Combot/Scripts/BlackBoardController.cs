@@ -62,25 +62,25 @@ public class BlackBoardController : MonoBehaviour {
         p2 = player2;
 
         // Get all of the moves' SkillTree handlers
-        Basic basic = GetComponent<Basic>();
+        basic = GetComponent<Basic>();
         basic.GetTree(p1, true);
         basic.GetTree(p2, false);
-        handlers["Basic"] = basic.Resolve;
+        handlers[Constants.BASIC] = basic.Resolve;
 
-        Strong strong = GetComponent<Strong>();
+        strong = GetComponent<Strong>();
         strong.GetTree(p1, true);
         strong.GetTree(p2, false);
-        handlers["Strong"] = strong.Resolve;
+        handlers[Constants.STRONG] = strong.Resolve;
 
-        Evade evade = GetComponent<Evade>();
+        evade = GetComponent<Evade>();
         evade.GetTree(p1, true);
         evade.GetTree(p2, false);
-        handlers["Evade"] = evade.Resolve;
+        handlers[Constants.EVADE] = evade.Resolve;
 
-        Grab grab = GetComponent<Grab>();
+        grab = GetComponent<Grab>();
         grab.GetTree(p1, true);
         grab.GetTree(p2, false);
-        handlers["Grab"] = evade.Resolve;
+        handlers[Constants.GRAB] = evade.Resolve;
 
         // Add information about each player to Blackboard
         bb.Register(Constants.p1Key, new Dictionary<string, string>() {
@@ -102,7 +102,10 @@ public class BlackBoardController : MonoBehaviour {
 
             // Surprise
             { Surprise.attackCount, "0" },
-            { Surprise.evadeCount, "0" }
+            { Surprise.evadeCount, "0" },
+
+            // Match results
+            { Constants.winner, "false" }
         });
         bb.Register(Constants.p2Key, new Dictionary<string, string>() {
             { Constants.indexLifePoints, p2.currentLifePoints.ToString() },
@@ -123,7 +126,10 @@ public class BlackBoardController : MonoBehaviour {
 
             // Surprise
             { Surprise.attackCount, "0" },
-            { Surprise.evadeCount, "0" }
+            { Surprise.evadeCount, "0" },
+
+            // Match results
+            { Constants.winner, "false" }
         });
     }
 
@@ -138,12 +144,12 @@ public class BlackBoardController : MonoBehaviour {
     void OnMove(MoveInfo move, CharacterInfo player)
     {
         // Record the button that was pressed and the time it was pressed
-        Debug.Log("[" + Time.time + "] Player " + player.GetInstanceID() + " inputted " + (int)move.buttonExecution[0]);
+        //Debug.Log("[" + Time.time + "] Player " + player.GetInstanceID() + " inputted " + (int)move.buttonExecution[0]);
 
         // Record move information
         if (player.GetInstanceID() == p1.GetInstanceID())
         {
-            if (move.moveName != "Evade")
+            if (move.moveName != Constants.EVADE)
             {
                 bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByPlayer, move.moveName);
                 bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByOpponent, move.moveName);
@@ -164,7 +170,7 @@ public class BlackBoardController : MonoBehaviour {
         }
         else
         {
-            if (move.moveName != "Evade")
+            if (move.moveName != Constants.EVADE)
             {
                 bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByPlayer, move.moveName);
                 bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByOpponent, move.moveName);
@@ -185,19 +191,19 @@ public class BlackBoardController : MonoBehaviour {
         }
 
         // Save the state of the BlackBoard
-        Debug.Log("Saved BlackBoard state");
+        //Debug.Log("Saved BlackBoard state");
     }
 
     void OnHit(HitBox strokeHitBox, MoveInfo move, CharacterInfo hitter)
     {
         // Stuff that happens regardless of ambient effects
         // Record the amount of damage done
-        Debug.Log("Hit damage: " + move.hits[0].damageOnHit);
+        //Debug.Log("Hit damage: " + move.hits[0].damageOnHit);
 
         // Update BlackBoard with new life totals
         if (p1.GetInstanceID() == hitter.GetInstanceID())
         {
-            bb.UpdateProperty(Constants.p2Key, "Current Life Points", p2.currentLifePoints.ToString()); // Hitter is p1 -> p2 got hit
+            bb.UpdateProperty(Constants.p2Key, Constants.indexLifePoints, p2.currentLifePoints.ToString()); // Hitter is p1 -> p2 got hit
             bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.TRUE);
             bb.UpdateProperty(Constants.p1Key, Constants.landedLastAttack, Constants.TRUE);
 
@@ -210,7 +216,7 @@ public class BlackBoardController : MonoBehaviour {
         }
         else
         {
-            bb.UpdateProperty(Constants.p1Key, "Current Life Points", p1.currentLifePoints.ToString()); // And vice versa
+            bb.UpdateProperty(Constants.p1Key, Constants.indexLifePoints, p1.currentLifePoints.ToString()); // And vice versa
             bb.UpdateProperty(Constants.p1Key, Constants.opponentLandedLastAttack, Constants.TRUE);
             bb.UpdateProperty(Constants.p2Key, Constants.landedLastAttack, Constants.TRUE);
 
@@ -224,7 +230,7 @@ public class BlackBoardController : MonoBehaviour {
 
         // Calculate passive effects
         Func<MoveInfo, bool, bool, Modifier> resolver;
-        if (handlers.TryGetValue(move.moveName, out resolver))
+        if (handlers.TryGetValue(WhatMoveIsThis(move.moveName), out resolver))
             resolver(move, hitter.GetInstanceID() == p1.GetInstanceID(), true);
     }
 
@@ -235,7 +241,8 @@ public class BlackBoardController : MonoBehaviour {
     void OnRoundEnds(CharacterInfo winner, CharacterInfo loser)
     {
         // Save the winner
-        Debug.Log(Constants.WhichPlayer(winner, p1) + " wins");
+        //Debug.Log(Constants.WhichPlayer(winner, p1) + " wins");
+        bb.UpdateProperty(Constants.WhichPlayer(winner, p1), Constants.winner, "true");
     }
 
     // Which of the 4 types of move (Basic, Strong, Evade, Grab) is this move?

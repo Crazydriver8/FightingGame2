@@ -129,19 +129,19 @@ public class BlackBoard : MonoBehaviour
 	}
 
     // For a set of properties, checks that all other properties are AT LEAST the passed-in values (float only)
-    public bool IsAtLeast(string key, Dictionary<string, string> values)
+    public bool IsAtLeast(string key, Dictionary<string, string> values, bool strict = false)
     {
         Dictionary<string, string> test;
         if (flags.TryGetValue(key, out test))
         {
             // When strict is enabled, fail to match if sizes are different
-            if (test.Count != values.Count)
+            if (test.Count != values.Count && strict)
                 return false;
 
             // Check that the values are at least what is given
             foreach (KeyValuePair<string, string> tuple in values)
             {
-                if (float.Parse(test[tuple.Key]) < float.Parse(tuple.Value))
+                if (!(float.Parse(test[tuple.Key]) >= float.Parse(tuple.Value)))
                     return false;
             }
 
@@ -152,19 +152,19 @@ public class BlackBoard : MonoBehaviour
     }
 
     // For a set of properties, checks that all other properties are AT MOST the passed-in values (float only)
-    public bool IsAtMost(string key, Dictionary<string, string> values)
+    public bool IsAtMost(string key, Dictionary<string, string> values, bool strict = false)
     {
         Dictionary<string, string> test;
         if (flags.TryGetValue(key, out test))
         {
             // When strict is enabled, fail to match if sizes are different
-            if (test.Count != values.Count)
+            if (test.Count != values.Count && strict)
                 return false;
 
             // Check that the values are at most what is given
             foreach (KeyValuePair<string, string> tuple in values)
             {
-                if (float.Parse(test[tuple.Key]) > float.Parse(tuple.Value))
+                if (!(float.Parse(test[tuple.Key]) <= float.Parse(tuple.Value)))
                     return false;
             }
 
