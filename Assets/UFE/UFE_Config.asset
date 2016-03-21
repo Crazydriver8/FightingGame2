@@ -41,13 +41,13 @@ MonoBehaviour:
     stageName: Training Room
     screenshot: {fileID: 2800000, guid: 08a565ac17d3e904d8d5f53e183b64d2, type: 3}
     prefab: {fileID: 100000, guid: 064338a39a43ad647989c96c321658a2, type: 2}
-    music: {fileID: 8300000, guid: 78a0035e01d5f0346a8eb0fc22bb4fa2, type: 3}
+    music: {fileID: 8300000, guid: 6e0c3a09e05520c4fa2977155a4587b1, type: 3}
     groundFriction: 100
     leftBoundary: -37
     rightBoundary: 37
   p1CPUControl: 0
   p2CPUControl: 0
-  gameName: UFE Training Room
+  gameName: Fight Fighters
   gameGUI:
     hasGauge: 1
     screenFadeDuration: 0.5
@@ -66,10 +66,10 @@ MonoBehaviour:
       screenMatchMode: 0
       scaleMode: 1
     introScreen: {fileID: 11400002, guid: 70fb6f5004bbf493190d7b2f011adfdf, type: 2}
-    mainMenuScreen: {fileID: 11432508, guid: 2ee48ca1981b3bb4b8619da181106feb, type: 2}
+    mainMenuScreen: {fileID: 11430438, guid: 1d702606fc3e7a842a9c5757e36a6505, type: 2}
     optionsScreen: {fileID: 11400056, guid: 2737f2cf99cd3416b9a9d13df2abbe04, type: 2}
     skillTreeScreen: {fileID: 11445998, guid: dd24f4f00503cd34a8a0beb3bea45110, type: 2}
-    creditsScreen: {fileID: 11400010, guid: aa93c5bcd99024642a42c5a1f110eeb1, type: 2}
+    creditsScreen: {fileID: 11454612, guid: d4020ba1cb1b41441bc097c4f5c95887, type: 2}
     pauseScreen: {fileID: 11400000, guid: 6241d31f6482b42a88a8e7c8b62e2716, type: 2}
     characterSelectionScreen: {fileID: 11400026, guid: fbff3d70d06804e6790e3cc5c560a542,
       type: 2}
@@ -720,7 +720,7 @@ MonoBehaviour:
   - stageName: Training Room
     screenshot: {fileID: 2800000, guid: 08a565ac17d3e904d8d5f53e183b64d2, type: 3}
     prefab: {fileID: 100000, guid: 064338a39a43ad647989c96c321658a2, type: 2}
-    music: {fileID: 8300000, guid: 78a0035e01d5f0346a8eb0fc22bb4fa2, type: 3}
+    music: {fileID: 8300000, guid: 6e0c3a09e05520c4fa2977155a4587b1, type: 3}
     groundFriction: 100
     leftBoundary: -37
     rightBoundary: 37

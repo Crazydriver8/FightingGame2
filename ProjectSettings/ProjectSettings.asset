@@ -9,8 +9,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: MindStudios
-  productName: UFE Demo
+  companyName: Group 8
+  productName: Fight Fighters
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 1
@@ -335,6 +335,7 @@ PlayerSettings:
   spritePackerPolicy: 
   scriptingDefineSymbols:
     1: 
+    13: 
   metroPackageName: UFE DEVELOP
   metroPackageVersion: 
   metroCertificatePath: 
