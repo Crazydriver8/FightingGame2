@@ -1756,14 +1756,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Fireball - Down, Forward, Punch (any)\nDragon Punch - Forward, Down, Forward,
-    Punch (any)\nSuper Fireball - Down, Forward, Down, Forward, Light Punch\nSuper
-    Dragon Punch - Down, Forward, Down, Forward, Medium Punch\n\nCustom Combo 1:\nLight
-    Punch, Light Kick, Medium Kick, Heavy Kick\n\nCustom Combo 2:\nLight Punch, Heavy
-    Dragon Punch\n\nCustom Combo 3:\nCrouching Light Punch, Crouching Light Kick,
-    Crouching Medium Punch, \nCrouching Medium Kick, Crouching Heavy Kick\n\nCustom
-    Combo 4:\nCrouching Medium Kick, Crouching Heavy Punch, Jump, Medium Kick,\nMedium
-    Punch, (land) Crouching Heavy Punch, Super Fireball"
+  m_Text: Nothing Here Yet!
 --- !u!114 &11420802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2179,15 +2172,11 @@ MonoBehaviour:
 
     LIGHT PUNCH - T
 
-    LIGHT KICK - G
+    HEAVY KICK - Y
 
-    MEDIUM PUNCH - Y
+    EVADE - U
 
-    MEDIUM KICK - H
-
-    HEAVY PUNCH - U
-
-    HEAVY KICK - J'
+    GRAB - G'
 --- !u!114 &11433916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3058,7 +3047,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 2e1a6f6ab44ad3a4cb7c9b3d29cab563, type: 3}
+    m_Font: {fileID: 12800000, guid: af1ede424ae79e1418e62eba1cde3554, type: 3}
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 1
@@ -3429,7 +3418,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 2e1a6f6ab44ad3a4cb7c9b3d29cab563, type: 3}
+    m_Font: {fileID: 12800000, guid: dffbebc392dcd064ba983a1680223bde, type: 3}
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 1
@@ -3489,7 +3478,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 2e1a6f6ab44ad3a4cb7c9b3d29cab563, type: 3}
+    m_Font: {fileID: 12800000, guid: af1ede424ae79e1418e62eba1cde3554, type: 3}
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 1

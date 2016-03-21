@@ -41,7 +41,7 @@ MonoBehaviour:
     stageName: Training Room
     screenshot: {fileID: 2800000, guid: 08a565ac17d3e904d8d5f53e183b64d2, type: 3}
     prefab: {fileID: 100000, guid: 064338a39a43ad647989c96c321658a2, type: 2}
-    music: {fileID: 8300000, guid: 6e0c3a09e05520c4fa2977155a4587b1, type: 3}
+    music: {fileID: 8300000, guid: 208924f62a9b4ef49ad6a0c0311019e4, type: 3}
     groundFriction: 100
     leftBoundary: -37
     rightBoundary: 37
@@ -484,7 +484,7 @@ MonoBehaviour:
     activeIcon: {fileID: 2800000, guid: 0f1eb58df8917b74f804b8cb97615fd5, type: 3}
   - inputType: 1
     inputButtonName: P1KeyboardVertical
-    engineRelatedButton: 2
+    engineRelatedButton: 3
     joystickAxisName: P1JoystickVertical
     cInputPositiveKeyName: P1Up
     cInputPositiveDefaultKey: W
@@ -720,7 +720,7 @@ MonoBehaviour:
   - stageName: Training Room
     screenshot: {fileID: 2800000, guid: 08a565ac17d3e904d8d5f53e183b64d2, type: 3}
     prefab: {fileID: 100000, guid: 064338a39a43ad647989c96c321658a2, type: 2}
-    music: {fileID: 8300000, guid: 6e0c3a09e05520c4fa2977155a4587b1, type: 3}
+    music: {fileID: 8300000, guid: 208924f62a9b4ef49ad6a0c0311019e4, type: 3}
     groundFriction: 100
     leftBoundary: -37
     rightBoundary: 37
