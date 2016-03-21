@@ -32,7 +32,7 @@ sysinfo.txt
 
 # Paid Content
 /Assets/UFE/Characters/*
-/Assets/UFE/Editor/*
+
 /Assets/UFE/GUI/*
 /Assets/UFE/MecanimAssets/*
 /Assets/UFE/Particles/*
@@ -47,4 +47,4 @@ sysinfo.txt
 /Assets/UFE/*.pdf
 /Assets/UFE/*.txt
 /Assets/UFE/*.prefab
-/Assets/UFE Addons/*
+/Assets/UFE Addons/FuzzyAI/*

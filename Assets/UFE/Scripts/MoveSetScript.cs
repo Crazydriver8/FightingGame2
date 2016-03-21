@@ -966,7 +966,8 @@ public class MoveSetScript : MonoBehaviour {
 	}
 	
 	private MoveInfo TestMoveExecution(MoveInfo move, MoveInfo currentMove, ButtonPress[] buttonPress, bool inputUp, bool fromSequence) {
-		return TestMoveExecution(move, currentMove, buttonPress, inputUp, fromSequence, false);
+
+        return TestMoveExecution(move, currentMove, buttonPress, inputUp, fromSequence, false);
 	}
 
     Basic basic = null;
@@ -1126,6 +1127,7 @@ public class MoveSetScript : MonoBehaviour {
                 }
             }
 
+            //mod = new Modifier(2, 3, 30, move.moveName);
             // Apply all other mods
             move.Apply(mod);
 

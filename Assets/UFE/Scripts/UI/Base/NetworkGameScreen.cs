@@ -23,4 +23,16 @@ public class NetworkGameScreen : UFEScreen{
 		
 		return ipAddresses[ipAddresses.Length - 1].ToString();
 	}
+    public virtual void CopyIP()
+    {
+        TextEditor te = new TextEditor();
+        string hostName = System.Net.Dns.GetHostName();
+        IPHostEntry ipHostEntry = System.Net.Dns.GetHostEntry(hostName);
+        IPAddress[] ipAddresses = ipHostEntry.AddressList;
+        string address =  ipAddresses[ipAddresses.Length - 1].ToString();
+        Debug.Log(address);
+        te.content = new GUIContent(address);
+        te.SelectAll();
+        te.Copy();
+    }
 }

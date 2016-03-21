@@ -50,12 +50,12 @@ MonoBehaviour:
   disableHeadLook: 1
   wrapMode: 0
   fixedSpeed: 1
-  animationSpeed: 2
+  animationSpeed: 2.36
   animSpeedKeyFrame: []
-  totalFrames: 12
+  totalFrames: 10
   startUpFrames: 5
   activeFrames: 2
-  recoveryFrames: 5
+  recoveryFrames: 3
   applyRootMotion: 0
   forceGrounded: 0
   rootMotionNode: 0
@@ -141,8 +141,8 @@ MonoBehaviour:
     frameAdvantageOnHit: 0
     frameAdvantageOnBlock: 0
     damageScaling: 1
-    damageType: 1
-    damageOnHit: 30
+    damageType: 0
+    damageOnHit: 5
     damageOnBlock: 0
     doesntKill: 0
     hitType: 0
@@ -223,7 +223,7 @@ MonoBehaviour:
       enemyBodyPart: 0
       targetDistance: 0.5
       position: {x: 0, y: 0, z: 0}
-    damageOptionsToggle: 0
+    damageOptionsToggle: 1
     hitStunOptionsToggle: 0
     forceOptionsToggle: 0
     opponentForceToggle: 0
@@ -231,152 +231,6 @@ MonoBehaviour:
     stageReactionsToggle: 0
     overrideEventsToggle: 0
     hitConditionsToggle: 0
-    pullInToggle: 0
-    hurtBoxesToggle: 0
-    wallBounceToggle: 0
-    groundBounceToggle: 0
-  - activeFramesBegin: 6
-    activeFramesEnds: 8
-    hitConfirmType: 0
-    throwMove: {fileID: 0}
-    techMove: {fileID: 0}
-    techable: 1
-    armorBreaker: 0
-    continuousHit: 0
-    unblockable: 0
-    spaceBetweenHits: 0
-    groundHit: 0
-    crouchingHit: 1
-    airHit: 1
-    stunHit: 1
-    opponentConditions:
-      basicMoveLimitation: 
-      possibleMoveStates: []
-      basicMovesToggle: 0
-      statesToggle: 0
-    downHit: 0
-    resetPreviousHitStun: 0
-    resetCrumples: 0
-    overrideHitEffects: 0
-    hitEffects:
-      hitParticle: {fileID: 0}
-      killTime: 0
-      hitSound: {fileID: 0}
-      spawnPoint: 1
-      freezingTime: 0
-      animationSpeed: 0.1
-      autoHitStop: 1
-      hitStop: 0.1
-      shakeCharacterOnHit: 1
-      shakeCameraOnHit: 1
-      shakeDensity: 0.8
-      editorToggle: 0
-    overrideEffectSpawnPoint: 0
-    spawnPoint: 1
-    overrideHitAnimationBlend: 0
-    newHitBlendingIn: 0
-    overrideAirRecoveryType: 1
-    newAirRecoveryType: 1
-    instantAirRecovery: 1
-    overrideHitAnimation: 0
-    newHitAnimation: 27
-    hitStrength: 3
-    hitStunType: 1
-    hitStunOnHit: 132
-    hitStunOnBlock: 3
-    frameAdvantageOnHit: 0
-    frameAdvantageOnBlock: 0
-    damageScaling: 1
-    damageType: 0
-    damageOnHit: 10
-    damageOnBlock: 0
-    doesntKill: 0
-    hitType: 0
-    resetPreviousHorizontalPush: 1
-    resetPreviousVerticalPush: 1
-    pushForce: {x: 5, y: 10}
-    resetPreviousHorizontal: 0
-    resetPreviousVertical: 0
-    appliedForce: {x: 0, y: 0}
-    cornerPush: 1
-    groundBounce: 1
-    overrideForcesOnGroundBounce: 0
-    resetGroundBounceHorizontalPush: 0
-    resetGroundBounceVerticalPush: 0
-    groundBouncePushForce: {x: 0, y: 0}
-    wallBounce: 0
-    knockOutOnWallBounce: 0
-    overrideForcesOnWallBounce: 0
-    resetWallBounceHorizontalPush: 0
-    resetWallBounceVerticalPush: 0
-    wallBouncePushForce: {x: 0, y: 0}
-    bounceOnCameraEdge: 0
-    overrideCameraSpeed: 0
-    newMovementSpeed: 0
-    newRotationSpeed: 0
-    cameraSpeedDuration: 0
-    hurtBoxes:
-    - bodyPart: 8
-      shape: 0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 4
-        height: 4
-      followXBounds: 0
-      followYBounds: 0
-      radius: 0.6
-      offSet: {x: 0, y: 0}
-      isBlock: 0
-    - bodyPart: 6
-      shape: 0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 4
-        height: 4
-      followXBounds: 0
-      followYBounds: 0
-      radius: 0.6
-      offSet: {x: 0, y: 0}
-      isBlock: 0
-    - bodyPart: 4
-      shape: 0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 4
-        height: 4
-      followXBounds: 0
-      followYBounds: 0
-      radius: 0.7
-      offSet: {x: 0, y: 0}
-      isBlock: 0
-    pullEnemyIn:
-      speed: 50
-      forceStand: 1
-      characterBodyPart: 0
-      enemyBodyPart: 0
-      targetDistance: 0.5
-      position: {x: 0, y: 0, z: 0}
-    pullSelfIn:
-      speed: 50
-      forceStand: 1
-      characterBodyPart: 0
-      enemyBodyPart: 0
-      targetDistance: 0.5
-      position: {x: 0, y: 0, z: 0}
-    damageOptionsToggle: 1
-    hitStunOptionsToggle: 0
-    forceOptionsToggle: 0
-    opponentForceToggle: 1
-    selfForceToggle: 0
-    stageReactionsToggle: 0
-    overrideEventsToggle: 1
-    hitConditionsToggle: 1
     pullInToggle: 0
     hurtBoxesToggle: 0
     wallBounceToggle: 0
@@ -444,12 +298,12 @@ MonoBehaviour:
   moveClassification:
     attackType: 1
     hitType: 0
-    startupSpeed: 4
-    recoverySpeed: 4
+    startupSpeed: 3
+    recoverySpeed: 3
     hitConfirmType: 0
     preferableDistance: 2
     gaugeUsage: 2
     anyAttackType: 1
     anyHitType: 1
     anyHitConfirmType: 1
-  speedKeyFrameToggle: 0
+  speedKeyFrameToggle: 1
