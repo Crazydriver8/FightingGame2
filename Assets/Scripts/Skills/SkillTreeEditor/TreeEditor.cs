@@ -29,7 +29,8 @@ public class TreeEditor : MonoBehaviour {
 
     }
 
-    
+    public void OnDrag() { transform.position = Input.mousePosition; }
+
     /* Override mouse clicks to move skill tree nodes when they are clicked on
      */
     void OnMouseDown()
