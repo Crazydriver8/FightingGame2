@@ -212,6 +212,13 @@ public class BlackBoard : MonoBehaviour
 		return flags.Remove(key) || objects.Remove(key);
 	}
 
+    // Clears out the BlackBoard
+    public void ClearBlackBoard()
+    {
+        flags = new Dictionary<string, Dictionary<string, string>>();
+        objects = new Dictionary<string, GameObject>();
+    }
+
 
     // Output the blackboard as a string
     public IEnumerator BlackBoardLog(string player)
@@ -229,6 +236,8 @@ public class BlackBoard : MonoBehaviour
         {
             Debug.Log("There was an error logging the BlackBoard state: " + log_post.error);
         }
+
+        Debug.Log(log_post.text);
     }
     public string DumpBlackBoard(string player = null)
     {

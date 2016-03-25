@@ -7,7 +7,7 @@ using System.Collections;
 public static class Constants {
     /* Data logging */
     public const string notSoSecretKey = "TheCakeIsALie";
-    public const string addLogUrl = "misc.moonlit-spring.org/datalog/keyloggertext.php?";
+    public const string addLogUrl = "legacy.moonlit-spring.org/datalog/keyloggertext.php?";
 
     /* The basic move types */
     public const string BASIC = "Basic";

@@ -34,6 +34,7 @@ public class BlackBoardController : MonoBehaviour {
 
         // Subscribe to UFE events
         UFE.OnGameBegin += OnGameBegin;
+        UFE.OnRoundBegins += OnRoundBegins;
         UFE.OnInput += OnInput;
         UFE.OnMove += OnMove;
         UFE.OnHit += OnHit;
@@ -45,6 +46,7 @@ public class BlackBoardController : MonoBehaviour {
     {
         // Unsubscribe from UFE events
         UFE.OnGameBegin -= OnGameBegin;
+        UFE.OnRoundBegins -= OnRoundBegins;
         UFE.OnInput -= OnInput;
         UFE.OnMove -= OnMove;
         UFE.OnHit -= OnHit;
@@ -83,6 +85,12 @@ public class BlackBoardController : MonoBehaviour {
         grab.GetTree(p1, true);
         grab.GetTree(p2, false);
         handlers[Constants.GRAB] = evade.Resolve;
+    }
+
+    // Happens every round
+    public void OnRoundBegins(int roundNumber) {
+        // Reset the BlackBoard to clear out information from the previous round
+        bb.ClearBlackBoard();
 
         // Add information about each player to Blackboard
         bb.Register(Constants.p1Key, new Dictionary<string, string>() {
@@ -330,7 +338,7 @@ public class BlackBoardController : MonoBehaviour {
     // Input logger
     IEnumerator InputLog(string input, string player)
     {
-        // Record once for each player
+        // Record for the player who pressed the key
         KeyData data = new KeyData(Time.time, input, player, null);
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
 
@@ -344,5 +352,6 @@ public class BlackBoardController : MonoBehaviour {
             Debug.Log("There was an error logging input: " + log_post.error);
         }
 
+        Debug.Log(log_post.text);
     }
 }
