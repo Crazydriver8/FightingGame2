@@ -623,7 +623,7 @@ public class ControlsScript : MonoBehaviour {
 						inputRef.engineRelatedButton = mirror == 1? ButtonPress.Back : ButtonPress.Foward;
 						inputRef.heldDown += Time.fixedDeltaTime;
 						if (inputRef.heldDown == Time.fixedDeltaTime && testMoveExecution(inputRef.engineRelatedButton, false)) return;
-						
+
 						if (currentState == PossibleStates.Stand 
 						    && !isBlocking 
 						    && !myPhysicsScript.isTakingOff

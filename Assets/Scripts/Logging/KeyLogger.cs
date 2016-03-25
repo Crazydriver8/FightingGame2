@@ -8,7 +8,7 @@ public class KeyLogger : MonoBehaviour
     private enum Direction { UD, LR };
     public string[] movementKeys = new string[2] { "Vertical", "Horizontal" };
     public string[] movementNames = new string[4] { "MoveUp", "MoveDown", "MoveLeft", "MoveRight" };
-    public string[] attackKeys = new string[5] { "Basic", "Strong", "Evade", "Grab", "Combo" };
+    public string[] attackKeys = new string[4] { "Basic", "Strong", "Evade", "Grab"};
 
     // Database information
     private string secretKey = "TheCakeIsALie"; // Because Unity3D is bad and doesn't support environment variables
