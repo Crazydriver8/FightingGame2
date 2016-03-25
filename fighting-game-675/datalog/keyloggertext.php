@@ -1,6 +1,4 @@
 <?php
-	ini_set("log_errors", 1);
-	
 	// Not really a secret at this point...
 	$secretKey = "TheCakeIsALie";
 	
@@ -8,24 +6,42 @@
 	$time = $_GET['time'];
 	$keyPress = $_GET['keyPress'];
 	$playerName = $_GET['playerName'];
-	$bbstate = $_GET['bbState'];
+	$bbState = $_GET['bbState'];
+	
+	// Go to the /logs folder
+	$logfile_path = getcwd() . "/logs";
+	if (is_readable($logfile_path) == false)
+	{
+		mkdir($logfile_path);
+	}
+	chdir($logfile_path);
 	
 	// Each player gets their own log file
-	$logfile = getcwd() . "/logs/" . $playerName . ".log";
-	$myfile = fopen($logfile, 'a');
+	$logfile_name = $playerName . ".log";
+	if (is_readable($logfile_name) == false)
+	{
+		touch($logfile_name);
+		chmod($logfile_name, 0777);
+	}
 	
 	$realHash = md5($time . $keyPress . $playerName . $secretKey);
 	if($realHash == $_GET['hash'])
 	{
 		// Write to file
-		file_put_contents($logfile, array($time, $keyPress, $playerName, $bbstate), FILE_APPEND);
-		file_put_contents($logfile, "\n", FILE_APPEND);
-		echo "Successfully wrote to " . $logfile;
+		$logfile = fopen($logfile_name, "a+");
+		
+		fwrite($logfile, $playerName . "\n");
+		fwrite($logfile, $time . "\n");
+		fwrite($logfile, $keyPress . "\n");
+		fwrite($logfile, $bbState . "\n\n");
+		
+		fclose($logfile);
+		
+		// Confirmation mesaage
+		echo $logfile_path . "/" . $logfile_name;
 	}
 	else
 	{
-		echo "Invalid attempt to write to " . $logfile;
+		echo "Invalid attempt to write to " . $logfile_path . "/" . $logfile_name;
 	}
-	
-	fclose($myfile);
 ?>

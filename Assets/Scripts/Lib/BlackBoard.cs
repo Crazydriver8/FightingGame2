@@ -224,7 +224,7 @@ public class BlackBoard : MonoBehaviour
     public IEnumerator BlackBoardLog(string player)
     {
         // Record once for each player
-        KeyData data = new KeyData(Time.time, "", player, flags);
+        KeyData data = new KeyData(Time.time, "BlackBoard Update", player, BlackBoardToString());
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
 
         // Post to server
@@ -252,7 +252,25 @@ public class BlackBoard : MonoBehaviour
         }
 
         // Also output the string that was dumped
-        return flags.ToString();
+        return BlackBoardToString();
+    }
+    public string BlackBoardToString()
+    {
+        string bb = "{\n";
+
+        foreach(KeyValuePair<string, Dictionary<string, string>> f in flags)
+        {
+            bb += "\t" + f.Key + ": {\n";
+            foreach (KeyValuePair<string, string> tuple in f.Value)
+            {
+                bb += "\t\t" + tuple.Key + " : " + tuple.Value + ",\n";
+            }
+            bb += "\t},\n";
+        }
+
+        bb += "}";
+
+        return bb;
     }
 }
 
@@ -264,12 +282,12 @@ public struct KeyData
     string playerName;
     string blackBoard;
 
-    public KeyData(float time, string keyPress, string playerName, Dictionary<string, Dictionary<string, string>> blackBoard)
+    public KeyData(float time, string keyPress, string playerName, string blackBoard)
     {
         this.time = time.ToString();
         this.keyPress = keyPress;
         this.playerName = playerName;
-        this.blackBoard = (blackBoard == null ? "" : blackBoard.ToString());
+        this.blackBoard = (blackBoard == null ? "" : blackBoard);
     }
 
     // Get MD5 hash of data
@@ -298,6 +316,6 @@ public struct KeyData
     // Output data in URL parameter form
     public string AsUrlParams()
     {
-        return "time=" + time + "&keyPress=" + keyPress + "&playerName=" + playerName + "&bbState=" + blackBoard;
+        return "time=" + time + "&keyPress=" + keyPress + "&playerName=" + playerName + "&bbState=" + WWW.EscapeURL(blackBoard);
     }
 }
