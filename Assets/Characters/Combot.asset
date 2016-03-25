@@ -1,0 +1,1662 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e5269517f28664db5ccd78cbd208b1, type: 3}
+  m_Name: Combot
+  m_EditorClassIdentifier: 
+  profilePictureSmall: {fileID: 2800000, guid: aa38c1c312213c4419c9bdb1a40faa76, type: 3}
+  profilePictureBig: {fileID: 2800000, guid: e6f43d0a029116142b97009a6f46de43, type: 3}
+  characterName: Combot
+  gender: 1
+  characterDescription: Tests
+  enableAlternativeColor: 1
+  alternativeColor: {r: 1, g: 0, b: 0, a: 0}
+  selectionAnimation: {fileID: 0}
+  selectionSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  height: 182
+  age: 1
+  bloodType: Unknown
+  lifePoints: 1000
+  maxGaugePoints: 400
+  characterPrefab: {fileID: 100100, guid: 94096bcd1e00d644d901274584c4375b, type: 2}
+  physics:
+    moveForwardSpeed: 8
+    moveBackSpeed: 7
+    highMovingFriction: 1
+    friction: 30
+    canCrouch: 1
+    crouchDelay: 2
+    standingDelay: 2
+    canJump: 1
+    jumpForce: 45
+    jumpDistance: 7
+    cumulativeForce: 1
+    multiJumps: 1
+    weight: 380
+    jumpDelay: 5
+    landingDelay: 7
+    groundCollisionMass: 2
+  headLook:
+    enabled: 0
+    segments:
+    - firstTransform: {fileID: 0}
+      lastTransform: {fileID: 0}
+      bodyPart: 1
+      thresholdAngleDifference: 0
+      bendingMultiplier: 0.5
+      maxAngleDifference: 30
+      maxBendingAngle: 60
+      responsiveness: 4
+    nonAffectedJoints:
+    - joint: {fileID: 0}
+      bodyPart: 4
+      effect: 0.3
+    - joint: {fileID: 0}
+      bodyPart: 5
+      effect: 0.3
+    target: 1
+    effect: 1
+    overrideAnimation: 1
+    disableOnHit: 1
+  executionTiming: 0.3
+  possibleAirMoves: 10
+  blendingTime: 0.06
+  animationType: 1
+  avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+  applyRootMotion: 0
+  animationFlow: 0
+  moves:
+  - combatStance: 0
+    cinematicIntro: {fileID: 0}
+    cinematicOutro: {fileID: 0}
+    basicMoves:
+      idle:
+        clip1: {fileID: 7400000, guid: 838a146923af6b44fb3a53db2aa498e1, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 2
+        autoSpeed: 0
+        animationSpeed: 0.8
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      moveForward:
+        clip1: {fileID: 7400000, guid: d215c9e14a7e9db49a462fdca2478424, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 2
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 1
+        blendingIn: 0.1
+        blendingOut: 0.1
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 1
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 1
+      moveBack:
+        clip1: {fileID: 7400000, guid: d215c9e14a7e9db49a462fdca2478424, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 2
+        autoSpeed: 0
+        animationSpeed: -0.8
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      takeOff:
+        clip1: {fileID: 7400000, guid: cfd69f97c9cd6c840a408e71a0750907, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      jumpStraight:
+        clip1: {fileID: 7400000, guid: 33b5f116dfe9b8340aadfd4270f60347, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      jumpBack:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      jumpForward:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      fallStraight:
+        clip1: {fileID: 7400000, guid: ef1a039599dfb534ca544e343b79d60a, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      fallBack:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      fallForward:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      landing:
+        clip1: {fileID: 7400000, guid: 6325a46c585440a43a05ffb2fadff28f, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 1
+        blendingIn: 0
+        blendingOut: 0.3
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      crouching:
+        clip1: {fileID: 7400000, guid: fb3861bfaf043274b99ffe7356a1adad, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 2
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      blockingCrouchingPose:
+        clip1: {fileID: 7400000, guid: 19a8f05d02c615f45b43b57409fad7cb, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      blockingCrouchingHit:
+        clip1: {fileID: 7400000, guid: 932d9a3599e3d524b990ca69cc8fb9a8, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      blockingHighPose:
+        clip1: {fileID: 7400000, guid: e000754e703d3ed4fa662405ce436aed, type: 3}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      blockingHighHit:
+        clip1: {fileID: 7400000, guid: e000754e703d3ed4fa662405ce436aed, type: 3}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0.02
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      blockingLowHit:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      blockingAirPose:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      blockingAirHit:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      parryCrouching:
+        clip1: {fileID: 7400000, guid: 36e9945518a87e6488af0b83c6549123, type: 3}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      parryHigh:
+        clip1: {fileID: 7400000, guid: e000754e703d3ed4fa662405ce436aed, type: 3}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 1
+        blendingIn: 0
+        blendingOut: 0.5
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      parryLow:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      parryAir:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      groundBounce:
+        clip1: {fileID: 7400000, guid: 14a5da206569c604496db29440f5050b, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standingWallBounce:
+        clip1: {fileID: 7400000, guid: e8a215af99c0baa4a83cc7b8018c6755, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standingWallBounceKnockdown:
+        clip1: {fileID: 7400000, guid: 4f07771e461c5cd4ab070450f3273cf5, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      airWallBounce:
+        clip1: {fileID: 7400000, guid: 42b6d4c0aa8e0524abcde58edfd0f0ca, type: 2}
+        clip2: {fileID: 7400000, guid: 5535d4fcaf9029b4cbefe4f73a0e9424, type: 2}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      fallingFromGroundBounce:
+        clip1: {fileID: 7400000, guid: 52ca260e376ff364ca69ecf139cefa21, type: 2}
+        clip2: {fileID: 7400000, guid: 5e2e7e1f0e96388488f91c14ba61cc4a, type: 2}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      fallingFromAirHit:
+        clip1: {fileID: 7400000, guid: dcc042ccb27f16b4ca712ea764f09911, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 1
+        blendingIn: 0.2
+        blendingOut: 0.2
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      fallDown:
+        clip1: {fileID: 7400000, guid: 5e2e7e1f0e96388488f91c14ba61cc4a, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      airRecovery:
+        clip1: {fileID: 7400000, guid: 27655009745692a4482e591bf1920909, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 1
+        disableHeadLook: 1
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitCrouching:
+        clip1: {fileID: 7400000, guid: ec00045d8c10ea14eb10e2c63588fcfd, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitHigh:
+        clip1: {fileID: 7400000, guid: 774293fe32add0e458723a948bd62e85, type: 2}
+        clip2: {fileID: 7400000, guid: 6f7227bb7033fd445b490f01ade55da8, type: 2}
+        clip3: {fileID: 7400000, guid: f559b1909bbab6e4a880f2c8709d7356, type: 2}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitLow:
+        clip1: {fileID: 7400000, guid: 2d9825439f4686f48bf6327a08c19ae6, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 1
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitHighKnockdown:
+        clip1: {fileID: 7400000, guid: 0e3f26b920195fa448e608dfe40d3515, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 2
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitMidKnockdown:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitAir:
+        clip1: {fileID: 7400000, guid: 13d8d41cc2435164a865160da5265105, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0.1
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitCrumple:
+        clip1: {fileID: 7400000, guid: dec44a5cc0f9d7544a368a8f03eb70be, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitKnockBack:
+        clip1: {fileID: 7400000, guid: 4b57965037306c64ca9723be6666ac88, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: -1
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      getHitSweep:
+        clip1: {fileID: 7400000, guid: 4bdae428ed181984390e71f926031a36, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 0
+        animationSpeed: 1.3
+        restingClipInterval: 6
+        overrideBlendingIn: 1
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUp:
+        clip1: {fileID: 7400000, guid: 7dbb631208b1ee74f8249d8286c57384, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 7400000, guid: b2c2bb62a6a3ea842a0a20137856daf6, type: 2}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 1
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromAirHit:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromKnockBack:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromStandingHighHit:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromStandingMidHit:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromCrumple:
+        clip1: {fileID: 7400000, guid: adb11fecfea4fbc438a34e916d704ece, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromSweep:
+        clip1: {fileID: 7400000, guid: b2c2bb62a6a3ea842a0a20137856daf6, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromStandingWallBounce:
+        clip1: {fileID: 7400000, guid: adb11fecfea4fbc438a34e916d704ece, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromAirWallBounce:
+        clip1: {fileID: 7400000, guid: adb11fecfea4fbc438a34e916d704ece, type: 2}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      standUpFromGroundBounce:
+        clip1: {fileID: 0}
+        clip2: {fileID: 0}
+        clip3: {fileID: 0}
+        clip4: {fileID: 0}
+        clip5: {fileID: 0}
+        clip6: {fileID: 0}
+        wrapMode: 8
+        autoSpeed: 1
+        animationSpeed: 1
+        restingClipInterval: 6
+        overrideBlendingIn: 0
+        overrideBlendingOut: 0
+        blendingIn: 0
+        blendingOut: 0
+        invincible: 0
+        disableHeadLook: 0
+        applyRootMotion: 0
+        soundEffects: []
+        continuousSound: 0
+        particleEffect:
+          editorToggle: 0
+          prefab: {fileID: 0}
+          duration: 1
+          stick: 0
+          offSet: {x: 0, y: 0, z: 0}
+          bodyPart: 0
+        reference: 0
+        name: 
+        editorToggle: 0
+        soundEffectsToggle: 0
+      moveEnabled: 1
+      jumpEnabled: 1
+      crouchEnabled: 1
+      blockEnabled: 1
+      parryEnabled: 1
+    attackMoves:
+    - {fileID: 11400000, guid: 7cdb769ef0df7ad4a8b8e58454440bbe, type: 2}
+    - {fileID: 11400000, guid: 4a301a0b827870b449be5d75c7f88cc2, type: 2}
+    - {fileID: 11400000, guid: 39a7a2a4b047c6749a9598033411851f, type: 2}
+    - {fileID: 11400000, guid: bacc317e0f42efc47a1e374791b784aa, type: 2}
+    - {fileID: 11400000, guid: db396288ff6f3cd4388b0ce9ea475f59, type: 2}
+    - {fileID: 11400000, guid: 6ccf59a2eda0a784dbadac4ee9e504b3, type: 2}
+    - {fileID: 11400000, guid: d37c324b8abaad84c873996910bede27, type: 2}
+    - {fileID: 11400000, guid: 53597325d83de1e4096716e1787b84dd, type: 2}
+    - {fileID: 11400000, guid: 5cededb05831b4c449c2aff24863d950, type: 2}
+    - {fileID: 11400000, guid: 6e3e9e54dbef886479cc3009f7950ca5, type: 2}
+    - {fileID: 11400000, guid: 085af8a8e37b6bb49b776b3da2bcf664, type: 2}
+<<<<<<< HEAD
+    - {fileID: 11400000, guid: 6ef6ab156630436469c41b2bb31539b1, type: 2}
+    - {fileID: 11400000, guid: eb6e60ca5c893e443a7cd5bcbd6392c3, type: 2}
+=======
+>>>>>>> d45068769d885dda8ed113bc6adcc046df7970ba
+    enabledBasicMovesToggle: 1
+    basicMovesToggle: 1
+    attackMovesToggle: 1
+  aiInstructionsSet:
+  - aiInfo: {fileID: 11400000, guid: 381a98fe3348ea640801d8072511a960, type: 2}
+    behavior: 4
+  - aiInfo: {fileID: 11400000, guid: 388fce0a954ca8544a84bdd1c4b66fba, type: 2}
+    behavior: 3
+  - aiInfo: {fileID: 11400000, guid: 68a028838c8be5947880fd975acc4ca7, type: 2}
+    behavior: 2

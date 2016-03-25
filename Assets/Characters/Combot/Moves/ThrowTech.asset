@@ -37,9 +37,7 @@ MonoBehaviour:
   animationClip: {fileID: 7400000, guid: f559b1909bbab6e4a880f2c8709d7356, type: 2}
   disableHeadLook: 1
   wrapMode: 1
-  fixedSpeed: 1
-  animationSpeed: 1.4
-  animSpeedKeyFrame: []
+  animationSpeed: 1.39999998
   totalFrames: 31
   startUpFrames: 7
   activeFrames: 3
@@ -49,10 +47,10 @@ MonoBehaviour:
   rootMotionNode: 0
   overrideBlendingIn: 1
   overrideBlendingOut: 1
-  blendingIn: 0.2
-  blendingOut: 0.05
+  blendingIn: .200000003
+  blendingOut: .0500000007
   chargeMove: 0
-  chargeTiming: 0.7
+  chargeTiming: .699999988
   allowInputLeniency: 0
   allowNegativeEdge: 1
   leniencyBuffer: 3
@@ -69,7 +67,6 @@ MonoBehaviour:
     resetPreviousHorizontal: 1
     force: {x: -20, y: 0}
   slowMoEffects: []
-  bodyPartVisibilityChanges: []
   opponentOverride: []
   soundEffects:
   - castingFrame: 0
@@ -112,14 +109,13 @@ MonoBehaviour:
       hitParticle: {fileID: 0}
       killTime: 0
       hitSound: {fileID: 0}
-      spawnPoint: 1
       freezingTime: 0
-      animationSpeed: 0.1
+      animationSpeed: .100000001
       autoHitStop: 1
-      hitStop: 0.1
+      hitStop: .100000001
       shakeCharacterOnHit: 1
       shakeCameraOnHit: 1
-      shakeDensity: 0.8
+      shakeDensity: .800000012
       editorToggle: 0
     hitAbsorption: 0
     damageAbsorption: 0
@@ -146,4 +142,3 @@ MonoBehaviour:
     anyAttackType: 1
     anyHitType: 1
     anyHitConfirmType: 1
-  speedKeyFrameToggle: 0

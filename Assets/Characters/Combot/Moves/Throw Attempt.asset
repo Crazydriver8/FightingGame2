@@ -272,8 +272,8 @@ MonoBehaviour:
   moveClassification:
     attackType: 1
     hitType: 0
-    startupSpeed: 3
-    recoverySpeed: 3
+    startupSpeed: 4
+    recoverySpeed: 1
     hitConfirmType: 1
     preferableDistance: 1
     gaugeUsage: 2

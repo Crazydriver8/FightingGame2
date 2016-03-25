@@ -850,203 +850,9 @@ public class MoveInfo: ScriptableObject {
 		return null;
 	}
 
-    public MoveInfo Clone()
-    {
-        MoveInfo copy = (MoveInfo)ScriptableObject.CreateInstance("MoveInfo");
-
-        copy.characterPrefab = this.characterPrefab;
-        copy.moveName = this.moveName;
-        copy.description = this.description;
-        copy.fps = this.fps;
-        copy.ignoreGravity = this.ignoreGravity;
-        copy.ignoreFriction = this.ignoreFriction;
-        copy.cancelMoveWheLanding = this.cancelMoveWheLanding;
-        copy.forceMirrorLeft = this.forceMirrorLeft;
-        copy.forceMirrorRight = this.forceMirrorRight;
-        copy.invertRotationLeft = this.invertRotationLeft;
-        copy.invertRotationRight = this.invertRotationRight;
-        copy.autoCorrectRotation = this.autoCorrectRotation;
-        copy.frameWindowRotation = this.frameWindowRotation;
-
-        copy.gaugeToggle = this.gaugeToggle;
-        copy.gaugeUsage = this.gaugeUsage;
-        copy.gaugeGainOnMiss = this.gaugeGainOnMiss;
-        copy.gaugeGainOnHit = this.gaugeGainOnHit;
-        copy.gaugeGainOnBlock = this.gaugeGainOnBlock;
-        copy.opGaugeGainOnBlock = this.opGaugeGainOnBlock;
-        copy.opGaugeGainOnParry = this.opGaugeGainOnParry;
-        copy.opGaugeGainOnHit = this.opGaugeGainOnHit;
-
-
-        copy.possibleStates = new PossibleStates[this.possibleStates.Length];
-        for (int i = 0; i < this.possibleStates.Length; i++)
-        {
-            copy.possibleStates[i] = this.possibleStates[i];
-        }
-        copy.possibleMoveStates = new PossibleMoveStates[this.possibleMoveStates.Length];
-        for (int i = 0; i < this.possibleMoveStates.Length; i++)
-        {
-            copy.possibleMoveStates[i] = this.possibleMoveStates[i];
-        }
-
-
-        copy.animationClip = this.animationClip;
-        copy.disableHeadLook = this.disableHeadLook;
-        copy.wrapMode = this.wrapMode;
-
-        copy.fixedSpeed = this.fixedSpeed;
-        copy.animationSpeed = this.animationSpeed;
-        copy.animSpeedKeyFrame = new AnimSpeedKeyFrame[this.animSpeedKeyFrame.Length];
-        copy.totalFrames = this.totalFrames;
-
-        copy.startUpFrames = this.startUpFrames;
-        copy.activeFrames = this.activeFrames;
-        copy.recoveryFrames = this.recoveryFrames;
-        copy.applyRootMotion = this.applyRootMotion;
-        copy.forceGrounded = this.forceGrounded;
-        copy.rootMotionNode = this.rootMotionNode;
-        copy.overrideBlendingIn = this.overrideBlendingIn;
-        copy.overrideBlendingOut = this.overrideBlendingOut;
-        copy.blendingIn = this.blendingIn;
-        copy.blendingOut = this.blendingOut;
-
-
-        copy.chargeMove = this.chargeMove;
-        copy.chargeTiming = this.chargeTiming;
-        copy.allowInputLeniency = this.allowInputLeniency;
-        copy.allowNegativeEdge = this.allowNegativeEdge;
-        copy.leniencyBuffer = this.leniencyBuffer;
-        copy.onReleaseExecution = this.onReleaseExecution;
-        copy.onPressExecution = this.onPressExecution;
-        copy.buttonSequence = new ButtonPress[buttonSequence.Length];
-        for (int i = 0; i < this.buttonSequence.Length; i++)
-        {
-            copy.buttonSequence[i] = this.buttonSequence[i];
-        }
-        copy.buttonExecution = new ButtonPress[buttonExecution.Length];
-        for (int i = 0; i < this.buttonExecution.Length; i++)
-        {
-            copy.buttonExecution[i] = this.buttonExecution[i];
-        }
-
-
-        copy.previousMoves = new MoveInfo[this.previousMoves.Length];
-        for (int i = 0; i < this.previousMoves.Length; i++)
-        {
-            copy.previousMoves[i] = this.previousMoves[i].Clone();
-        }
-        copy.frameLinks = new FrameLink[this.frameLinks.Length];
-        for (int i = 0; i < this.frameLinks.Length; i++)
-        {
-            copy.frameLinks[i] = this.frameLinks[i].Clone() as FrameLink;
-        }
-
-        copy.particleEffects = new MoveParticleEffect[this.particleEffects.Length];
-        for (int i = 0; i < this.particleEffects.Length; i++)
-        {
-            copy.particleEffects[i] = this.particleEffects[i].Clone() as MoveParticleEffect;
-        }
-        copy.appliedForces = new AppliedForce[this.appliedForces.Length];
-        for (int i = 0; i < this.appliedForces.Length; i++)
-        {
-            copy.appliedForces[i] = this.appliedForces[i].Clone() as AppliedForce;
-        }
-        copy.slowMoEffects = new SlowMoEffect[this.slowMoEffects.Length];
-        for (int i = 0; i < this.slowMoEffects.Length; i++)
-        {
-            copy.slowMoEffects[i] = this.slowMoEffects[i].Clone() as SlowMoEffect;
-        }
-        copy.bodyPartVisibilityChanges = new BodyPartVisibilityChange[this.bodyPartVisibilityChanges.Length];
-        for (int i = 0; i < this.bodyPartVisibilityChanges.Length; i++)
-        {
-            copy.bodyPartVisibilityChanges[i] = this.bodyPartVisibilityChanges[i].Clone() as BodyPartVisibilityChange;
-        }
-
-        copy.opponentOverride = new OpponentOverride[this.opponentOverride.Length];
-        for (int i = 0; i < this.opponentOverride.Length; i++)
-        {
-            copy.opponentOverride[i] = this.opponentOverride[i].Clone() as OpponentOverride;
-        }
-        copy.soundEffects = new SoundEffect[this.soundEffects.Length];
-        for (int i = 0; i < this.soundEffects.Length; i++)
-        {
-            copy.soundEffects[i] = this.soundEffects[i].Clone() as SoundEffect;
-        }
-        copy.inGameAlert = new InGameAlert[this.inGameAlert.Length];
-        for (int i = 0; i < this.inGameAlert.Length; i++)
-        {
-            copy.inGameAlert[i] = this.inGameAlert[i].Clone() as InGameAlert;
-        }
-        copy.stanceChanges = new StanceChange[this.stanceChanges.Length];
-        for (int i = 0; i < this.stanceChanges.Length; i++)
-        {
-            copy.stanceChanges[i] = this.stanceChanges[i].Clone() as StanceChange;
-        }
-        copy.cameraMovements = new CameraMovement[this.cameraMovements.Length];
-        for (int i = 0; i < this.cameraMovements.Length; i++)
-        {
-            copy.cameraMovements[i] = this.cameraMovements[i].Clone() as CameraMovement;
-        }
-
-        copy.hits = new Hit[this.hits.Length];
-        for (int i = 0; i < this.hits.Length; i++)
-        {
-            copy.hits[i] = (Hit)this.hits[i].Clone();
-        }
-        copy.blockableArea = this.blockableArea;
-        copy.invincibleBodyParts = new InvincibleBodyParts[this.invincibleBodyParts.Length];
-        for (int i = 0; i < this.invincibleBodyParts.Length; i++)
-        {
-            copy.invincibleBodyParts[i] = this.invincibleBodyParts[i];
-        }
-        copy.armorOptions = this.armorOptions;
-
-        copy.projectiles = new Projectile[this.projectiles.Length];
-        for (int i = 0; i < this.projectiles.Length; i++)
-        {
-            copy.projectiles[i] = this.projectiles[i].Clone() as Projectile;
-        }
-        copy.opponentConditions = this.opponentConditions;
-        copy.selfConditions = this.selfConditions;
-        copy.moveClassification = this.moveClassification;
-
-
-        copy.cancelable = this.cancelable;
-        copy.kill = this.kill;
-        copy.currentFrame = this.currentFrame;
-        copy.overrideStartupFrame = this.overrideStartupFrame;
-        copy.animationSpeedTemp = this.animationSpeedTemp;
-        copy.currentTick = this.currentTick;
-        copy.hitConfirmOnBlock = this.hitConfirmOnBlock;
-        copy.hitConfirmOnParry = this.hitConfirmOnParry;
-        copy.hitConfirmOnStrike = this.hitConfirmOnStrike;
-        copy.hitAnimationOverride = this.hitAnimationOverride;
-        copy.standUpOptions = this.standUpOptions;
-        copy.currentFrameData = this.currentFrameData;
-
-
-        return copy;
-    }
-
-
     // Changes this move dynamically (assuming that the move has been replaced, if applicable)
-    public Modifier Apply(Modifier mod)
+    public void Apply(Modifier mod)
     {
-        Modifier opposite = new Modifier();
-
-        if (this.moveClassification.startupSpeed == FrameSpeed.Fast)
-        {
-            opposite.speed = 1;
-        }
-        else if (this.moveClassification.startupSpeed == FrameSpeed.Slow)
-        {
-            opposite.speed = -1;
-        }
-        else
-        {
-            opposite.speed = 0;
-        }
-        
         // Speed adjustment
         if (mod.speed > 0)
         {
@@ -1066,10 +872,7 @@ public class MoveInfo: ScriptableObject {
 
         // Damage adjustment
         if (hits.Length > 0)
-        {
             this.hits[0].damageOnHit += mod.minRawDamage;
-            opposite.minRawDamage = -1.0f * mod.minRawDamage;
-        }
 
         // Effects
         if (mod.effects != null)
@@ -1096,22 +899,12 @@ public class MoveInfo: ScriptableObject {
                         // Add it to the array
                         Array.Resize(ref this.invincibleBodyParts, this.invincibleBodyParts.Length + 1);
                         this.invincibleBodyParts[this.invincibleBodyParts.Length - 1] = (InvincibleBodyParts)iFrame.Clone();
-
-                        // Indicate that this has to be reversed
-                        opposite.effects.Add("Reverse iFrame");
                         break;
 
-                    case "Reverse iFrame":
-                        // Remove the iFrame from the end of the array
-                        Array.Resize(ref this.invincibleBodyParts, this.invincibleBodyParts.Length - 1);
-                        break;
-                    
                     default:
                         break;
                 }
             }
         }
-
-        return opposite;
     }
 }

@@ -50,12 +50,12 @@ MonoBehaviour:
   disableHeadLook: 1
   wrapMode: 0
   fixedSpeed: 1
-  animationSpeed: 1.5
+  animationSpeed: 1
   animSpeedKeyFrame: []
-  totalFrames: 20
+  totalFrames: 30
   startUpFrames: 16
   activeFrames: 3
-  recoveryFrames: 0
+  recoveryFrames: 11
   applyRootMotion: 0
   forceGrounded: 0
   rootMotionNode: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
     frameAdvantageOnBlock: 0
     damageScaling: 1
     damageType: 0
-    damageOnHit: 45
+    damageOnHit: 50
     damageOnBlock: 0
     doesntKill: 0
     hitType: 0
@@ -350,7 +350,7 @@ MonoBehaviour:
   moveClassification:
     attackType: 1
     hitType: 0
-    startupSpeed: 3
+    startupSpeed: 1
     recoverySpeed: 3
     hitConfirmType: 0
     preferableDistance: 2

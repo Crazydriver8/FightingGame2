@@ -230,7 +230,7 @@ MonoBehaviour:
       enemyBodyPart: 0
       targetDistance: 0.5
       position: {x: 0, y: 0, z: 0}
-    damageOptionsToggle: 1
+    damageOptionsToggle: 0
     hitStunOptionsToggle: 0
     forceOptionsToggle: 0
     opponentForceToggle: 0

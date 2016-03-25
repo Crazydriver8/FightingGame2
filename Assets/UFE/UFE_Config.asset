@@ -117,7 +117,7 @@ MonoBehaviour:
         name: Boss Fight
         opponents: []
         showOpponentsInEditor: 1
-      showStoryInEditor: 1
+      showStoryInEditor: 0
     selectableCharactersInStoryMode: 00000000
     selectableCharactersInVersusMode: 00000000
     characterStories:
@@ -471,7 +471,7 @@ MonoBehaviour:
   player1_Inputs:
   - inputType: 0
     inputButtonName: P1KeyboardHorizontal
-    engineRelatedButton: 0
+    engineRelatedButton: 1
     joystickAxisName: P1JoystickHorizontal
     cInputPositiveKeyName: P1Right
     cInputPositiveDefaultKey: D
