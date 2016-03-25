@@ -15,7 +15,6 @@ public class DefaultSkillTreeScreen : SkillTreeScreen{
 
     public Button buttonNetwork;
     #endregion
-
     #region public override methods
     public override void DoFixedUpdate()
     {
