@@ -1128,13 +1128,14 @@ public class MoveSetScript : MonoBehaviour {
             }
 
             //mod = new Modifier(2, 3, 30, move.moveName);
-            // Apply all other mods
-            move.Apply(mod);
+            Modifier reverse = move.Apply(mod);
 
             MoveInfo newMove = InstantiateMove(move);
 			UFE.FireMove(newMove, controlsScript.myInfo);
-			
-			if ((controlsScript.currentState == PossibleStates.StraightJump ||
+
+            move.Apply(reverse);
+
+            if ((controlsScript.currentState == PossibleStates.StraightJump ||
 			    controlsScript.currentState == PossibleStates.ForwardJump ||
 			    controlsScript.currentState == PossibleStates.BackJump) &&
 			    totalAirMoves >= controlsScript.myInfo.possibleAirMoves) return null;

@@ -5,6 +5,9 @@ using System.Collections;
 /* A listing of publicly accessible constants, enums, etc.
  */
 public static class Constants {
+    /* Data logging */
+    public const string notSoSecretKey = "TheCakeIsALie";
+    public const string addLogUrl = "fighting-game-675.herokuapp.com/datalog/keyloggertext.php?";
 
     /* The basic move types */
     public const string BASIC = "Basic";

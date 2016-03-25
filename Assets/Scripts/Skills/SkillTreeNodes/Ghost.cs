@@ -36,7 +36,7 @@ public class Ghost : SkillTreeNode
     /* What does this skill do?
      * 
      * Passive effect: Stack rally
-     * Actice effect:
+     * Active effect:
      *      Evade: Move through and behind opponent
      *      Everything else: iframes during move
      */

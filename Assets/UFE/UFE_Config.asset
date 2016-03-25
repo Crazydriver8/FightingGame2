@@ -117,7 +117,7 @@ MonoBehaviour:
         name: Boss Fight
         opponents: []
         showOpponentsInEditor: 1
-      showStoryInEditor: 0
+      showStoryInEditor: 1
     selectableCharactersInStoryMode: 00000000
     selectableCharactersInVersusMode: 00000000
     characterStories:

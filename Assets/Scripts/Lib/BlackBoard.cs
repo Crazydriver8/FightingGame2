@@ -98,6 +98,8 @@ public class BlackBoard : MonoBehaviour
         if (flags.TryGetValue(key, out properties))
         {
             properties[index] = value;
+            
+            DumpBlackBoard();
             return true;
         }
 
@@ -209,4 +211,84 @@ public class BlackBoard : MonoBehaviour
 	{
 		return flags.Remove(key) || objects.Remove(key);
 	}
+
+
+    // Output the blackboard as a string
+    public IEnumerator BlackBoardLog(string player)
+    {
+        // Record once for each player
+        KeyData data = new KeyData(Time.time, "", player, flags);
+        string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
+
+        // Post to server
+        WWW log_post = new WWW(write_to);
+        yield return log_post;
+
+        // Check for errors
+        if (log_post.error != null)
+        {
+            Debug.Log("There was an error logging the BlackBoard state: " + log_post.error);
+        }
+    }
+    public string DumpBlackBoard(string player = null)
+    {
+        if (player == null)
+        {
+            StartCoroutine(BlackBoardLog(Constants.p1Key));
+            StartCoroutine(BlackBoardLog(Constants.p2Key));
+        }
+        else
+        {
+            StartCoroutine(BlackBoardLog(player));
+        }
+
+        // Also output the string that was dumped
+        return flags.ToString();
+    }
+}
+
+
+public struct KeyData
+{
+    string time;
+    string keyPress;
+    string playerName;
+    string blackBoard;
+
+    public KeyData(float time, string keyPress, string playerName, Dictionary<string, Dictionary<string, string>> blackBoard)
+    {
+        this.time = time.ToString();
+        this.keyPress = keyPress;
+        this.playerName = playerName;
+        this.blackBoard = (blackBoard == null ? "" : blackBoard.ToString());
+    }
+
+    // Get MD5 hash of data
+    public string Md5Sum(string key)
+    {
+        string strToEncrypt = time.ToString() + keyPress + playerName + key;
+
+        System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
+        byte[] bytes = ue.GetBytes(strToEncrypt);
+
+        // Encrypt bytes
+        System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+        byte[] hashBytes = md5.ComputeHash(bytes);
+
+        // Convert the encrypted bytes back to a string (base 16)
+        string hashString = "";
+
+        for (int i = 0; i < hashBytes.Length; i++)
+        {
+            hashString += System.Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
+        }
+
+        return hashString.PadLeft(32, '0');
+    }
+
+    // Output data in URL parameter form
+    public string AsUrlParams()
+    {
+        return "time=" + time + "&keyPress=" + keyPress + "&playerName=" + playerName + "&bbState=" + blackBoard;
+    }
 }

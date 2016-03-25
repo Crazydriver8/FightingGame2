@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Rally : Strip {
-
+    
 	// Use this for initialization
 	void Start () {
         Init();

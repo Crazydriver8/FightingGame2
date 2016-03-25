@@ -34,6 +34,7 @@ public class BlackBoardController : MonoBehaviour {
 
         // Subscribe to UFE events
         UFE.OnGameBegin += OnGameBegin;
+        UFE.OnInput += OnInput;
         UFE.OnMove += OnMove;
         UFE.OnHit += OnHit;
         UFE.OnRoundEnds += OnRoundEnds;
@@ -44,6 +45,7 @@ public class BlackBoardController : MonoBehaviour {
     {
         // Unsubscribe from UFE events
         UFE.OnGameBegin -= OnGameBegin;
+        UFE.OnInput -= OnInput;
         UFE.OnMove -= OnMove;
         UFE.OnHit -= OnHit;
         UFE.OnRoundEnds -= OnRoundEnds;
@@ -131,6 +133,10 @@ public class BlackBoardController : MonoBehaviour {
             // Match results
             { Constants.winner, "false" }
         });
+
+        // Save BlackBoard state
+        bb.DumpBlackBoard(Constants.p1Key);
+        bb.DumpBlackBoard(Constants.p2Key);
     }
 
     // Update is called once per frame
@@ -141,6 +147,15 @@ public class BlackBoardController : MonoBehaviour {
 
     /* UFE events
      */
+    void OnInput(InputReferences[] inputReferences, int player)
+    {
+        foreach (InputReferences inRef in inputReferences)
+        {
+            StartCoroutine(InputLog(inRef.engineRelatedButton.ToString(), (player == 1 ? Constants.p1Key : Constants.p2Key)));
+            Debug.Log(inRef.engineRelatedButton.ToString() + " by Player " + player);
+        }
+    }
+    
     void OnMove(MoveInfo move, CharacterInfo player)
     {
         // Record the button that was pressed and the time it was pressed
@@ -310,5 +325,24 @@ public class BlackBoardController : MonoBehaviour {
         }
 
         yield return null;
+    }
+
+    // Input logger
+    IEnumerator InputLog(string input, string player)
+    {
+        // Record once for each player
+        KeyData data = new KeyData(Time.time, input, player, null);
+        string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
+
+        // Post to server
+        WWW log_post = new WWW(write_to);
+        yield return log_post;
+
+        // Check for errors
+        if (log_post.error != null)
+        {
+            Debug.Log("There was an error logging input: " + log_post.error);
+        }
+
     }
 }
