@@ -141,8 +141,8 @@ MonoBehaviour:
     frameAdvantageOnHit: 0
     frameAdvantageOnBlock: 0
     damageScaling: 1
-    damageType: 0
-    damageOnHit: 10
+    damageType: 1
+    damageOnHit: 60
     damageOnBlock: 0
     doesntKill: 0
     hitType: 0

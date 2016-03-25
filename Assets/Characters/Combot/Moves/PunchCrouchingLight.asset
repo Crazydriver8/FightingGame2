@@ -223,7 +223,7 @@ MonoBehaviour:
       enemyBodyPart: 0
       targetDistance: 0.5
       position: {x: 0, y: 0, z: 0}
-    damageOptionsToggle: 0
+    damageOptionsToggle: 1
     hitStunOptionsToggle: 1
     forceOptionsToggle: 1
     opponentForceToggle: 0
@@ -298,8 +298,8 @@ MonoBehaviour:
   moveClassification:
     attackType: 1
     hitType: 0
-    startupSpeed: 5
-    recoverySpeed: 4
+    startupSpeed: 3
+    recoverySpeed: 3
     hitConfirmType: 0
     preferableDistance: 2
     gaugeUsage: 0

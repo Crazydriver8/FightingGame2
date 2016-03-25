@@ -1641,10 +1641,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: db396288ff6f3cd4388b0ce9ea475f59, type: 2}
     - {fileID: 11400000, guid: 6ccf59a2eda0a784dbadac4ee9e504b3, type: 2}
     - {fileID: 11400000, guid: d37c324b8abaad84c873996910bede27, type: 2}
-    - {fileID: 11400000, guid: 6ef6ab156630436469c41b2bb31539b1, type: 2}
     - {fileID: 11400000, guid: 53597325d83de1e4096716e1787b84dd, type: 2}
     - {fileID: 11400000, guid: 5cededb05831b4c449c2aff24863d950, type: 2}
     - {fileID: 11400000, guid: 6e3e9e54dbef886479cc3009f7950ca5, type: 2}
+    - {fileID: 11400000, guid: 085af8a8e37b6bb49b776b3da2bcf664, type: 2}
+    - {fileID: 11400000, guid: 6ef6ab156630436469c41b2bb31539b1, type: 2}
+    - {fileID: 11400000, guid: eb6e60ca5c893e443a7cd5bcbd6392c3, type: 2}
     enabledBasicMovesToggle: 1
     basicMovesToggle: 1
     attackMovesToggle: 1
