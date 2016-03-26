@@ -17,6 +17,11 @@ public class NodeControl : MonoBehaviour {
         currPos = this.transform.position;
         resetting = false;
         placed = false;
+        children = new string[3];
+        for(int i = 0; i < 3; i++) 
+        {
+            children[i] = "";
+        }
 	}
 	
 	// Update is called once per frame
@@ -70,12 +75,19 @@ public class NodeControl : MonoBehaviour {
                 if (WithinRange(objectsInScene[i]) && objectsInScene[i].name != this.name)
                 {
                     Debug.Log("Success with parent: " + objectsInScene[i].name);
-                    nodeNum = objectsInScene.Length + 1;
-                    placed = true;
-                    this.tag = "PlacedNode";
-                    parent = objectsInScene[i].name;
-                    //StartCoroutine(DrawLine(this.transform.position, objectsInScene[i].transform.position, Color.red, 0));
-                    return true;
+                    bool temp = objectsInScene[i].GetComponent<NodeControl>().SetChild(this.name);
+                    if (temp)
+                    {
+                        nodeNum = objectsInScene.Length + 1;
+                        placed = true;
+                        this.tag = "PlacedNode";
+                        parent = objectsInScene[i].name;
+                        //StartCoroutine(DrawLine(this.transform.position, objectsInScene[i].transform.position, Color.red, 0));
+                        return true;
+                    } else
+                    {
+                        Debug.Log("Too many children");
+                    }
                 }
                 else
                 {
@@ -133,9 +145,19 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
-    public void SetChild(string childName)
+    public bool SetChild(string childName)
     {
-        children[children.Length + 1] = childName;
+        Debug.Log("Checking children for "+ this.name);
+        for(int i = 0; i < this.children.Length; i++)
+        {
+            if (this.children[i] == null || children[i] == "")
+            {
+                this.children[i] = childName;
+                return true;
+            }
+        }
+        Debug.Log("All spaces filled");
+        return false;
     }
 
     public string[] GetChildren()
