@@ -725,7 +725,7 @@ MonoBehaviour:
     leftBoundary: -37
     rightBoundary: 37
   characters:
-  - {fileID: 11400000, guid: a407acaf52c7d0a4fa4fecd4c77ea522, type: 2}
+  - {fileID: 0}
   debugOptions:
     startGameImmediately: 0
     skipLoadingScreen: 1

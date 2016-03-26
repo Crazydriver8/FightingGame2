@@ -7,9 +7,16 @@ public class NodeControl : MonoBehaviour {
     public string[] children;
     public int nodeNum = 0;
     public Vector3 initPos;
-	// Use this for initialization
-	void Start () {
-        initPos = transform.position;
+    public Vector3 currPos;
+    private bool placed;
+    private bool resetting;
+    private GameObject[] lines = new GameObject[3] { null, null, null };
+    // Use this for initialization
+    void Start () {
+        initPos = this.transform.position;
+        currPos = this.transform.position;
+        resetting = false;
+        placed = false;
 	}
 	
 	// Update is called once per frame
@@ -18,34 +25,147 @@ public class NodeControl : MonoBehaviour {
 	}
     public void OnBeginDrag()
     {
-        initPos = transform.position;
+        currPos = this.transform.position;
     }
     public void OnDrag() {
         
-        transform.position = Input.mousePosition;
+        this.transform.position = Input.mousePosition;
     }
     public void OnEndDrag()
     {
-        Debug.Log(transform.position);
-        GameObject Parent = null;
-        GameObject[] Parents = GameObject.FindGameObjectsWithTag("Base");
-        for(int i = 0; i < Parents.Length; i++)
+        Debug.Log(children.Length);
+        if (placed && children.Length > 0)
         {
-            Debug.Log(Parents[i].transform.position);
-            Parent = Parents[i];
+            this.transform.position = currPos;
         }
-        if (Parent != null)
+        Debug.Log(this.transform.position);
+        //first check for if close to placed node
+        Debug.Log("Checking for placed nodes");
+        if (GetPlacedNode())
         {
-            double xDiff = transform.position.x - Parent.transform.position.x;
-            double yDiff = transform.position.y - Parent.transform.position.y;
-            Debug.Log("X difference: " + xDiff + ", Y difference: " + yDiff);
-            if(yDiff > 0)
+            return;
+        }
+        //if that fails, check for root node
+        Debug.Log("Checking for root node");
+        if (GetRootNode())
+        {
+            return;
+        }
+        if (!resetting) {
+            Debug.Log("reset");
+            this.transform.position = currPos;
+            return;
+        }
+        this.transform.position = initPos;
+        this.tag = "Node";
+
+    }
+    private bool GetPlacedNode()
+    {
+        GameObject[] objectsInScene = GameObject.FindGameObjectsWithTag("PlacedNode");
+        if (objectsInScene != null && objectsInScene.Length > 0)
+        {
+            for (int i = 0; i < objectsInScene.Length; i++)
             {
-                transform.position = initPos;
+                if (WithinRange(objectsInScene[i]) && objectsInScene[i].name != this.name)
+                {
+                    Debug.Log("Success with parent: " + objectsInScene[i].name);
+                    nodeNum = objectsInScene.Length + 1;
+                    placed = true;
+                    this.tag = "PlacedNode";
+                    parent = objectsInScene[i].name;
+                    //StartCoroutine(DrawLine(this.transform.position, objectsInScene[i].transform.position, Color.red, 0));
+                    return true;
+                }
+                else
+                {
+                    //Debug.Log("fail");
+                    //return false;
+                }
             }
+        }
+        return false;
+    }
+
+    private bool GetRootNode()
+    {
+        GameObject[] basesInScene = GameObject.FindGameObjectsWithTag("Base");
+        if (basesInScene != null && basesInScene.Length > 0)
+        {
+            for (int i = 0; i < basesInScene.Length; i++)
+            {
+                if (WithinRange(basesInScene[i]) && basesInScene[i].name != this.name)
+                {
+                    Debug.Log("Success with parent: " + basesInScene[i].name);
+                    nodeNum = 1;
+                    placed = true;
+                    this.tag = "PlacedNode";
+                    parent = basesInScene[i].name;
+                    //StartCoroutine(DrawLine(this.transform.position, basesInScene[i].transform.position, Color.red, 0));
+                    return true;
+                }
+                else
+                {
+                    //Debug.Log("fail");
+                    //return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    private bool WithinRange(GameObject obj)
+    {
+        float dist = Vector3.Distance(this.transform.position, obj.transform.position);
+        Debug.Log(dist);
+        if (dist < 80)
+        {
+            return true;
+        }
+        if (dist > 200)
+        {
+            resetting = true;
+            return false;
         } else
         {
-            Debug.Log("Parent not found");
+            resetting = false;
+        }
+        return false;
+    }
+
+    public void SetChild(string childName)
+    {
+        children[children.Length + 1] = childName;
+    }
+
+    public string[] GetChildren()
+    {
+        return children;
+    }
+
+    IEnumerator DrawLine(Vector3 start, Vector3 end, Color color, int position)
+    {
+        ClearLines();
+        Debug.Log("drawing");
+        lines[position] = new GameObject();
+        lines[position].transform.position = start;
+        lines[position].AddComponent<LineRenderer>();
+        LineRenderer lr = lines[position].GetComponent<LineRenderer>();
+        lr.SetColors(color, color);
+        lr.SetWidth(0.1f, 0.1f);
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+        yield return null;
+    }
+    void ClearLines()
+    {
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (lines[i] != null)
+            {
+                GameObject.Destroy(lines[i]);
+                lines[i] = null;
+            }
         }
     }
 }
