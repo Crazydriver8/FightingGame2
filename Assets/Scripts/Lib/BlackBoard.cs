@@ -223,8 +223,8 @@ public class BlackBoard : MonoBehaviour
     // Output the blackboard as a string
     public IEnumerator BlackBoardLog(string player)
     {
-        // Record once for each player
-        KeyData data = new KeyData(Time.time, "BlackBoard Update", player, BlackBoardToString());
+        // Record data for this player
+        KeyData data = new KeyData(Time.time, "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName]), BlackBoardToString());
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
 
         // Post to server

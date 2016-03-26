@@ -94,6 +94,10 @@ public class BlackBoardController : MonoBehaviour {
 
         // Add information about each player to Blackboard
         bb.Register(Constants.p1Key, new Dictionary<string, string>() {
+            // Who am I?
+            { Constants.playerName, "" },
+
+            // Passives
             { Constants.indexLifePoints, p1.currentLifePoints.ToString() },
             { Constants.indexFavor, Constants.MIN_FAVOR.ToString() },
             { Constants.indexRally, Constants.MIN_RALLY.ToString() },
@@ -118,6 +122,10 @@ public class BlackBoardController : MonoBehaviour {
             { Constants.winner, "false" }
         });
         bb.Register(Constants.p2Key, new Dictionary<string, string>() {
+            // Who am I?
+            { Constants.playerName, "" },
+
+            // Passives
             { Constants.indexLifePoints, p2.currentLifePoints.ToString() },
             { Constants.indexFavor, Constants.MIN_FAVOR.ToString() },
             { Constants.indexRally, Constants.MIN_RALLY.ToString() },
@@ -143,8 +151,22 @@ public class BlackBoardController : MonoBehaviour {
         });
 
         // Save BlackBoard state
-        bb.DumpBlackBoard(Constants.p1Key);
-        bb.DumpBlackBoard(Constants.p2Key);
+        if (Network.peerType == NetworkPeerType.Disconnected)
+        {
+            bb.UpdateProperty(Constants.p1Key, Constants.playerName, GameObject.Find("Name").GetComponent<NameHolder>().username);
+            bb.DumpBlackBoard(Constants.p2Key);
+        }
+        else
+        {
+            if (UFE.GetLocalPlayer() == 1)
+            {
+                bb.UpdateProperty(Constants.p1Key, Constants.playerName, GameObject.Find("Name").GetComponent<NameHolder>().username);
+            }
+            else
+            {
+                bb.UpdateProperty(Constants.p2Key, Constants.playerName, GameObject.Find("Name").GetComponent<NameHolder>().username);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -338,8 +360,10 @@ public class BlackBoardController : MonoBehaviour {
     // Input logger
     IEnumerator InputLog(string input, string player)
     {
+        Dictionary<string, string> playerProperties = bb.GetProperties(player);
+
         // Record for the player who pressed the key
-        KeyData data = new KeyData(Time.time, input, player, null);
+        KeyData data = new KeyData(Time.time, input, (playerProperties[Constants.playerName] == "" ? player : playerProperties[Constants.playerName]), null);
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
 
         // Post to server

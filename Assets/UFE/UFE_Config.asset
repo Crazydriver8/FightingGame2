@@ -66,9 +66,9 @@ MonoBehaviour:
       screenMatchMode: 0
       scaleMode: 1
     introScreen: {fileID: 11400002, guid: 70fb6f5004bbf493190d7b2f011adfdf, type: 2}
-    mainMenuScreen: {fileID: 11440746, guid: 0b3dca916ed1db74fa6ee9dbecec3560, type: 2}
+    mainMenuScreen: {fileID: 11426470, guid: 2be5ba04a0beb204cab2a217300e12ed, type: 2}
     optionsScreen: {fileID: 11493922, guid: e6df59a52dc9dc94bb580312ffbdd6d4, type: 2}
-    skillTreeScreen: {fileID: 11445998, guid: dd24f4f00503cd34a8a0beb3bea45110, type: 2}
+    skillTreeScreen: {fileID: 11461632, guid: 758166774579ac74088256cfc39fbaa6, type: 2}
     creditsScreen: {fileID: 11454612, guid: d4020ba1cb1b41441bc097c4f5c95887, type: 2}
     pauseScreen: {fileID: 11484438, guid: ded3355d2dfa34d4c88c320136efb3d5, type: 2}
     characterSelectionScreen: {fileID: 11402440, guid: 75da003a04828e84a8d2bb9ad7bdd678,
@@ -471,7 +471,7 @@ MonoBehaviour:
   player1_Inputs:
   - inputType: 0
     inputButtonName: P1KeyboardHorizontal
-    engineRelatedButton: 1
+    engineRelatedButton: 0
     joystickAxisName: P1JoystickHorizontal
     cInputPositiveKeyName: P1Right
     cInputPositiveDefaultKey: D
@@ -725,7 +725,7 @@ MonoBehaviour:
     leftBoundary: -37
     rightBoundary: 37
   characters:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a407acaf52c7d0a4fa4fecd4c77ea522, type: 2}
   debugOptions:
     startGameImmediately: 0
     skipLoadingScreen: 1

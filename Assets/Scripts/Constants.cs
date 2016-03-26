@@ -14,7 +14,7 @@ public static class Constants {
     public const string STRONG = "Strong";
     public const string EVADE = "Evade";
     public const string GRAB = "Grab";
-
+    
 
     /* Skill trees */
     // The possible branches where child nodes can go
@@ -29,6 +29,9 @@ public static class Constants {
 
     /* Ambient effects */
 
+    // Name
+    public static string playerName = "Player Name";
+    
     // BlackBoard indices
     public static string indexLifePoints = "Current Life Points",
                          indexFavor = "Favor",
