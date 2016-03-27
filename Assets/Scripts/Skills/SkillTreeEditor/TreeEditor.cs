@@ -35,7 +35,6 @@ public class TreeEditor : MonoBehaviour {
     {
         // Find the "root"
         baseNode = GameObject.FindGameObjectWithTag(baseTag).GetComponent<NodeControl>();
-
         // Get all nodes by tag
         foreach(GameObject node in GameObject.FindGameObjectsWithTag(nodeTag))
         {
@@ -53,6 +52,18 @@ public class TreeEditor : MonoBehaviour {
     // Calculate the depth
     public int GetDepthOf(NodeControl node)
     {
+        Debug.Log("Finding depth of " + node.name);
         return Mathf.RoundToInt((node.gameObject.transform.position.y - baseNode.transform.position.y) / depthSpacing);
+    }
+
+    public bool addLeafToDepth(int leafDepth, List<NodeControl> nodeList)
+    {
+        leaves.Add(leafDepth, nodeList);
+        return true;
+    }
+    public bool addLeaf(int leafDepth, NodeControl node)
+    {
+
+        return false;
     }
 }

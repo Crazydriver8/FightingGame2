@@ -140,22 +140,68 @@ public class NodeControl : MonoBehaviour {
         List<NodeControl> leavesOnDepth = null;
 
         NodeControl heldNode = null;
-        float minDist = float.MaxValue;
-
+        //float minDist = float.MaxValue;
+        float minDist = 100f;
+        Debug.Log("Trying " +(TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth)));
         // if there are leaves on the depth
         if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth))
         {
+            Debug.Log("found");
+            int i = 0;
             foreach (NodeControl NodeC in leavesOnDepth)
             {
+                Debug.Log("Node " + i + " found");
                 float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
                 if (dist < minDist)
                 {
                     minDist = dist;
                     heldNode = NodeC;
                 }
+                i++;
+            }
+        } else
+        {
+            //if there are no leaves on the depth, check the nearest node's tag
+            Debug.Log("Checking for base node");
+            NodeControl baseNode = GameObject.FindGameObjectWithTag(TreeEditor.S.baseTag).GetComponent<NodeControl>();
+
+            if (baseNode != null)
+            {
+
+                float dist = Vector3.Distance(baseNode.transform.position, this.transform.position);
+                Debug.Log("found base node " + dist + " away");
+                if (dist < minDist)
+                {
+                    Debug.Log("close to base node");
+                    minDist = dist;
+                    heldNode = baseNode;
+                }
             }
         }
+        if (heldNode != null)
+        {
+            //add to node depth
+            if(TreeEditor.S.leaves[2] != null)
+            {
+                Debug.Log("too many children");
+                return null;
+            }
 
+            //if there is nothing on the depth, add a new list there
+            if (TreeEditor.S.leaves.Count == 0)
+            {
+                new List<NodeControl>();
+            }
+            for(int i = 0; i < TreeEditor.S.leaves.Count; i++)
+            {
+                if (TreeEditor.S.leaves[i] == null)
+                {
+                    Debug.Log("Can add to leaves");
+                    TreeEditor.S.leaves[i].Add(heldNode);
+                    break;
+                }
+            }
+        }
         return heldNode;
     }
 
