@@ -157,6 +157,7 @@ public class NodeControl : MonoBehaviour {
                 Debug.Log("Node " + i + " found");
                 float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
                 Debug.Log("Node dist: " + dist);
+                
                 //if it is within range, update
                 if (dist < minDist)
                 {
