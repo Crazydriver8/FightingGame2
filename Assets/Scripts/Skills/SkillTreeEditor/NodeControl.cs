@@ -89,13 +89,13 @@ public class NodeControl : MonoBehaviour {
         {
 
             currPos = this.transform.position;
-            setChild(upNode);
+            setMeAsChild(upNode);
             return;
         }
         else if (lrNode != null)
         {
             currPos = this.transform.position;
-            setChild(lrNode);
+            setMeAsChild(lrNode);
             return;
         }
         else
@@ -200,15 +200,31 @@ public class NodeControl : MonoBehaviour {
 
     public bool setChild(NodeControl node)
     {
+        for(int i = 0; i < children.Length; i++)
+        {
+            if (children[i] == null || children[i] == "")
+            {
+                children[i] = node.name;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool setMeAsChild(NodeControl node)
+    {
         //check if no tree made
         Debug.Log("Setting node");
         if (baseChild)
         {
             Debug.Log("Creating new depth");
             List<NodeControl> temp = new List<NodeControl>(3);
-            temp.Add(node);
+            temp.Add(this);
             TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
 
+            parent = node.name;
+            node.setChild(this);
+            return true;
         }
         else
         {
@@ -221,7 +237,8 @@ public class NodeControl : MonoBehaviour {
                 //check if too many children, if not add node
                 Debug.Log("Leaves exists with length " + TreeEditor.S.leaves.Count);
                 if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Count < 4) { 
-                    TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Add(node);
+                    TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Add(this);
+                    node.setChild(this);
                     return true;
                 }
             }
