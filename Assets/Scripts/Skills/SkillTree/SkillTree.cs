@@ -190,6 +190,22 @@ public struct SkillTreeStructure
 
     public int parent;
 
+    /* Constructor */
+    public SkillTreeStructure(string name, SkillTreeStructure up, SkillTreeStructure down, SkillTreeStructure left, SkillTreeStructure right, int parent = (int)Constants.Branch.UP)
+    {
+        this.name = name;
+
+        // Branches
+        this.connections = new SkillTreeStructure[4];
+        connections[(int)Constants.Branch.UP] = up;
+        connections[(int)Constants.Branch.DOWN] = down;
+        connections[(int)Constants.Branch.LEFT] = left;
+        connections[(int)Constants.Branch.RIGHT] = right;
+
+        // Where a reference to the parent is stored
+        this.parent = parent;
+    }
+
     public List<SkillTreeStructure> GetChildren()
     {
         List<SkillTreeStructure> children = new List<SkillTreeStructure>();
@@ -197,11 +213,12 @@ public struct SkillTreeStructure
         // Resolution order for BFS is left, right, down
         if (connections != null)
         {
-            if (!connections[(int)Constants.Branch.LEFT].IsNull())
+            // For LEFT, RIGHT, DOWN... add child to list if it exists and is not marked as the parent
+            if (!connections[(int)Constants.Branch.LEFT].IsNull() && parent != (int)Constants.Branch.LEFT)
                 children.Add(connections[(int)Constants.Branch.LEFT]);
-            if (!connections[(int)Constants.Branch.RIGHT].IsNull())
+            if (!connections[(int)Constants.Branch.RIGHT].IsNull() && parent != (int)Constants.Branch.RIGHT)
                 children.Add(connections[(int)Constants.Branch.RIGHT]);
-            if (!connections[(int)Constants.Branch.DOWN].IsNull())
+            if (!connections[(int)Constants.Branch.DOWN].IsNull() && parent != (int)Constants.Branch.DOWN)
                 children.Add(connections[(int)Constants.Branch.DOWN]);
         }
 
