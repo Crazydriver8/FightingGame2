@@ -55,9 +55,9 @@ public class TreeEditor : MonoBehaviour {
         //Debug.Log("Finding depth of " + node.name);
         
         float diff = Mathf.RoundToInt((node.gameObject.transform.position.y - baseNode.transform.position.y));
-        diff = Mathf.Abs(diff);
+        //diff = Mathf.Abs(diff);
         //Debug.Log("Distance to base: " + diff + ", DepthSpacing: " + depthSpacing);
-
+        
         diff = diff / depthSpacing;
         //Debug.Log("Depth: " + Mathf.RoundToInt(diff));
 

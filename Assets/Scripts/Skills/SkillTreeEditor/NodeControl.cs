@@ -15,6 +15,8 @@ public class NodeControl : MonoBehaviour {
     public Vector3 initPos;
     public Vector3 currPos;
 
+    public int currDepth = 1;
+
     private bool baseChild;
 
 	// Use this for initialization
@@ -87,13 +89,14 @@ public class NodeControl : MonoBehaviour {
 
         if (upNode != null)
         {
-
+            Debug.Log("upnode set");
             currPos = this.transform.position;
             setMeAsChild(upNode);
             return;
         }
         else if (lrNode != null)
         {
+            Debug.Log("lrNode set");
             currPos = this.transform.position;
             setMeAsChild(lrNode);
             return;
@@ -103,11 +106,11 @@ public class NodeControl : MonoBehaviour {
             if (CheckChildren())
             {
                 this.transform.position = currPos;
-
             }
             else
             {
                 this.transform.position = initPos;
+                currDepth = 1;
             }
             return;
         }
@@ -149,6 +152,10 @@ public class NodeControl : MonoBehaviour {
         float maxDist = 100f;
         Debug.Log("Trying " +(TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth)));
         //Debug.Log("Depth is " + TreeEditor.S.GetDepthOf(this));
+        if (checkDepth())
+        {
+            return null;
+        }
         // if there are leaves on the depth
         if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth))
         {
@@ -157,17 +164,27 @@ public class NodeControl : MonoBehaviour {
             int i = 0;
             foreach (NodeControl NodeC in leavesOnDepth)
             {
-                Debug.Log("Node " + i + " found");
-                float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
-                Debug.Log("Node dist: " + dist);
-                
-                //if it is within range, update
-                if (dist < minDist)
+                if (NodeC != this)
                 {
-                    minDist = dist;
-                    heldNode = NodeC;
+                    Debug.Log("Node " + i + " found");
+                    float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
+                    Debug.Log("Node dist: " + dist);
+
+                    //if it is within range, update
+                    if (dist < minDist)
+                    {
+                        minDist = dist;
+                        heldNode = NodeC;
+                    }
+
+                    i++;
                 }
-                i++;
+            }
+            Debug.Log("Min distance is " + minDist);
+            if (minDist > maxDist)
+            {
+                Debug.Log("too far");
+                return null;
             }
         } else
         {
@@ -187,6 +204,7 @@ public class NodeControl : MonoBehaviour {
                 }
             }
         }
+
         return heldNode;
     }
 
@@ -221,7 +239,7 @@ public class NodeControl : MonoBehaviour {
             List<NodeControl> temp = new List<NodeControl>(3);
             temp.Add(this);
             TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
-
+            currDepth = TreeEditor.S.GetDepthOf(this);
             parent = node.name;
             node.setChild(this);
             return true;
@@ -236,13 +254,23 @@ public class NodeControl : MonoBehaviour {
             {
                 //check if too many children, if not add node
                 Debug.Log("Leaves exists with length " + TreeEditor.S.leaves.Count);
-                if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Count < 4) { 
+                if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Count < 4 && !(TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Contains(this))) { 
                     TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Add(this);
                     node.setChild(this);
+                    currDepth = TreeEditor.S.GetDepthOf(this);
+                    parent = node.name;
                     return true;
                 }
             }
         } 
+        return false;
+    }
+
+    public bool checkDepth()
+    {
+        if (TreeEditor.S.GetDepthOf(this) >= 0) {
+            return true;
+        }
         return false;
     }
 }
