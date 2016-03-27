@@ -56,11 +56,10 @@ public class TreeEditor : MonoBehaviour {
         
         float diff = Mathf.RoundToInt((node.gameObject.transform.position.y - baseNode.transform.position.y));
         diff = Mathf.Abs(diff);
-        Debug.Log("Distance to base: " + diff + ", DepthSpacing: " + depthSpacing);
+        //Debug.Log("Distance to base: " + diff + ", DepthSpacing: " + depthSpacing);
 
         diff = diff / depthSpacing;
-        Debug.Log(4/2);
-        Debug.Log("Depth: " + Mathf.RoundToInt(diff));
+        //Debug.Log("Depth: " + Mathf.RoundToInt(diff));
 
         return Mathf.RoundToInt(diff);
     }
