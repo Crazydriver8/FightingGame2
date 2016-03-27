@@ -153,6 +153,7 @@ public class NodeControl : MonoBehaviour {
         if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth))
         {
             Debug.Log("found leaves on depth");
+            baseChild = false;
             int i = 0;
             foreach (NodeControl NodeC in leavesOnDepth)
             {
@@ -180,6 +181,9 @@ public class NodeControl : MonoBehaviour {
                 {
                     heldNode = baseNode;
                     baseChild = true;
+                } else
+                {
+                    baseChild = false;
                 }
             }
         }
@@ -204,20 +208,29 @@ public class NodeControl : MonoBehaviour {
             List<NodeControl> temp = new List<NodeControl>(3);
             temp.Add(node);
             TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
-            
+
         }
         else
         {
-            //check if too many children, if not add node
-            for (int i = 0; i < 3; i++)
+            if (TreeEditor.S.leaves == null)
             {
-                if (TreeEditor.S.leaves[i] == null)
+                Debug.Log("Cannot find in dictionary");
+            }
+            else
+            {
+                //check if too many children, if not add node
+                Debug.Log("Leaves exists with length " + TreeEditor.S.leaves.Count);
+                for (int i = 0; i < TreeEditor.S.leaves.Count; i++)
                 {
-                    TreeEditor.S.leaves[i].Add(node);
-                    return true;
+                    Debug.Log("iter " + i);
+                    if (TreeEditor.S.leaves[i] == null)
+                    {
+                        TreeEditor.S.leaves[i].Add(node);
+                        return true;
+                    }
                 }
             }
-        }
+        } 
         return false;
     }
 }
