@@ -171,7 +171,7 @@ public class NodeControl : MonoBehaviour {
             //no leaves on depth, check for base
             NodeControl baseNode = GameObject.FindGameObjectWithTag(TreeEditor.S.baseTag).GetComponent<NodeControl>();
             float dist = Vector3.Distance(baseNode.transform.position, this.transform.position);
-            Debug.Log("Base node dist: " + dist);
+            //Debug.Log("Base node dist: " + dist);
             if (dist < minDist)
             {
                 heldNode = baseNode;

@@ -1182,7 +1182,7 @@ MonoBehaviour:
   baseTag: Base
   nodeTag: Node
   skillBankLine: -5
-  depthSpacing: 5
+  depthSpacing: 80
   baseNode: {fileID: 11418398}
 --- !u!114 &11464138
 MonoBehaviour:

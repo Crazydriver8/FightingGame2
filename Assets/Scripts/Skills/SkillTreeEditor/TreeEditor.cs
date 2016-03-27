@@ -16,7 +16,7 @@ public class TreeEditor : MonoBehaviour {
     public int skillBankLine = -5;
 
     // This is how far apart the depths are
-    public float depthSpacing = 20.0f;
+    public float depthSpacing = 80.0f;
 
     // The "root" node; a node that can't be moved or otherwise edited
     public NodeControl baseNode;
@@ -53,7 +53,16 @@ public class TreeEditor : MonoBehaviour {
     public int GetDepthOf(NodeControl node)
     {
         //Debug.Log("Finding depth of " + node.name);
-        return Mathf.RoundToInt((node.gameObject.transform.position.y - baseNode.transform.position.y) / depthSpacing);
+        
+        float diff = Mathf.RoundToInt((node.gameObject.transform.position.y - baseNode.transform.position.y));
+        diff = Mathf.Abs(diff);
+        Debug.Log("Distance to base: " + diff + ", DepthSpacing: " + depthSpacing);
+
+        diff = diff / depthSpacing;
+        Debug.Log(4/2);
+        Debug.Log("Depth: " + Mathf.RoundToInt(diff));
+
+        return Mathf.RoundToInt(diff);
     }
 
     public bool addLeafToDepth(int leafDepth, List<NodeControl> nodeList)
