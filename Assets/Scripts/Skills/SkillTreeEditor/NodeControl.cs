@@ -220,14 +220,9 @@ public class NodeControl : MonoBehaviour {
             {
                 //check if too many children, if not add node
                 Debug.Log("Leaves exists with length " + TreeEditor.S.leaves.Count);
-                for (int i = 0; i < TreeEditor.S.leaves.Count; i++)
-                {
-                    Debug.Log("iter " + i);
-                    if (TreeEditor.S.leaves[i] == null)
-                    {
-                        TreeEditor.S.leaves[i].Add(node);
-                        return true;
-                    }
+                if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Count < 4) { 
+                    TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Add(node);
+                    return true;
                 }
             }
         } 
