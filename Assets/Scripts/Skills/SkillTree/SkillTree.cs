@@ -73,22 +73,9 @@ public class SkillTree : MonoBehaviour {
             // Build the tree by converting the JSON to the summary struct
 
             // Default tree for demonstration purposes only
-            p1Root = new SkillTreeStructure();
-            p1Root.name = "Ghost";
-            p1Root.parent = (int)Constants.Branch.UP;
-            p1Root.connections = new SkillTreeStructure[4];
-            p1Root.connections[(int)Constants.Branch.UP] = new SkillTreeStructure(); // Parent is null
-            p1Root.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
-            p1Root.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure();
-            p1Root.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure();
-                p1Root.connections[(int)Constants.Branch.DOWN].name = "Surprise";
-                p1Root.connections[(int)Constants.Branch.DOWN].parent = (int)Constants.Branch.UP;
-                p1Root.connections[(int)Constants.Branch.DOWN].connections = new SkillTreeStructure[4];
-                p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = p1Root; // Parent is null
-                p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
-                    p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].name = "Applause";
-                    p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].parent = (int)Constants.Branch.RIGHT;
-                    p1Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].connections = null;
+            p1Root = new SkillTreeStructure("Ghost", RootSkill(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure());
+            p1Root.Attach(new SkillTreeStructure("Surprise"), (int)Constants.Branch.DOWN);
+            p1Root.connections[(int)Constants.Branch.DOWN].Attach(new SkillTreeStructure("Applause"), (int)Constants.Branch.LEFT);
         }
         else
         {
@@ -106,22 +93,9 @@ public class SkillTree : MonoBehaviour {
             // Build the tree by converting the JSON to the summary struct
 
             // Default tree for demonstration purposes only
-            p2Root = new SkillTreeStructure();
-            p2Root.name = "Ghost";
-            p2Root.parent = (int)Constants.Branch.UP;
-            p2Root.connections = new SkillTreeStructure[4];
-            p2Root.connections[(int)Constants.Branch.UP] = new SkillTreeStructure(); // Parent is null
-            p2Root.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
-            p2Root.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure();
-            p2Root.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure();
-                p2Root.connections[(int)Constants.Branch.DOWN].name = "Surprise";
-                p2Root.connections[(int)Constants.Branch.DOWN].parent = (int)Constants.Branch.UP;
-                p2Root.connections[(int)Constants.Branch.DOWN].connections = new SkillTreeStructure[4];
-                p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = p1Root; // Parent is null
-                p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure();
-                    p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].name = "Applause";
-                    p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].parent = (int)Constants.Branch.RIGHT;
-                    p2Root.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.LEFT].connections = null;
+            p2Root = new SkillTreeStructure("Ghost", RootSkill(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure());
+            p2Root.Attach(new SkillTreeStructure("Surprise"), (int)Constants.Branch.DOWN);
+            p2Root.connections[(int)Constants.Branch.DOWN].Attach(new SkillTreeStructure("Applause"), (int)Constants.Branch.LEFT);
         }
     }
 
@@ -179,6 +153,12 @@ public class SkillTree : MonoBehaviour {
     public bool RefersToThis(string ufeName) {
         return move == ufeName || Array.IndexOf(moveUFE, ufeName) > -1;
     }
+
+    // Faux skill tree node; if a skill tree has this as its parent, it is the "root"
+    public SkillTreeStructure RootSkill()
+    {
+        return new SkillTreeStructure("Root");
+    }
 }
 
 
@@ -191,6 +171,7 @@ public struct SkillTreeStructure
     public int parent;
 
     /* Constructor */
+    // General
     public SkillTreeStructure(string name, SkillTreeStructure up, SkillTreeStructure down, SkillTreeStructure left, SkillTreeStructure right, int parent = (int)Constants.Branch.UP)
     {
         this.name = name;
@@ -206,6 +187,77 @@ public struct SkillTreeStructure
         this.parent = parent;
     }
 
+    // Skill
+    public SkillTreeStructure(string name, int parent = (int)Constants.Branch.UP)
+    {
+        this.name = name;
+
+        // Branches
+        this.connections = new SkillTreeStructure[4] { new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure() };
+
+        // Where a reference to the parent is stored
+        this.parent = parent;
+    }
+
+
+    /* Builds a skill tree
+     */
+    public bool SetParent(SkillTreeStructure parent, int position)
+    {
+        if (connections != null)
+        {
+            // Change the parent if there isn't one set
+            if (connections[position].IsNull())
+            {
+                connections[position] = parent;
+                this.parent = position;
+                return true;
+            }
+            else
+                return false;
+        }
+
+        return false;
+    }
+
+    public bool Attach(SkillTreeStructure child, int position)
+    {
+        if (connections != null)
+        {
+            // Insert only if there's nothing in that position
+            if (connections[position].IsNull() && this.parent != position)
+            {
+                switch (position)
+                {
+                    case (int)Constants.Branch.DOWN:
+                        connections[position] = child;
+                        connections[position].SetParent(this, (int)Constants.Branch.UP);
+                        return true;
+
+                    case (int)Constants.Branch.LEFT:
+                        connections[position] = child;
+                        connections[position].SetParent(this, (int)Constants.Branch.RIGHT);
+                        return true;
+
+                    case (int)Constants.Branch.RIGHT:
+                        connections[position] = child;
+                        connections[position].SetParent(this, (int)Constants.Branch.LEFT);
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+            else
+                return false;
+        }
+
+        return false;
+    }
+
+
+    /* Gets information about skill tree
+     */
     public List<SkillTreeStructure> GetChildren()
     {
         List<SkillTreeStructure> children = new List<SkillTreeStructure>();
@@ -228,6 +280,32 @@ public struct SkillTreeStructure
     public bool IsNull()
     {
         return name == "" || name == null;
+    }
+
+    public bool IsRoot()
+    {
+        return parent == (int)Constants.Branch.UP && connections != null && connections[parent].name == "Root";
+    }
+
+    public override string ToString()
+    {
+        string str = "{";
+
+        // Name
+        str += "\n\"name\" : \"" + this.name +"\",";
+
+        // Children (in resolution order)
+        if (this.connections != null)
+        {
+            if (!this.connections[(int)Constants.Branch.LEFT].IsNull() && this.parent != (int)Constants.Branch.LEFT)
+                str += "\n\"left\" : \"" + connections[(int)Constants.Branch.LEFT].ToString() + ",\n";
+            if (!this.connections[(int)Constants.Branch.RIGHT].IsNull() && this.parent != (int)Constants.Branch.RIGHT)
+                str += "\n\"right\" : \"" + connections[(int)Constants.Branch.RIGHT].ToString() + ",\n";
+            if (!this.connections[(int)Constants.Branch.DOWN].IsNull() && this.parent != (int)Constants.Branch.DOWN)
+                str += "\n\"down\" : \"" + connections[(int)Constants.Branch.DOWN].ToString() + ",\n";
+        }
+
+        return str + "}";
     }
 }
 
