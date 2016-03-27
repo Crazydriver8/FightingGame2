@@ -16,7 +16,7 @@ public class TreeEditor : MonoBehaviour {
     public int skillBankLine = -5;
 
     // This is how far apart the depths are
-    public float depthSpacing = 5.0f;
+    public float depthSpacing = 20.0f;
 
     // The "root" node; a node that can't be moved or otherwise edited
     public NodeControl baseNode;
@@ -52,7 +52,7 @@ public class TreeEditor : MonoBehaviour {
     // Calculate the depth
     public int GetDepthOf(NodeControl node)
     {
-        Debug.Log("Finding depth of " + node.name);
+        //Debug.Log("Finding depth of " + node.name);
         return Mathf.RoundToInt((node.gameObject.transform.position.y - baseNode.transform.position.y) / depthSpacing);
     }
 

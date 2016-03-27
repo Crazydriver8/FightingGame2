@@ -15,7 +15,8 @@ public class NodeControl : MonoBehaviour {
     public Vector3 initPos;
     public Vector3 currPos;
 
-    
+    private bool baseChild;
+
 	// Use this for initialization
 	void Start () {
         initPos = transform.position;
@@ -86,7 +87,9 @@ public class NodeControl : MonoBehaviour {
 
         if (upNode != null)
         {
+
             currPos = this.transform.position;
+            setChild(upNode);
             return;
         }
         else if (lrNode != null)
@@ -141,17 +144,20 @@ public class NodeControl : MonoBehaviour {
 
         NodeControl heldNode = null;
         //float minDist = float.MaxValue;
-        float minDist = 100f;
+        float minDist = 80f;
         Debug.Log("Trying " +(TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth)));
+        Debug.Log("Depth is " + TreeEditor.S.GetDepthOf(this));
         // if there are leaves on the depth
         if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth))
         {
-            Debug.Log("found");
+            Debug.Log("found leaves on depth");
             int i = 0;
             foreach (NodeControl NodeC in leavesOnDepth)
             {
                 Debug.Log("Node " + i + " found");
                 float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
+                Debug.Log("Node dist: " + dist);
+                //if it is within range, update
                 if (dist < minDist)
                 {
                     minDist = dist;
@@ -161,48 +167,14 @@ public class NodeControl : MonoBehaviour {
             }
         } else
         {
-            //if there are no leaves on the depth, check the nearest node's tag
-            Debug.Log("Checking for base node");
+            //no leaves on depth, check for base
             NodeControl baseNode = GameObject.FindGameObjectWithTag(TreeEditor.S.baseTag).GetComponent<NodeControl>();
-
-            if (baseNode != null)
+            float dist = Vector3.Distance(baseNode.transform.position, this.transform.position);
+            Debug.Log("Base node dist: " + dist);
+            if (dist < minDist)
             {
-
-                float dist = Vector3.Distance(baseNode.transform.position, this.transform.position);
-                Debug.Log("found base node " + dist + " away");
-                if (dist < minDist)
-                {
-                    Debug.Log("close to base node");
-                    minDist = dist;
-                    heldNode = baseNode;
-                }
-            }
-        }
-        if (heldNode != null)
-        {
-            //if there is nothing on the depth, add a new list there
-            if (TreeEditor.S.leaves.Count == 0)
-            {
-                TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), new List<NodeControl>());
-            }
-
-            //check leaves of depth, then add node to depth if free space
-            bool found = false;
-            for(int i = 0; i < 3; i++)
-            {
-                if (TreeEditor.S.leaves[i] == null)
-                {
-                    Debug.Log("Can add to leaves");
-                    TreeEditor.S.leaves[i].Add(heldNode);
-                    found = true;
-                    break;
-                }
-            }
-
-            //if could not add to leaves, return null
-            if (!found)
-            {
-                return null;
+                heldNode = baseNode;
+                baseChild = true;
             }
         }
         return heldNode;
@@ -212,6 +184,24 @@ public class NodeControl : MonoBehaviour {
     {
         if (thisObj.x < thatObj.x) {
             return true;
+        }
+        return false;
+    }
+
+    public bool setChild(NodeControl node)
+    {
+        //check if no tree made
+        if (baseChild)
+        {
+            TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), new List<NodeControl>());
+        }
+        //check if too many children, if not add node
+        for (int i = 0; i < 3; i++) {
+            if (TreeEditor.S.leaves[i] == null)
+            {
+                TreeEditor.S.leaves[i].Add(node);
+                return true;
+            }
         }
         return false;
     }
