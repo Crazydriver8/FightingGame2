@@ -180,26 +180,29 @@ public class NodeControl : MonoBehaviour {
         }
         if (heldNode != null)
         {
-            //add to node depth
-            if(TreeEditor.S.leaves[2] != null)
-            {
-                Debug.Log("too many children");
-                return null;
-            }
-
             //if there is nothing on the depth, add a new list there
             if (TreeEditor.S.leaves.Count == 0)
             {
-                new List<NodeControl>();
+                TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), new List<NodeControl>());
             }
-            for(int i = 0; i < TreeEditor.S.leaves.Count; i++)
+
+            //check leaves of depth, then add node to depth if free space
+            bool found = false;
+            for(int i = 0; i < 3; i++)
             {
                 if (TreeEditor.S.leaves[i] == null)
                 {
                     Debug.Log("Can add to leaves");
                     TreeEditor.S.leaves[i].Add(heldNode);
+                    found = true;
                     break;
                 }
+            }
+
+            //if could not add to leaves, return null
+            if (!found)
+            {
+                return null;
             }
         }
         return heldNode;
