@@ -17,7 +17,11 @@ public class NodeControl : MonoBehaviour {
 
     public int currDepth = 1;
 
+    public GameObject linePrefab = null;
+
     private bool baseChild;
+
+    private NodeControl parentRef = null;
 
 	// Use this for initialization
 	void Start () {
@@ -92,6 +96,8 @@ public class NodeControl : MonoBehaviour {
             Debug.Log("upnode set");
             currPos = this.transform.position;
             setMeAsChild(upNode);
+            drawLine(upNode, this);
+            Debug.Log("node set in position");
             return;
         }
         else if (lrNode != null)
@@ -99,6 +105,8 @@ public class NodeControl : MonoBehaviour {
             Debug.Log("lrNode set");
             currPos = this.transform.position;
             setMeAsChild(lrNode);
+            drawLine(lrNode, this);
+            Debug.Log("node set in position");
             return;
         }
         else
@@ -110,7 +118,8 @@ public class NodeControl : MonoBehaviour {
             else
             {
                 this.transform.position = initPos;
-                currDepth = 1;
+                this.resetNodeAttributes();
+
             }
             return;
         }
@@ -142,6 +151,7 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
+    //check nearest nodes and return minimum distance
     public NodeControl GetNearestNode(bool up = true)
     {
         List<NodeControl> leavesOnDepth = null;
@@ -157,7 +167,7 @@ public class NodeControl : MonoBehaviour {
             return null;
         }
         // if there are leaves on the depth
-        if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth))
+        if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) + (up ? 1 : 0), out leavesOnDepth))
         {
             Debug.Log("found leaves on depth");
             baseChild = false;
@@ -189,11 +199,12 @@ public class NodeControl : MonoBehaviour {
         } else
         {
             //no leaves on depth, check for base
+            Debug.Log("no leaves, check for base");
             NodeControl baseNode = GameObject.FindGameObjectWithTag(TreeEditor.S.baseTag).GetComponent<NodeControl>();
             if (baseNode != null)
             {
                 float dist = Vector3.Distance(baseNode.transform.position, this.transform.position);
-                //Debug.Log("Base node dist: " + dist);
+                Debug.Log("Base node dist: " + dist);
                 if (dist < minDist)
                 {
                     heldNode = baseNode;
@@ -223,6 +234,7 @@ public class NodeControl : MonoBehaviour {
             if (children[i] == null || children[i] == "")
             {
                 children[i] = node.name;
+                
                 return true;
             }
         }
@@ -236,11 +248,19 @@ public class NodeControl : MonoBehaviour {
         if (baseChild)
         {
             Debug.Log("Creating new depth");
+            if (CheckChildren(currDepth + 1))
+            {
+                Debug.Log("Elements above");
+            } else
+            {
+                Debug.Log("no elements above");
+            }
             List<NodeControl> temp = new List<NodeControl>(3);
             temp.Add(this);
             TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
             currDepth = TreeEditor.S.GetDepthOf(this);
             parent = node.name;
+            parentRef = node;
             node.setChild(this);
             return true;
         }
@@ -259,6 +279,7 @@ public class NodeControl : MonoBehaviour {
                     node.setChild(this);
                     currDepth = TreeEditor.S.GetDepthOf(this);
                     parent = node.name;
+                    parentRef = node;
                     return true;
                 }
             }
@@ -266,11 +287,61 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
+    //unsets removeNode from children array
+    public bool unsetChild(NodeControl removeNode)
+    {
+        for (int i = 0; i < children.Length; i++)
+        {
+            if (children[i] == removeNode.name)
+            {
+                children[i] = "";
+                Debug.Log("Removing reference to " + removeNode.name);
+                return true; 
+            }
+        }
+        return false;
+    }
+
+    //checks if depth is valid
     public bool checkDepth()
     {
         if (TreeEditor.S.GetDepthOf(this) >= 0) {
             return true;
         }
         return false;
+    }
+
+    //resets attributes and removes references in tree
+    public void resetNodeAttributes()
+    {
+        //reset depth to initial (1)
+        this.currDepth = 1;
+        if (TreeEditor.S.leaves.ContainsKey(TreeEditor.S.GetDepthOf(parentRef)))
+        {
+            if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(parentRef)].Contains(this))
+            {
+                parentRef.unsetChild(this);
+            }
+        }
+        this.parent = "";
+    }
+
+    //draws line from parent to child
+    public void drawLine(NodeControl parent, NodeControl child)
+    {
+        float lineWidth = 5f;
+        Canvas canvasRef = Canvas.FindObjectOfType<Canvas>();
+        GameObject instLine = Instantiate(linePrefab);
+        instLine.transform.SetParent(canvasRef.transform, false);
+        RectTransform test = instLine.GetComponent<RectTransform>();
+        if (test != null)
+        {
+            Vector3 differenceVector = child.transform.position - parent.transform.position;
+            test.sizeDelta = new Vector2(differenceVector.magnitude * 2, lineWidth);
+            test.pivot = new Vector2(0, 0.5f);
+            test.position = parent.transform.position;
+            float angle = Mathf.Atan2(differenceVector.y, differenceVector.x) * Mathf.Rad2Deg;
+            test.rotation = Quaternion.Euler(0, 0, angle);
+        }
     }
 }
