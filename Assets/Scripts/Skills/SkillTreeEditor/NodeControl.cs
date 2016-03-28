@@ -19,6 +19,8 @@ public class NodeControl : MonoBehaviour {
 
     public GameObject linePrefab = null;
 
+    private GameObject instLine = null;
+
     private bool baseChild;
 
     private NodeControl parentRef = null;
@@ -118,6 +120,8 @@ public class NodeControl : MonoBehaviour {
             else
             {
                 this.transform.position = initPos;
+                deleteLine();
+                parentRef.unsetChild(this);
                 this.resetNodeAttributes();
 
             }
@@ -331,7 +335,10 @@ public class NodeControl : MonoBehaviour {
     {
         float lineWidth = 5f;
         Canvas canvasRef = Canvas.FindObjectOfType<Canvas>();
-        GameObject instLine = Instantiate(linePrefab);
+
+        deleteLine();
+
+        instLine = Instantiate(linePrefab);
         instLine.transform.SetParent(canvasRef.transform, false);
         RectTransform test = instLine.GetComponent<RectTransform>();
         if (test != null)
@@ -342,6 +349,14 @@ public class NodeControl : MonoBehaviour {
             test.position = parent.transform.position;
             float angle = Mathf.Atan2(differenceVector.y, differenceVector.x) * Mathf.Rad2Deg;
             test.rotation = Quaternion.Euler(0, 0, angle);
+        }
+    }
+
+    private void deleteLine()
+    {
+        if (instLine != null)
+        {
+            Destroy(instLine, 0f);
         }
     }
 }
