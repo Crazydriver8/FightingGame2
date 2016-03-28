@@ -577,10 +577,10 @@ MonoBehaviour:
   Offset: 0
   StartColor:
     serializedVersion: 2
-    rgba: 4294954685
+    rgba: 4294967295
   EndColor:
     serializedVersion: 2
-    rgba: 4283967273
+    rgba: 4282532161
 --- !u!114 &11414226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -596,10 +596,10 @@ MonoBehaviour:
   Offset: 0
   StartColor:
     serializedVersion: 2
-    rgba: 4294954685
+    rgba: 4294967295
   EndColor:
     serializedVersion: 2
-    rgba: 4283967273
+    rgba: 4285953654
 --- !u!114 &11418066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,7 +653,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 2e1a6f6ab44ad3a4cb7c9b3d29cab563, type: 3}
+    m_Font: {fileID: 12800000, guid: af1ede424ae79e1418e62eba1cde3554, type: 3}
     m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
@@ -1226,7 +1226,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 2e1a6f6ab44ad3a4cb7c9b3d29cab563, type: 3}
+    m_Font: {fileID: 12800000, guid: af1ede424ae79e1418e62eba1cde3554, type: 3}
     m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
