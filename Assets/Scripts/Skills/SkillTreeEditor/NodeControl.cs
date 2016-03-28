@@ -96,19 +96,61 @@ public class NodeControl : MonoBehaviour {
         if (upNode != null)
         {
             Debug.Log("upnode set");
-            currPos = this.transform.position;
-            setMeAsChild(upNode);
-            drawLine(upNode, this);
-            Debug.Log("node set in position");
-            return;
+            
+            if (setMeAsChild(upNode))
+            {
+                currPos = this.transform.position;
+                drawLine(upNode, this);
+                Debug.Log("node set in position");
+                return;
+            } else
+            {
+                Debug.Log("Could not set node");
+                if (CheckChildren())
+                {
+                    this.transform.position = currPos;
+                }
+                else
+                {
+                    this.transform.position = initPos;
+                    deleteLine();
+                    if (parentRef != null)
+                    {
+                        parentRef.unsetChild(this);
+                    }
+                    this.resetNodeAttributes();
+
+                }
+            }
         }
         else if (lrNode != null)
         {
-            Debug.Log("lrNode set");
-            currPos = this.transform.position;
-            setMeAsChild(lrNode);
-            drawLine(lrNode, this);
-            Debug.Log("node set in position");
+            //Debug.Log("lrNode set");
+            
+            if (setMeAsChild(lrNode))
+            {
+                currPos = this.transform.position;
+                drawLine(lrNode, this);
+                Debug.Log("node set in position");
+            } else
+            {
+                Debug.Log("Could not set node");
+                if (CheckChildren())
+                {
+                    this.transform.position = currPos;
+                }
+                else
+                {
+                    this.transform.position = initPos;
+                    deleteLine();
+                    if (parentRef != null)
+                    {
+                        parentRef.unsetChild(this);
+                    }
+                    this.resetNodeAttributes();
+
+                }
+            }
             return;
         }
         else
@@ -121,7 +163,10 @@ public class NodeControl : MonoBehaviour {
             {
                 this.transform.position = initPos;
                 deleteLine();
-                parentRef.unsetChild(this);
+                if (parentRef != null)
+                {
+                    parentRef.unsetChild(this);
+                }
                 this.resetNodeAttributes();
 
             }
@@ -147,12 +192,26 @@ public class NodeControl : MonoBehaviour {
         {
             if (children[i] != "")
             {
-                Debug.Log("has child");
+                //Debug.Log("has child");
                 return true;
             }
         }
 
         return false;
+    }
+
+    public int NumChildren(NodeControl node)
+    {
+        int numChild = 0;
+        for (int i = 0; i < node.children.Length; i++)
+        {
+            if (node.children[i] != "")
+            {
+                numChild++;
+            }
+        }
+        Debug.Log(node.name + " has " + numChild + " children");
+        return numChild;
     }
 
     //check nearest nodes and return minimum distance
@@ -164,7 +223,7 @@ public class NodeControl : MonoBehaviour {
         //float minDist = float.MaxValue;
         float minDist = float.MaxValue;
         float maxDist = 100f;
-        Debug.Log("Trying " +(TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth)));
+        //Debug.Log("Trying " +(TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth)));
         //Debug.Log("Depth is " + TreeEditor.S.GetDepthOf(this));
         if (checkDepth())
         {
@@ -173,16 +232,16 @@ public class NodeControl : MonoBehaviour {
         // if there are leaves on the depth
         if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) + (up ? 1 : 0), out leavesOnDepth))
         {
-            Debug.Log("found leaves on depth");
+            //Debug.Log("found leaves on depth");
             baseChild = false;
             int i = 0;
             foreach (NodeControl NodeC in leavesOnDepth)
             {
                 if (NodeC != this)
                 {
-                    Debug.Log("Node " + i + " found");
+                    //Debug.Log("Node " + i + " found");
                     float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
-                    Debug.Log("Node dist: " + dist);
+                    //Debug.Log("Node dist: " + dist);
 
                     //if it is within range, update
                     if (dist < minDist)
@@ -194,21 +253,22 @@ public class NodeControl : MonoBehaviour {
                     i++;
                 }
             }
-            Debug.Log("Min distance is " + minDist);
+            //Debug.Log("Min distance is " + minDist);
             if (minDist > maxDist)
             {
-                Debug.Log("too far");
+                //Debug.Log("too far");
                 return null;
             }
         } else
         {
             //no leaves on depth, check for base
-            Debug.Log("no leaves, check for base");
+            //Debug.Log("no leaves, check for base");
             NodeControl baseNode = GameObject.FindGameObjectWithTag(TreeEditor.S.baseTag).GetComponent<NodeControl>();
+            
             if (baseNode != null)
             {
                 float dist = Vector3.Distance(baseNode.transform.position, this.transform.position);
-                Debug.Log("Base node dist: " + dist);
+                //Debug.Log("Base node dist: " + dist);
                 if (dist < minDist)
                 {
                     heldNode = baseNode;
@@ -258,15 +318,19 @@ public class NodeControl : MonoBehaviour {
             } else
             {
                 Debug.Log("no elements above");
+                
             }
-            List<NodeControl> temp = new List<NodeControl>(3);
-            temp.Add(this);
-            TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
-            currDepth = TreeEditor.S.GetDepthOf(this);
-            parent = node.name;
-            parentRef = node;
-            node.setChild(this);
-            return true;
+            if (NumChildren(node) < 3)
+            {
+                List<NodeControl> temp = new List<NodeControl>(3);
+                temp.Add(this);
+                TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
+                currDepth = TreeEditor.S.GetDepthOf(this);
+                parent = node.name;
+                parentRef = node;
+                node.setChild(this);
+                return true;
+            }
         }
         else
         {
@@ -278,7 +342,7 @@ public class NodeControl : MonoBehaviour {
             {
                 //check if too many children, if not add node
                 Debug.Log("Leaves exists with length " + TreeEditor.S.leaves.Count);
-                if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Count < 4 && !(TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Contains(this))) { 
+                if (NumChildren(node) < 3 && !(TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Contains(this))) { 
                     TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Add(this);
                     node.setChild(this);
                     currDepth = TreeEditor.S.GetDepthOf(this);
@@ -320,11 +384,14 @@ public class NodeControl : MonoBehaviour {
     {
         //reset depth to initial (1)
         this.currDepth = 1;
-        if (TreeEditor.S.leaves.ContainsKey(TreeEditor.S.GetDepthOf(parentRef)))
+        if (parentRef != null)
         {
-            if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(parentRef)].Contains(this))
+            if (TreeEditor.S.leaves.ContainsKey(TreeEditor.S.GetDepthOf(parentRef)))
             {
-                parentRef.unsetChild(this);
+                if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(parentRef)].Contains(this))
+                {
+                    parentRef.unsetChild(this);
+                }
             }
         }
         this.parent = "";
