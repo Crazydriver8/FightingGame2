@@ -423,7 +423,7 @@ public class NodeControl : MonoBehaviour {
     }
 
     // Removes existing line associated with this node
-    private void deleteLine()
+    public void deleteLine()
     {
         if (instLine != null)
         {

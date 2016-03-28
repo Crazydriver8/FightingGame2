@@ -546,7 +546,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11461632}
+      - m_Target: {fileID: 115232}
         m_MethodName: 
         m_Mode: 1
         m_Arguments:
@@ -1242,7 +1242,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 03c148051d90d1247b2c0728bafbaf83, type: 3}
+    m_Font: {fileID: 12800000, guid: af1ede424ae79e1418e62eba1cde3554, type: 3}
     m_FontSize: 48
     m_FontStyle: 0
     m_BestFit: 0

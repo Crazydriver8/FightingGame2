@@ -407,7 +407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &169122
 GameObject:
   m_ObjectHideFlags: 1
@@ -510,7 +510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &185712
 GameObject:
   m_ObjectHideFlags: 1
@@ -646,7 +646,7 @@ MonoBehaviour:
   canvasPreview: 1
   firstSelectableGameObject: {fileID: 0}
   wrapInput: 1
-  selectSound: {fileID: 8300000, guid: 51afa2d593bb4db438247ff64dadf46d, type: 3}
+  selectSound: {fileID: 8300000, guid: c4d04d53790015e40b54001110c7ca9b, type: 3}
   cancelSound: {fileID: 8300000, guid: 56e58ebfb3f5f9544ac76b36ba5e7140, type: 3}
   moveCursorSound: {fileID: 8300000, guid: e33073cf85d1edf4d992c2f5c6a33c90, type: 3}
   onLoadSound: {fileID: 0}
@@ -1265,7 +1265,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 97257581edf11fd4c9c1a8c31b8c759b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44517e6bd9376b048bac114fc48182e6, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

@@ -36,6 +36,11 @@ public class SkillTreeScreen : UFEScreen
 
     public virtual void GoToMainMenuScreen()
     {
+        NodeControl[] temp = GameObject.FindObjectsOfType<NodeControl>();
+        for (int i = 0; i < temp.Length; i++)
+        {
+            temp[i].deleteLine();
+        }
         UFE.StartMainMenuScreen();
 
     }
@@ -48,5 +53,10 @@ public class SkillTreeScreen : UFEScreen
     public virtual void GoToSkillTreeScreen()
     {
         UFE.StartSkillTreeScreen();
+    }
+
+    public virtual void SaveSkillTree()
+    {
+        GameObject.FindObjectOfType<SaveTree>().SaveCurrentTree();
     }
 }
