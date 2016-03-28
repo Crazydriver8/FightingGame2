@@ -15,7 +15,14 @@ public class MainMenuScreen : UFEScreen {
 	}
 
 	public virtual void GoToVersusModeScreen(){
-		UFE.StartVersusModeScreen();
+        Debug.Log("Versus Button");
+        InputScript input = GameObject.Find("InputField").GetComponent<InputScript>();
+        if(input.getName() != "") {
+            UFE.StartVersusModeScreen();
+        } else
+        {
+            Debug.Log("No name found");
+        }
 	}
 
 	public virtual void GoToTrainingModeScreen(){

@@ -38,10 +38,10 @@ MonoBehaviour:
   p1CharStorage: {fileID: 11400000, guid: 573f29652f969dd429ee24d097b56bc0, type: 2}
   p2CharStorage: {fileID: 11400000, guid: 54057043117984643925ed339c232c0d, type: 2}
   selectedStage:
-    stageName: Training Room
-    screenshot: {fileID: 2800000, guid: 08a565ac17d3e904d8d5f53e183b64d2, type: 3}
-    prefab: {fileID: 100000, guid: 064338a39a43ad647989c96c321658a2, type: 2}
-    music: {fileID: 8300000, guid: 208924f62a9b4ef49ad6a0c0311019e4, type: 3}
+    stageName: Rural Town
+    screenshot: {fileID: 2800000, guid: 83c41a24453a4fb4bbbbba74620726d6, type: 3}
+    prefab: {fileID: 134700, guid: fd429f622a5781947a8e43280abea217, type: 2}
+    music: {fileID: 8300000, guid: 6e0c3a09e05520c4fa2977155a4587b1, type: 3}
     groundFriction: 100
     leftBoundary: -37
     rightBoundary: 37
@@ -589,7 +589,7 @@ MonoBehaviour:
   player2_Inputs:
   - inputType: 0
     inputButtonName: P2KeyboardHorizontal
-    engineRelatedButton: 1
+    engineRelatedButton: 0
     joystickAxisName: P2JoystickHorizontal
     cInputPositiveKeyName: P2Right
     cInputPositiveDefaultKey: RightArrow
@@ -602,7 +602,7 @@ MonoBehaviour:
     activeIcon: {fileID: 2800000, guid: 0f1eb58df8917b74f804b8cb97615fd5, type: 3}
   - inputType: 1
     inputButtonName: P2KeyboardVertical
-    engineRelatedButton: 3
+    engineRelatedButton: 2
     joystickAxisName: P2JoystickVertical
     cInputPositiveKeyName: P2Up
     cInputPositiveDefaultKey: UpArrow
@@ -721,6 +721,13 @@ MonoBehaviour:
     screenshot: {fileID: 2800000, guid: 08a565ac17d3e904d8d5f53e183b64d2, type: 3}
     prefab: {fileID: 100000, guid: 064338a39a43ad647989c96c321658a2, type: 2}
     music: {fileID: 8300000, guid: 208924f62a9b4ef49ad6a0c0311019e4, type: 3}
+    groundFriction: 100
+    leftBoundary: -37
+    rightBoundary: 37
+  - stageName: Rural Town
+    screenshot: {fileID: 2800000, guid: 83c41a24453a4fb4bbbbba74620726d6, type: 3}
+    prefab: {fileID: 134700, guid: fd429f622a5781947a8e43280abea217, type: 2}
+    music: {fileID: 8300000, guid: 6e0c3a09e05520c4fa2977155a4587b1, type: 3}
     groundFriction: 100
     leftBoundary: -37
     rightBoundary: 37
