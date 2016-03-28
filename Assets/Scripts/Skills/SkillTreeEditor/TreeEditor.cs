@@ -22,7 +22,7 @@ public class TreeEditor : MonoBehaviour {
     public NodeControl baseNode;
 
     // Here are all the skills; save a reference to their controller
-    public Dictionary<string, NodeControl> skills =  new Dictionary<string, NodeControl> ();
+    //public Dictionary<string, NodeControl> skills =  new Dictionary<string, NodeControl> ();
 
     // It is currently possible to add children to these nodes
     // Keep them grouped by depth
@@ -39,7 +39,7 @@ public class TreeEditor : MonoBehaviour {
         foreach(GameObject node in GameObject.FindGameObjectsWithTag(nodeTag))
         {
             NodeControl nodeControl = node.GetComponent<NodeControl>();
-            skills[nodeControl.abilityName] = nodeControl;
+            //skills[nodeControl.abilityName] = nodeControl;
         }
 
         // Static reference to editor
@@ -64,13 +64,33 @@ public class TreeEditor : MonoBehaviour {
         return Mathf.RoundToInt(diff);
     }
 
-    public bool addLeafToDepth(int leafDepth, List<NodeControl> nodeList)
+    // Add a leaf or a bunch of leaves
+    public bool AddLeaf(int leafDepth, List<NodeControl> nodeList)
     {
         leaves.Add(leafDepth, nodeList);
         return true;
     }
-    public bool addLeaf(int leafDepth, NodeControl node)
+    public bool AddLeaf(int leafDepth, NodeControl node)
     {
+        if (leaves.ContainsKey(leafDepth))
+        {
+            leaves[leafDepth].Add(node);
+        }
+        else
+        {
+            leaves[leafDepth] = new List<NodeControl>() { node };
+        }
+
+        return true;
+    }
+
+    // This node no longer needs to be on the frontier
+    public bool Completed(NodeControl node)
+    {
+        if (node.IsFull())
+        {
+            return this.leaves[GetDepthOf(node)].Remove(node);
+        }
 
         return false;
     }

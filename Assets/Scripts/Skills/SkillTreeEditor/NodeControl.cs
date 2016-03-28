@@ -52,6 +52,8 @@ public class NodeControl : MonoBehaviour {
         NodeControl upNode = GetNearestNode(),
                     lrNode = GetNearestNode(false);
 
+        bool isLeft = false;
+
         //check if node has children
         if (upNode != null && lrNode != null)
         {
@@ -68,7 +70,8 @@ public class NodeControl : MonoBehaviour {
             }
             else
             {
-                if (CheckLeft(this.transform.position, lrNode.transform.position))
+                isLeft = CheckLeft(this.transform.position, lrNode.transform.position);
+                if (isLeft)
                 {
                     if (lrNode.children[(int)Constants.Branch.LEFT - 1] == "")
                     {
@@ -96,8 +99,13 @@ public class NodeControl : MonoBehaviour {
         if (upNode != null)
         {
             Debug.Log("upnode set");
+
+            // query for parent (already done)
+            // Add child to the parent, which automatically sets the parent of the child
+            upNode.SetChild(this);
             
-            if (setMeAsChild(upNode))
+
+            /*if (setMeAsChild(upNode))
             {
                 currPos = this.transform.position;
                 drawLine(upNode, this);
@@ -121,13 +129,15 @@ public class NodeControl : MonoBehaviour {
                     this.resetNodeAttributes();
 
                 }
-            }
+            }*/
         }
         else if (lrNode != null)
         {
             //Debug.Log("lrNode set");
             
-            if (setMeAsChild(lrNode))
+            lrNode.SetChild(this, (int)(isLeft ? Constants.Branch.LEFT : Constants.Branch.RIGHT));
+
+            /*if (setMeAsChild(lrNode))
             {
                 currPos = this.transform.position;
                 drawLine(lrNode, this);
@@ -150,7 +160,7 @@ public class NodeControl : MonoBehaviour {
                     this.resetNodeAttributes();
 
                 }
-            }
+            }*/
             return;
         }
         else
@@ -293,13 +303,46 @@ public class NodeControl : MonoBehaviour {
     }
 
     // Sets passed in NodeControl node as child
-    public bool setChild(NodeControl node)
+    public bool SetChild(NodeControl child, int direction = (int)Constants.Branch.DOWN)
     {
-        for(int i = 0; i < children.Length; i++)
+
+        int depth;
+
+        switch (direction)
+        {
+            case (int)Constants.Branch.DOWN:
+                // Get the parent's depth
+                depth = TreeEditor.S.GetDepthOf(this);
+
+                // Check if there is already a DOWN child
+                if (this.children[(int)Constants.Branch.DOWN] == null || this.children[(int)Constants.Branch.DOWN] == "")
+                {
+                    this.children[(int)Constants.Branch.DOWN] = child.abilityName;
+                    //this.parent = (int)Constants.Branch.UP;
+                    //child.SetParent(this, Constants.Branch.UP);
+
+                    // New leaves
+
+                }
+                else
+                    return false;
+
+                return true;
+
+
+            case (int)Constants.Branch.LEFT:
+
+            case (int)Constants.Branch.RIGHT:
+
+            default:
+                return false;
+        }
+
+        for (int i = 0; i < children.Length; i++)
         {
             if (children[i] == null || children[i] == "")
             {
-                children[i] = node.name;
+                children[i] = child.abilityName;
                 
                 return true;
             }
@@ -311,7 +354,7 @@ public class NodeControl : MonoBehaviour {
     public bool setMeAsChild(NodeControl node)
     {
         //check if no tree made
-        Debug.Log("Setting node");
+        /*Debug.Log("Setting node");
         if (baseChild)
         {
             Debug.Log("Creating new depth");
@@ -323,7 +366,20 @@ public class NodeControl : MonoBehaviour {
                 Debug.Log("no elements above");
                 
             }
-            if (NumChildren(node) < 3)
+
+
+            if (node.name == "RootNode" && NumChildren(node) < 1)
+            {
+                List<NodeControl> temp = new List<NodeControl>(3);
+                temp.Add(this);
+                TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
+                currDepth = TreeEditor.S.GetDepthOf(this);
+                parent = node.name;
+                parentRef = node;
+                node.setChild(this);
+                return true;
+            } 
+            if(node.name != "RootNode" && NumChildren(node) < 3)
             {
                 List<NodeControl> temp = new List<NodeControl>(3);
                 temp.Add(this);
@@ -345,7 +401,7 @@ public class NodeControl : MonoBehaviour {
             {
                 //check if too many children, if not add node
                 Debug.Log("Leaves exists with length " + TreeEditor.S.leaves.Count);
-                if (NumChildren(node) < 3 && !(TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Contains(this))) { 
+                if (NumChildren(node) < 3 && !(TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Contains(this)) && node.name != "RootNode") { 
                     TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Add(this);
                     node.setChild(this);
                     currDepth = TreeEditor.S.GetDepthOf(this);
@@ -354,7 +410,7 @@ public class NodeControl : MonoBehaviour {
                     return true;
                 }
             }
-        } 
+        }*/
         return false;
     }
 
@@ -367,6 +423,7 @@ public class NodeControl : MonoBehaviour {
             {
                 children[i] = "";
                 Debug.Log("Removing reference to " + removeNode.name);
+                
                 return true; 
             }
         }
@@ -394,6 +451,11 @@ public class NodeControl : MonoBehaviour {
                 if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(parentRef)].Contains(this))
                 {
                     parentRef.unsetChild(this);
+                }
+                if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Contains(this))
+                {
+                    Debug.Log("Found child at depth");
+                    TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Remove(this);
                 }
             }
         }
@@ -431,4 +493,9 @@ public class NodeControl : MonoBehaviour {
         }
     }
 
+    // This node can take no more children
+    public bool IsFull()
+    {
+        return this.children[(int)Constants.Branch.DOWN] != null && this.children[(int)Constants.Branch.DOWN] != "" && this.children[(int)Constants.Branch.LEFT] != null && this.children[(int)Constants.Branch.LEFT] != "" && this.children[(int)Constants.Branch.RIGHT] != null && this.children[(int)Constants.Branch.RIGHT] != "";
+    }
 }
