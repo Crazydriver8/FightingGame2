@@ -200,6 +200,7 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
+    // Returns number of children of NodeControl node
     public int NumChildren(NodeControl node)
     {
         int numChild = 0;
@@ -214,7 +215,7 @@ public class NodeControl : MonoBehaviour {
         return numChild;
     }
 
-    //check nearest nodes and return minimum distance
+    // Check nearest nodes and return minimum distance
     public NodeControl GetNearestNode(bool up = true)
     {
         List<NodeControl> leavesOnDepth = null;
@@ -291,6 +292,7 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
+    // Sets passed in NodeControl node as child
     public bool setChild(NodeControl node)
     {
         for(int i = 0; i < children.Length; i++)
@@ -305,6 +307,7 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
+    // Sets self as child of NodeControl node
     public bool setMeAsChild(NodeControl node)
     {
         //check if no tree made
@@ -355,7 +358,7 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
-    //unsets removeNode from children array
+    // Removes NodeControl removeNode from children array
     public bool unsetChild(NodeControl removeNode)
     {
         for (int i = 0; i < children.Length; i++)
@@ -370,7 +373,7 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
-    //checks if depth is valid
+    // Returns true if depth is valid
     public bool checkDepth()
     {
         if (TreeEditor.S.GetDepthOf(this) >= 0) {
@@ -379,7 +382,7 @@ public class NodeControl : MonoBehaviour {
         return false;
     }
 
-    //resets attributes and removes references in tree
+    // Resets attributes and removes references in tree
     public void resetNodeAttributes()
     {
         //reset depth to initial (1)
@@ -397,7 +400,7 @@ public class NodeControl : MonoBehaviour {
         this.parent = "";
     }
 
-    //draws line from parent to child
+    // Draws line from parent to child
     public void drawLine(NodeControl parent, NodeControl child)
     {
         float lineWidth = 5f;
@@ -419,6 +422,7 @@ public class NodeControl : MonoBehaviour {
         }
     }
 
+    // Removes existing line associated with this node
     private void deleteLine()
     {
         if (instLine != null)
@@ -426,4 +430,5 @@ public class NodeControl : MonoBehaviour {
             Destroy(instLine, 0f);
         }
     }
+
 }
