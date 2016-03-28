@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Combot
   m_EditorClassIdentifier: 
   profilePictureSmall: {fileID: 2800000, guid: aa38c1c312213c4419c9bdb1a40faa76, type: 3}
-  profilePictureBig: {fileID: 2800000, guid: e6f43d0a029116142b97009a6f46de43, type: 3}
+  profilePictureBig: {fileID: 2800000, guid: 5d3221a1c74a5d141b9851409cc6080e, type: 3}
   characterName: Combot
   gender: 1
   characterDescription: Tests

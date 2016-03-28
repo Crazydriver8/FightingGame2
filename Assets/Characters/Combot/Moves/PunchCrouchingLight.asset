@@ -142,7 +142,7 @@ MonoBehaviour:
     frameAdvantageOnBlock: 0
     damageScaling: 0
     damageType: 1
-    damageOnHit: 30
+    damageOnHit: 60
     damageOnBlock: 5
     doesntKill: 0
     hitType: 0
@@ -298,8 +298,8 @@ MonoBehaviour:
   moveClassification:
     attackType: 1
     hitType: 0
-    startupSpeed: 5
-    recoverySpeed: 4
+    startupSpeed: 3
+    recoverySpeed: 3
     hitConfirmType: 0
     preferableDistance: 2
     gaugeUsage: 0
