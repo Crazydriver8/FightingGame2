@@ -61,15 +61,18 @@ public class NodeControl : MonoBehaviour {
             if (Vector3.Distance(upNode.gameObject.transform.position, this.gameObject.transform.position) < Vector3.Distance(lrNode.gameObject.transform.position, this.gameObject.transform.position)) {
                 if (upNode.children[(int)Constants.Branch.DOWN - 1] == "")
                 {
+                    // if the node found is set to down (upnode dependent), set lr to null
                     lrNode = null;
                 }
                 else
                 {
+                    // if the node found is not set to down (lrNode dependent), set up to null
                     upNode = null;
                 }
             }
             else
             {
+                //if operating on horizontal node, check if to the left of parent node
                 isLeft = CheckLeft(this.transform.position, lrNode.transform.position);
                 if (isLeft)
                 {
@@ -95,7 +98,7 @@ public class NodeControl : MonoBehaviour {
                 }
             }
         }
-
+        // if upnode is found, attempt to set
         if (upNode != null)
         {
             Debug.Log("upnode set");
@@ -131,6 +134,7 @@ public class NodeControl : MonoBehaviour {
                 }
             }*/
         }
+        //if lrNode is found, attempt to set
         else if (lrNode != null)
         {
             //Debug.Log("lrNode set");
@@ -165,12 +169,15 @@ public class NodeControl : MonoBehaviour {
         }
         else
         {
+            //if close to neither node, check if it has children
+            //if there are children, reset to position in tree
             if (CheckChildren())
             {
                 this.transform.position = currPos;
             }
             else
             {
+                //if there are no children, reset to starting position in node bank
                 this.transform.position = initPos;
                 deleteLine();
                 if (parentRef != null)
