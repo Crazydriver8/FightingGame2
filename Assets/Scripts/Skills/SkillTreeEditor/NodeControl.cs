@@ -261,7 +261,7 @@ public class NodeControl : MonoBehaviour {
                     float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
                     //Debug.Log("Node dist: " + dist);
 
-                    //if it is within range, update
+                    //if it is within range, update heldnode to current acting node
                     if (dist < minDist)
                     {
                         minDist = dist;
@@ -301,6 +301,7 @@ public class NodeControl : MonoBehaviour {
         return heldNode;
     }
 
+    // Returns true if left 
     public bool CheckLeft(Vector3 thisObj, Vector3 thatObj)
     {
         if (thisObj.x < thatObj.x) {
