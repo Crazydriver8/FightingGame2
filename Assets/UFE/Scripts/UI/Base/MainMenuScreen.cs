@@ -17,11 +17,14 @@ public class MainMenuScreen : UFEScreen {
 	public virtual void GoToVersusModeScreen(){
         Debug.Log("Versus Button");
         InputScript input = GameObject.Find("InputField").GetComponent<InputScript>();
-        if(input.getName() != "") {
+        if(input.getName() != "" && input.getName() != "Name Plz") {
+            Debug.Log("Name found: " + input.getName());
             UFE.StartVersusModeScreen();
         } else
         {
             Debug.Log("No name found");
+            InputScript temp = GameObject.Find("InputField").GetComponent<InputScript>();
+            temp.flickerName();
         }
 	}
 
@@ -43,7 +46,7 @@ public class MainMenuScreen : UFEScreen {
 
     public virtual void GoToSkillTreeScreen()
     {
-        Debug.Log("Skill Tree Screen Clicked");
+        //Debug.Log("Skill Tree Screen Clicked");
         UFE.StartSkillTreeScreen();
     }
 }

@@ -724,13 +724,6 @@ MonoBehaviour:
     groundFriction: 100
     leftBoundary: -37
     rightBoundary: 37
-  - stageName: Rural Town
-    screenshot: {fileID: 2800000, guid: 83c41a24453a4fb4bbbbba74620726d6, type: 3}
-    prefab: {fileID: 134700, guid: fd429f622a5781947a8e43280abea217, type: 2}
-    music: {fileID: 8300000, guid: 6e0c3a09e05520c4fa2977155a4587b1, type: 3}
-    groundFriction: 100
-    leftBoundary: -37
-    rightBoundary: 37
   characters:
   - {fileID: 11400000, guid: a407acaf52c7d0a4fa4fecd4c77ea522, type: 2}
   debugOptions:
@@ -929,7 +922,7 @@ MonoBehaviour:
     defaultFrameDelay: 5
     userRollBack: 0
     rollBackFrames: 0
-  music: 1
+  music: 0
   musicVolume: 1
   soundfx: 1
   soundfxVolume: 1
