@@ -8,32 +8,34 @@ public class NodeControl : MonoBehaviour {
     public string abilityName = "";
 
     // What the node is connected to
-    public string parent = "";
-    public string[] children = new string[3] { "", "", "" };
+    public int parent = -1;
+    public NodeControl[] connections = new NodeControl[4] { null, null, null, null };
 
     // Where the node is on the screen
     public Vector3 initPos;
     public Vector3 currPos;
 
-    public int currDepth = 1;
+    //public int currDepth = 1;
 
     public GameObject linePrefab = null;
-
     private GameObject instLine = null;
 
     private bool baseChild;
 
-    private NodeControl parentRef = null;
 
 	// Use this for initialization
 	void Start () {
         initPos = transform.position;
         currPos = transform.position;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetMouseButton(1))
+        {
+            Debug.Log("Attempting to delete");
+        }
 	}
 
     /* Events */
@@ -49,147 +51,65 @@ public class NodeControl : MonoBehaviour {
     }
     public void OnEndDrag()
     {
-        NodeControl upNode = GetNearestNode(),
-                    lrNode = GetNearestNode(false);
 
-        bool isLeft = false;
+        // Grab all nearby for this.depth() - 1, then this.depth()
+        List<NodeControl> leavesOnVertical;
+        List<NodeControl> leavesOnHorizontal;
 
-        //check if node has children
-        if (upNode != null && lrNode != null)
+        int depth = TreeEditor.S.GetDepthOf(this);
+        Debug.Log(TreeEditor.S.GetDepthOf(this));
+
+        // Check to insert above... on success, quit out to prevent execution of anything else
+        if(TreeEditor.S.leaves.TryGetValue(depth - 1, out leavesOnVertical) && leavesOnVertical.Count > 0 && this.parent == -1)
         {
-            // There can only be one... take the closer one
-            if (Vector3.Distance(upNode.gameObject.transform.position, this.gameObject.transform.position) < Vector3.Distance(lrNode.gameObject.transform.position, this.gameObject.transform.position)) {
-                if (upNode.children[(int)Constants.Branch.DOWN - 1] == "")
-                {
-                    // if the node found is set to down (upnode dependent), set lr to null
-                    lrNode = null;
-                }
-                else
-                {
-                    // if the node found is not set to down (lrNode dependent), set up to null
-                    upNode = null;
-                }
-            }
-            else
+            Debug.Log("Found leaves on vertical");
+            NodeControl vertNode = GetNearestNode(leavesOnVertical);
+            if (!vertNode.CheckChildren((int)Constants.Branch.DOWN))
             {
-                //if operating on horizontal node, check if to the left of parent node
-                isLeft = CheckLeft(this.transform.position, lrNode.transform.position);
-                if (isLeft)
-                {
-                    if (lrNode.children[(int)Constants.Branch.LEFT - 1] == "")
-                    {
-                        upNode = null;
-                    }
-                    else
-                    {
-                        lrNode = null;
-                    }
-                }
-                else
-                {
-                    if (lrNode.children[(int)Constants.Branch.RIGHT - 1] == "")
-                    {
-                        upNode = null;
-                    }
-                    else
-                    {
-                        lrNode = null;
-                    }
-                }
-            }
-        }
-        // if upnode is found, attempt to set
-        if (upNode != null)
-        {
-            Debug.Log("upnode set");
-
-            // query for parent (already done)
-            // Add child to the parent, which automatically sets the parent of the child
-            upNode.SetChild(this);
-            
-
-            /*if (setMeAsChild(upNode))
-            {
-                currPos = this.transform.position;
-                drawLine(upNode, this);
-                Debug.Log("node set in position");
+                vertNode.SetChild(this);
+                drawLine(vertNode, this);
                 return;
-            } else
-            {
-                Debug.Log("Could not set node");
-                if (CheckChildren())
-                {
-                    this.transform.position = currPos;
-                }
-                else
-                {
-                    this.transform.position = initPos;
-                    deleteLine();
-                    if (parentRef != null)
-                    {
-                        parentRef.unsetChild(this);
-                    }
-                    this.resetNodeAttributes();
-
-                }
-            }*/
+            }
         }
-        //if lrNode is found, attempt to set
-        else if (lrNode != null)
+
+        // Check to insert left or right... on success, quit out to prevent execution of anything else
+        if (TreeEditor.S.leaves.TryGetValue(depth, out leavesOnHorizontal) && leavesOnHorizontal.Count > 0 && this.parent == -1)
         {
-            //Debug.Log("lrNode set");
-            
-            lrNode.SetChild(this, (int)(isLeft ? Constants.Branch.LEFT : Constants.Branch.RIGHT));
-
-            /*if (setMeAsChild(lrNode))
+            Debug.Log("Found leaves on horizontal");
+            NodeControl horizNode = GetNearestNode(leavesOnHorizontal);
+            switch (this.CheckLeft(horizNode))
             {
-                currPos = this.transform.position;
-                drawLine(lrNode, this);
-                Debug.Log("node set in position");
-            } else
-            {
-                Debug.Log("Could not set node");
-                if (CheckChildren())
-                {
-                    this.transform.position = currPos;
-                }
-                else
-                {
-                    this.transform.position = initPos;
-                    deleteLine();
-                    if (parentRef != null)
+                case true:
+                    if (!horizNode.CheckChildren((int)Constants.Branch.LEFT))
                     {
-                        parentRef.unsetChild(this);
+                        horizNode.SetChild(this, (int)Constants.Branch.LEFT);
+                        drawLine(horizNode, this);
                     }
-                    this.resetNodeAttributes();
 
-                }
-            }*/
-            return;
+                    return;
+
+                default:
+                    if (!horizNode.CheckChildren((int)Constants.Branch.RIGHT) && this.parent == -1)
+                    {
+                        horizNode.SetChild(this, (int)Constants.Branch.RIGHT);
+                        drawLine(horizNode, this);
+                    }
+
+                    return;
+            }
+        }
+
+        // On default, kick back to original position
+        Debug.Log("No leaves found");
+        if (!CheckChildren())
+        {
+            this.transform.position = initPos;
         }
         else
         {
-            //if close to neither node, check if it has children
-            //if there are children, reset to position in tree
-            if (CheckChildren())
-            {
-                this.transform.position = currPos;
-            }
-            else
-            {
-                //if there are no children, reset to starting position in node bank
-                this.transform.position = initPos;
-                deleteLine();
-                if (parentRef != null)
-                {
-                    parentRef.unsetChild(this);
-                }
-                this.resetNodeAttributes();
-
-            }
-            return;
+            this.transform.position = currPos;
         }
-        return;
+
     }
 
 
@@ -199,15 +119,15 @@ public class NodeControl : MonoBehaviour {
     public bool CheckChildren(int index = -1)
     {
         // Check for a specific child
-        if (index > -1 && index < children.Length)
+        if (index > -1 && index < connections.Length)
         {
-            return children[index] != "";
+            return connections[index] != null;
         }
 
         // Check if there are any children
-        for (int i = 0; i < this.children.Length; i++)
+        for (int i = 0; i < this.connections.Length; i++)
         {
-            if (children[i] != "")
+            if (connections[i] != null)
             {
                 //Debug.Log("has child");
                 return true;
@@ -221,9 +141,9 @@ public class NodeControl : MonoBehaviour {
     public int NumChildren(NodeControl node)
     {
         int numChild = 0;
-        for (int i = 0; i < node.children.Length; i++)
+        for (int i = 0; i < node.connections.Length; i++)
         {
-            if (node.children[i] != "")
+            if (node.connections[i] != null)
             {
                 numChild++;
             }
@@ -233,6 +153,28 @@ public class NodeControl : MonoBehaviour {
     }
 
     // Check nearest nodes and return minimum distance
+    public NodeControl GetNearestNode(List<NodeControl> neighbors)
+    {
+        NodeControl heldNode = null;
+        float minDist = float.MaxValue;
+        foreach (NodeControl NodeC in neighbors)
+        {
+            if (NodeC != this)
+            {
+                float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
+                Debug.Log("Node " + NodeC.abilityName + "is dist: " + dist);
+
+                //if it is within range, update heldnode to current acting node
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    heldNode = NodeC;
+                }
+            }
+        }
+        return heldNode;
+    }
+
     public NodeControl GetNearestNode(bool up = true)
     {
         List<NodeControl> leavesOnDepth = null;
@@ -248,7 +190,7 @@ public class NodeControl : MonoBehaviour {
             return null;
         }
         // if there are leaves on the depth
-        if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) + (up ? 1 : 0), out leavesOnDepth))
+        if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth))
         {
             //Debug.Log("found leaves on depth");
             baseChild = false;
@@ -267,7 +209,6 @@ public class NodeControl : MonoBehaviour {
                         minDist = dist;
                         heldNode = NodeC;
                     }
-
                     i++;
                 }
             }
@@ -302,141 +243,120 @@ public class NodeControl : MonoBehaviour {
     }
 
     // Returns true if left 
-    public bool CheckLeft(Vector3 thisObj, Vector3 thatObj)
+    public bool CheckLeft(NodeControl thatObj)
     {
-        if (thisObj.x < thatObj.x) {
+        if (this.transform.position.x < thatObj.transform.position.x) {
             return true;
         }
         return false;
     }
 
-    // Sets passed in NodeControl node as child
+    // Sets passed in NodeControl node as child of this node
     public bool SetChild(NodeControl child, int direction = (int)Constants.Branch.DOWN)
     {
 
         int depth;
+        // Get the parent's depth
+        depth = TreeEditor.S.GetDepthOf(this);
 
         switch (direction)
         {
+            //sets child as down child
             case (int)Constants.Branch.DOWN:
-                // Get the parent's depth
-                depth = TreeEditor.S.GetDepthOf(this);
 
                 // Check if there is already a DOWN child
-                if (this.children[(int)Constants.Branch.DOWN] == null || this.children[(int)Constants.Branch.DOWN] == "")
+                if (this.connections[(int)Constants.Branch.DOWN] == null || this.connections[(int)Constants.Branch.DOWN] == null)
                 {
-                    this.children[(int)Constants.Branch.DOWN] = child.abilityName;
-                    //this.parent = (int)Constants.Branch.UP;
-                    //child.SetParent(this, Constants.Branch.UP);
+                    Debug.Log("Setting down child");
+                    this.connections[(int)Constants.Branch.DOWN] = child;
+                    this.parent = (int)Constants.Branch.UP;
+                    child.SetParent(this, (int)Constants.Branch.UP);
 
-                    // New leaves
-
+                    // New leaves get added to the dictionary (aka necronomicon)
+                    TreeEditor.S.AddLeaf(depth + 1, child);
+                    
                 }
                 else
                     return false;
 
                 return true;
 
-
+            //sets child as left child
             case (int)Constants.Branch.LEFT:
+                if (this.connections[(int)Constants.Branch.LEFT] == null || this.connections[(int)Constants.Branch.LEFT])
+                {
+                    Debug.Log("Setting left child");
+                    this.connections[(int)Constants.Branch.LEFT] = child;
+                    this.parent = (int)Constants.Branch.RIGHT;
+                    child.SetParent(this, (int)Constants.Branch.RIGHT);
+                    TreeEditor.S.AddLeaf(depth, child);
+                }
+                else
+                    return false;
 
+                return true;
+
+            //sets child as right child
             case (int)Constants.Branch.RIGHT:
+                if (this.connections[(int)Constants.Branch.RIGHT] == null || this.connections[(int)Constants.Branch.RIGHT] == null)
+                {
+                    Debug.Log("Setting right child");
+                    this.connections[(int)Constants.Branch.RIGHT] = child;
+                    this.parent = (int)Constants.Branch.LEFT;
+                    child.SetParent(this, (int)Constants.Branch.LEFT);
+                    TreeEditor.S.AddLeaf(depth, child);
+                }
+                else
+                    return false;
+                return true;
 
             default:
                 return false;
         }
-
-        for (int i = 0; i < children.Length; i++)
-        {
-            if (children[i] == null || children[i] == "")
-            {
-                children[i] = child.abilityName;
-                
-                return true;
-            }
-        }
-        return false;
     }
 
-    // Sets self as child of NodeControl node
-    public bool setMeAsChild(NodeControl node)
+    // Makes target node the parent of this node
+    public bool SetParent(NodeControl parent, int direction)
     {
-        //check if no tree made
-        /*Debug.Log("Setting node");
-        if (baseChild)
+        if (this.connections[direction] == null)
         {
-            Debug.Log("Creating new depth");
-            if (CheckChildren(currDepth + 1))
-            {
-                Debug.Log("Elements above");
-            } else
-            {
-                Debug.Log("no elements above");
-                
-            }
-
-
-            if (node.name == "RootNode" && NumChildren(node) < 1)
-            {
-                List<NodeControl> temp = new List<NodeControl>(3);
-                temp.Add(this);
-                TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
-                currDepth = TreeEditor.S.GetDepthOf(this);
-                parent = node.name;
-                parentRef = node;
-                node.setChild(this);
-                return true;
-            } 
-            if(node.name != "RootNode" && NumChildren(node) < 3)
-            {
-                List<NodeControl> temp = new List<NodeControl>(3);
-                temp.Add(this);
-                TreeEditor.S.leaves.Add(TreeEditor.S.GetDepthOf(this), temp);
-                currDepth = TreeEditor.S.GetDepthOf(this);
-                parent = node.name;
-                parentRef = node;
-                node.setChild(this);
-                return true;
-            }
+            this.parent = direction;
+            this.connections[direction] = parent;
+            return true;
         }
-        else
-        {
-            if (TreeEditor.S.leaves == null)
-            {
-                Debug.Log("Cannot find in dictionary");
-            }
-            else
-            {
-                //check if too many children, if not add node
-                Debug.Log("Leaves exists with length " + TreeEditor.S.leaves.Count);
-                if (NumChildren(node) < 3 && !(TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Contains(this)) && node.name != "RootNode") { 
-                    TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Add(this);
-                    node.setChild(this);
-                    currDepth = TreeEditor.S.GetDepthOf(this);
-                    parent = node.name;
-                    parentRef = node;
-                    return true;
-                }
-            }
-        }*/
+
         return false;
     }
 
-    // Removes NodeControl removeNode from children array
-    public bool unsetChild(NodeControl removeNode)
+    // Gets rid of a child at an index
+    public bool RemoveChild(int direction)
     {
-        for (int i = 0; i < children.Length; i++)
+        if (this.connections[direction] != null)
         {
-            if (children[i] == removeNode.name)
-            {
-                children[i] = "";
-                Debug.Log("Removing reference to " + removeNode.name);
-                
-                return true; 
-            }
+            this.connections[direction].UnsetParent();
+            this.connections[direction] = null;
+            this.parent = -1;
+
+            return true;
         }
+
         return false;
     }
+
+    // Gets rid of a parent
+    public bool UnsetParent()
+    {
+        if (this.parent != -1 && this.connections[this.parent] != null)
+        {
+            this.connections[this.parent] = null;
+            this.parent = -1;
+
+            return true;
+        }
+
+        return false;
+    }
+
 
     // Returns true if depth is valid
     public bool checkDepth()
@@ -445,29 +365,6 @@ public class NodeControl : MonoBehaviour {
             return true;
         }
         return false;
-    }
-
-    // Resets attributes and removes references in tree
-    public void resetNodeAttributes()
-    {
-        //reset depth to initial (1)
-        this.currDepth = 1;
-        if (parentRef != null)
-        {
-            if (TreeEditor.S.leaves.ContainsKey(TreeEditor.S.GetDepthOf(parentRef)))
-            {
-                if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(parentRef)].Contains(this))
-                {
-                    parentRef.unsetChild(this);
-                }
-                if (TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Contains(this))
-                {
-                    Debug.Log("Found child at depth");
-                    TreeEditor.S.leaves[TreeEditor.S.GetDepthOf(this)].Remove(this);
-                }
-            }
-        }
-        this.parent = "";
     }
 
     // Draws line from parent to child
@@ -501,9 +398,9 @@ public class NodeControl : MonoBehaviour {
         }
     }
 
-    // This node can take no more children
+    // This node can take no more childrenconnections
     public bool IsFull()
     {
-        return this.children[(int)Constants.Branch.DOWN] != null && this.children[(int)Constants.Branch.DOWN] != "" && this.children[(int)Constants.Branch.LEFT] != null && this.children[(int)Constants.Branch.LEFT] != "" && this.children[(int)Constants.Branch.RIGHT] != null && this.children[(int)Constants.Branch.RIGHT] != "";
+        return this.connections[(int)Constants.Branch.DOWN] != null && this.connections[(int)Constants.Branch.LEFT] != null && this.connections[(int)Constants.Branch.RIGHT] != null;
     }
 }

@@ -35,7 +35,7 @@ public class SaveTree : MonoBehaviour
         /*node = new SkillTree(name of skill);
         foreach child
             if child: buildTree(object containing child)
-            else set to empty(call new SkillTreeInfo() no arguments)*/
+            else set to empty(call new SkillTreeInfo() no arguments)
 
         SkillTree node = new SkillTree();
         NodeControl[] userNodes = GameObject.FindObjectsOfType<NodeControl>();
@@ -50,7 +50,8 @@ public class SaveTree : MonoBehaviour
                 new SkillTree();
             }
         }
+        */
 
-        return node;
+        return null;
     }
 }

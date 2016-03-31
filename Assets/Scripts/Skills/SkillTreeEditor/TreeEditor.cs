@@ -16,7 +16,7 @@ public class TreeEditor : MonoBehaviour {
     public int skillBankLine = -5;
 
     // This is how far apart the depths are
-    public float depthSpacing = 80.0f;
+    public float depthSpacing = -150.0f;
 
     // The "root" node; a node that can't be moved or otherwise edited
     public NodeControl baseNode;
@@ -33,8 +33,10 @@ public class TreeEditor : MonoBehaviour {
     // Use this to initialize
     void Start()
     {
-        // Find the "root"
+        // Find the "root" and add it to the dictionary
         baseNode = GameObject.FindGameObjectWithTag(baseTag).GetComponent<NodeControl>();
+        leaves.Add(0, new List<NodeControl>() { baseNode });
+
         // Get all nodes by tag
         foreach(GameObject node in GameObject.FindGameObjectsWithTag(nodeTag))
         {
@@ -53,15 +55,18 @@ public class TreeEditor : MonoBehaviour {
     public int GetDepthOf(NodeControl node)
     {
         //Debug.Log("Finding depth of " + node.name);
-        
-        float diff = Mathf.RoundToInt((node.gameObject.transform.position.y - baseNode.transform.position.y));
+
+        Debug.Log("Node: " + node.GetComponent<RectTransform>().anchoredPosition.y);
+        Debug.Log("Base: " + baseNode.GetComponent<RectTransform>().anchoredPosition.y);
+
+        float diff = Mathf.CeilToInt((node.GetComponent<RectTransform>().anchoredPosition.y - baseNode.GetComponent<RectTransform>().anchoredPosition.y));
         //diff = Mathf.Abs(diff);
-        //Debug.Log("Distance to base: " + diff + ", DepthSpacing: " + depthSpacing);
+        Debug.Log("Distance to base: " + diff + ", DepthSpacing: " + depthSpacing);
         
         diff = diff / depthSpacing;
         //Debug.Log("Depth: " + Mathf.RoundToInt(diff));
 
-        return Mathf.RoundToInt(diff);
+        return Mathf.CeilToInt(diff);
     }
 
     // Add a leaf or a bunch of leaves
@@ -80,7 +85,7 @@ public class TreeEditor : MonoBehaviour {
         {
             leaves[leafDepth] = new List<NodeControl>() { node };
         }
-
+        Debug.Log("ADDING LEAF: " + leaves[leafDepth][0].abilityName + " @ DEPTH: " + leafDepth);
         return true;
     }
 
