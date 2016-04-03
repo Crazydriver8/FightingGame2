@@ -119,6 +119,9 @@ public class BlackBoardController : MonoBehaviour {
             { Surprise.attackCount, "0" },
             { Surprise.evadeCount, "0" },
 
+            // Distance to opponent
+            { Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString() },
+
             // Match results
             { Constants.winner, "false" }
         });
@@ -146,6 +149,9 @@ public class BlackBoardController : MonoBehaviour {
             // Surprise
             { Surprise.attackCount, "0" },
             { Surprise.evadeCount, "0" },
+
+            // Distance to opponent
+            { Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString() },
 
             // Match results
             { Constants.winner, "false" }
@@ -213,6 +219,9 @@ public class BlackBoardController : MonoBehaviour {
                 // This is an evade
                 bb.UpdateProperty(Constants.p1Key, Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.evadeCount]) + 1).ToString());
             }
+            
+            // Update distance
+            bb.UpdateProperty(Constants.p1Key, Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString());
         }
         else
         {
@@ -234,8 +243,11 @@ public class BlackBoardController : MonoBehaviour {
                 // This is an evade
                 bb.UpdateProperty(Constants.p2Key, Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.evadeCount]) + 1).ToString());
             }
-        }
 
+            // Update distance
+            bb.UpdateProperty(Constants.p2Key, Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString());
+        }
+        
         // Save the state of the BlackBoard
         //Debug.Log("Saved BlackBoard state");
     }
