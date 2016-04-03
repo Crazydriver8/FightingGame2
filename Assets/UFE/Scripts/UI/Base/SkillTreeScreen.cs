@@ -57,6 +57,27 @@ public class SkillTreeScreen : UFEScreen
 
     public virtual void SaveSkillTree()
     {
-        GameObject.FindObjectOfType<SaveTree>().SaveCurrentTree();
+        Debug.Log("Attempting to save");
+        GameObject temp = GameObject.Find("TreeEdit");
+        
+        if (temp == null)
+        {
+            Debug.Log("Could not find TreeEdit");
+            return;
+        }
+
+        TreeEditor reference = temp.GetComponent<TreeEditor>();
+        if (reference == null)
+        {
+            Debug.Log("Could not output");
+            return;
+        }
+        
+        if (!reference.PrintTree())
+        {
+            Debug.Log("Could not print tree");
+            return;
+        }
+        Debug.Log("Save success");
     }
 }

@@ -99,4 +99,31 @@ public class TreeEditor : MonoBehaviour {
 
         return false;
     }
+
+    public bool PrintTree()
+    {
+        if (leaves == null)
+        {
+            Debug.Log("Leaves not found");
+            return false;
+        }
+        Debug.Log("Printing tree");
+        // Go through each depth
+        string temp = "";
+        foreach (KeyValuePair<int, List<NodeControl>> kvp in leaves)
+        {
+            Debug.Log("DEPTH IS " + kvp.Key);
+            List<NodeControl> tempNodeList = kvp.Value;
+            foreach(NodeControl node in tempNodeList)
+            {
+                string ability = node.abilityName;
+                if (ability == "" || ability == null) ability = "nothing";
+                Debug.Log("node is " + ability);
+                temp += string.Format("Depth = {0}, Ability = {1}, ", kvp.Key, ability);
+            }
+        }
+        Debug.Log(temp);
+
+        return true;
+    }
 }

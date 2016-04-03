@@ -16,18 +16,24 @@ public class SaveTree : MonoBehaviour
 
     }
 
-    public void SaveCurrentTree()
+    public bool SaveCurrentTree()
     {
-        //have access to ability name, parent, children[], curr depth
+        Debug.Log("In SaveCurrentTree()");
+        Debug.Log("Attempting to find TreeEdit object");
+        GameObject reference = GameObject.Find("TreeEdit");
+        if (reference == null) return false;
 
-        GameObject rootObj = GameObject.Find("RootNode");
-        NodeControl root = rootObj.GetComponent<NodeControl>();
+        Debug.Log("Attempting to find TreeEdit.TreeEditor");
+        TreeEditor treeRef = reference.GetComponent<TreeEditor>();
+        if (treeRef == null) return false;
 
-        // If the root node has children save the tree
-        if (!root.CheckChildren())
+        Debug.Log("Attempting to print tree");
+        if (!treeRef.PrintTree())
         {
-            BuildTree(root);
+            Debug.Log("Could not print tree");
+            return false;
         }
+        return true;
     }
 
     public SkillTree BuildTree(NodeControl root)
