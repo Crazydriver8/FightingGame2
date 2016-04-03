@@ -269,7 +269,6 @@ public class NodeControl : MonoBehaviour {
                 {
                     Debug.Log("Setting down child");
                     this.connections[(int)Constants.Branch.DOWN] = child;
-                    this.parent = (int)Constants.Branch.UP;
                     child.SetParent(this, (int)Constants.Branch.UP);
 
                     // New leaves get added to the dictionary (aka necronomicon)
@@ -287,7 +286,6 @@ public class NodeControl : MonoBehaviour {
                 {
                     Debug.Log("Setting left child");
                     this.connections[(int)Constants.Branch.LEFT] = child;
-                    this.parent = (int)Constants.Branch.RIGHT;
                     child.SetParent(this, (int)Constants.Branch.RIGHT);
                     TreeEditor.S.AddLeaf(depth, child);
                 }
@@ -302,7 +300,6 @@ public class NodeControl : MonoBehaviour {
                 {
                     Debug.Log("Setting right child");
                     this.connections[(int)Constants.Branch.RIGHT] = child;
-                    this.parent = (int)Constants.Branch.LEFT;
                     child.SetParent(this, (int)Constants.Branch.LEFT);
                     TreeEditor.S.AddLeaf(depth, child);
                 }
@@ -402,5 +399,40 @@ public class NodeControl : MonoBehaviour {
     public bool IsFull()
     {
         return this.connections[(int)Constants.Branch.DOWN] != null && this.connections[(int)Constants.Branch.LEFT] != null && this.connections[(int)Constants.Branch.RIGHT] != null;
+    }
+
+    /*TAKEN FROM SKILLTREE.CS*/
+    public bool IsNull()
+    {
+        return abilityName == "" || abilityName == null;
+    }
+
+    public override string ToString()
+    {
+        string str = "{";
+
+        // Name
+        str += "\n\"name\" : \"" + this.abilityName + "\",";
+
+        // Children (in resolution order)
+        if (this.connections != null)
+        {
+            Debug.Log(this.abilityName + " : checking positions");
+            if (!(this.connections[(int)Constants.Branch.LEFT] == null) && this.parent != (int)Constants.Branch.LEFT) { 
+                Debug.Log("Left node exists");
+                str += "\n\"left\" : \"" + connections[(int)Constants.Branch.LEFT].ToString() + ",\n";
+            }
+            if (!(this.connections[(int)Constants.Branch.RIGHT] == null) && this.parent != (int)Constants.Branch.RIGHT)
+            {
+                Debug.Log("Right node exists");
+                str += "\n\"right\" : \"" + connections[(int)Constants.Branch.RIGHT].ToString() + ",\n";
+            }
+            if (!(this.connections[(int)Constants.Branch.DOWN] == null) && this.parent != (int)Constants.Branch.DOWN) {
+                Debug.Log("Down node exists");
+                str += "\n\"down\" : \"" + connections[(int)Constants.Branch.DOWN].ToString() + ",\n";
+            }
+        }
+
+        return str + "}";
     }
 }

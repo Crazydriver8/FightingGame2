@@ -56,7 +56,8 @@ public class BlackBoardController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        StartCoroutine(PostDataToServer.PostData());
+        StartCoroutine(PostDataToServer.PostData(false));
     }
 
     // Initialize player information
@@ -363,19 +364,14 @@ public class BlackBoardController : MonoBehaviour {
         Dictionary<string, string> playerProperties = bb.GetProperties(player);
 
         // Record for the player who pressed the key
-        KeyData data = new KeyData(Time.time, input, (playerProperties[Constants.playerName] == "" ? player : playerProperties[Constants.playerName]), null);
+        KeyData data = new KeyData(UFE.GetTimer(), input, (playerProperties[Constants.playerName] == "" ? player : playerProperties[Constants.playerName]), null);
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
 
-        // Post to server
-        WWW log_post = new WWW(write_to);
-        yield return log_post;
-
-        // Check for errors
-        if (log_post.error != null)
-        {
-            Debug.Log("There was an error logging input: " + log_post.error);
-        }
-
-        Debug.Log(log_post.text);
+        // Enqueue for POSTing to server
+        if (UFE.GetLocalPlayer() == 1)
+            PostDataToServer.postQueueP1.Add(new WWW(write_to));
+        else
+            PostDataToServer.postQueueP2.Add(new WWW(write_to));
+        yield return null;
     }
 }

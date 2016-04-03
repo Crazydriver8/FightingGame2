@@ -224,20 +224,15 @@ public class BlackBoard : MonoBehaviour
     public IEnumerator BlackBoardLog(string player)
     {
         // Record data for this player
-        KeyData data = new KeyData(Time.time, "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName]), BlackBoardToString());
+        KeyData data = new KeyData(UFE.GetTimer(), "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName]), BlackBoardToString());
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
 
-        // Post to server
-        WWW log_post = new WWW(write_to);
-        yield return log_post;
-
-        // Check for errors
-        if (log_post.error != null)
-        {
-            Debug.Log("There was an error logging the BlackBoard state: " + log_post.error);
-        }
-
-        Debug.Log(log_post.text);
+        // Enqueue for POSTing to server
+        if (UFE.GetLocalPlayer() == 1)
+            PostDataToServer.postQueueP1.Add(new WWW(write_to));
+        else
+            PostDataToServer.postQueueP2.Add(new WWW(write_to));
+        yield return null;
     }
     public string DumpBlackBoard(string player = null)
     {
@@ -260,10 +255,10 @@ public class BlackBoard : MonoBehaviour
 
         foreach(KeyValuePair<string, Dictionary<string, string>> f in flags)
         {
-            bb += "\t" + f.Key + ": {\n";
+            bb += "\t\"" + f.Key + "\" : {\n";
             foreach (KeyValuePair<string, string> tuple in f.Value)
             {
-                bb += "\t\t" + tuple.Key + " : " + tuple.Value + ",\n";
+                bb += "\t\t\"" + tuple.Key + "\" : \"" + tuple.Value + "\",\n";
             }
             bb += "\t},\n";
         }
