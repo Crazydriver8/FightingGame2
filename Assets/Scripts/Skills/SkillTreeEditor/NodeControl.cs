@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -32,10 +33,7 @@ public class NodeControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButton(1))
-        {
-            Debug.Log("Attempting to delete");
-        }
+        
 	}
 
     /* Events */
@@ -127,7 +125,7 @@ public class NodeControl : MonoBehaviour {
         // Check if there are any children
         for (int i = 0; i < this.connections.Length; i++)
         {
-            if (connections[i] != null)
+            if (connections[i] != null && i != this.parent)
             {
                 //Debug.Log("has child");
                 return true;
@@ -368,12 +366,13 @@ public class NodeControl : MonoBehaviour {
     public void drawLine(NodeControl parent, NodeControl child)
     {
         float lineWidth = 5f;
-        Canvas canvasRef = Canvas.FindObjectOfType<Canvas>();
+        //Canvas canvasRef = Canvas.FindObjectOfType<Canvas>();
+        GameObject backRef = GameObject.Find("Background");
 
         deleteLine();
 
         instLine = Instantiate(linePrefab);
-        instLine.transform.SetParent(canvasRef.transform, false);
+        instLine.transform.SetParent(backRef.transform, false);
         RectTransform test = instLine.GetComponent<RectTransform>();
         if (test != null)
         {
@@ -434,5 +433,52 @@ public class NodeControl : MonoBehaviour {
         }
 
         return str + "}";
+    }
+
+    //returns associated node to node bank
+    public void ResetToOrigin()
+    {
+        NodeControl tempParent = null;
+        // If there are no children, can remove node
+        if (!CheckChildren())
+        {
+            if (this.parent != -1 && this.connections[this.parent] != null)
+            {
+                // Check and remove references to the soon-deleted node
+                if (this.parent == ((int)Constants.Branch.UP))
+                {
+                    Debug.Log("Removing Down Child");
+                    tempParent = this.connections[this.parent];
+                    tempParent.RemoveChild((int)Constants.Branch.DOWN);                    
+
+                } else if (this.parent == ((int)Constants.Branch.LEFT))
+                {
+                    Debug.Log("Removing Right Child");
+                    tempParent = this.connections[this.parent];
+                    tempParent.RemoveChild((int)Constants.Branch.RIGHT);
+
+                } else if (this.parent == ((int)Constants.Branch.RIGHT))
+                {
+                    Debug.Log("Removing Left Child");
+                    tempParent = this.connections[this.parent];
+                    tempParent.RemoveChild((int)Constants.Branch.LEFT);
+                } else
+                {
+                    Debug.Log("Removing Up Child (Shouldn't happen)");
+                    tempParent = this.connections[this.parent];
+                    tempParent.RemoveChild((int)Constants.Branch.UP);
+                }
+            }
+
+            Debug.Log("Remove parent reference and reset to skill bank");
+            
+            this.UnsetParent();
+            this.deleteLine();
+            this.transform.position = initPos;
+
+        } else
+        { 
+            Debug.Log("Could not reset due to children");
+        }
     }
 }
