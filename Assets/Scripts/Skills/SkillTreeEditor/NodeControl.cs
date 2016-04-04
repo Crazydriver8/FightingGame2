@@ -330,7 +330,7 @@ public class NodeControl : MonoBehaviour {
         {
             this.connections[direction].UnsetParent();
             this.connections[direction] = null;
-            this.parent = -1;
+            //this.parent = -1;
 
             return true;
         }

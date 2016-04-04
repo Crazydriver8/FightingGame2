@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be590a89dcca3f4b9f9bb0e38c9e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Test3
+  abilityName: Shield
   parent: -1
   connections:
   - {fileID: 0}
@@ -855,7 +855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be590a89dcca3f4b9f9bb0e38c9e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Test1
+  abilityName: Power
   parent: -1
   connections:
   - {fileID: 0}
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be590a89dcca3f4b9f9bb0e38c9e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Test2
+  abilityName: Safety
   parent: -1
   connections:
   - {fileID: 0}
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be590a89dcca3f4b9f9bb0e38c9e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Test4
+  abilityName: Dash
   parent: -1
   connections:
   - {fileID: 0}
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be590a89dcca3f4b9f9bb0e38c9e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Test
+  abilityName: Aggression
   parent: -1
   connections:
   - {fileID: 0}
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be590a89dcca3f4b9f9bb0e38c9e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Test7
+  abilityName: Break
   parent: -1
   connections:
   - {fileID: 0}
@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be590a89dcca3f4b9f9bb0e38c9e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Test5
+  abilityName: Punchy
   parent: -1
   connections:
   - {fileID: 0}
@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be590a89dcca3f4b9f9bb0e38c9e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Test6
+  abilityName: Flee
   parent: -1
   connections:
   - {fileID: 0}
