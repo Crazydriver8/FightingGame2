@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,14 @@ public class BlackBoardController : MonoBehaviour {
     // BlackBoard
     BlackBoard bb;
 
+    // Skills
+    private int numSkill = 0;
+    public int maxSkill = 3;
+    private List<String> skillList = null;
+    public List<String> savedSkillList = null;
+
+    public GameObject captionPrefab;
+    private GameObject instCaption = null;
 
     // Happens when the object is enabled
     void OnEnable()
@@ -440,5 +449,92 @@ public class BlackBoardController : MonoBehaviour {
         else
             PostDataToServer.postQueueP2.Add(new WWW(write_to));
         yield return null;
+    }
+
+    // Skill Counter + Logger
+    public bool AddSkill(string abilityName)
+    {
+        if (numSkill + 1 <= 3)
+        {
+            if (skillList != null)
+            {
+                skillList.Add(abilityName);
+            } else
+            {
+                skillList = new List<String> { abilityName};
+            }
+            numSkill++;
+            return true;
+        } else
+        {
+            Debug.Log("Too many skills");
+            return false;
+        }
+    }
+
+    public bool RemoveSkill(string abilityName)
+    {
+        if (skillList.Contains(abilityName)) {
+            skillList.Remove(abilityName);
+            return true;
+        } else
+        {
+            Debug.Log("Could not find skill " + abilityName);
+            return false;
+        }
+    }
+
+    public bool RemoveAllSkills()
+    {
+        skillList.Clear();
+        return true;
+    }
+
+    // Returns true if there are skills added to the temporary list
+    public bool CheckForExistingSkills()
+    {
+        if (skillList != null && skillList.Count > 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    public bool SaveSkills()
+    {
+        if (CheckForExistingSkills())
+        {
+            savedSkillList = null;
+            savedSkillList = skillList;
+            //Debug.Log("Saved " + skillList.Count + " skills");
+            return true;
+        }
+        Debug.Log("No skills to save");
+        return false;
+    }
+
+    public List<String> GetSavedSkills()
+    {
+        return savedSkillList;
+    }
+
+    public void DisplaySavedSkills(string output)
+    {
+        Canvas canvasRef = Canvas.FindObjectOfType<Canvas>();
+
+        instCaption = GameObject.Instantiate(captionPrefab);
+        instCaption.transform.SetParent(canvasRef.transform);
+        instCaption.transform.position = new Vector3(Screen.width / 2, Screen.height / 2, 1);
+
+        Text[] captionContents = instCaption.GetComponentsInChildren<Text>();
+        Text captionTitle = captionContents[0];
+        captionTitle.text = "Saved";
+
+        Text captionText = captionContents[1];
+        captionText.text = output;
+
+        Destroy(instCaption, 3f);
     }
 }

@@ -397,6 +397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f69f5361df42514abfbb0e8ff720533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSkill: 3
+  savedSkillList: []
+  captionPrefab: {fileID: 155870, guid: 3d47f0411e72c0d41bda1016533db48a, type: 2}
 --- !u!114 &1918475680
 MonoBehaviour:
   m_ObjectHideFlags: 0

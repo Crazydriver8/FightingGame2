@@ -56,12 +56,12 @@ public class TreeEditor : MonoBehaviour {
     {
         //Debug.Log("Finding depth of " + node.name);
 
-        Debug.Log("Node: " + node.GetComponent<RectTransform>().anchoredPosition.y);
-        Debug.Log("Base: " + baseNode.GetComponent<RectTransform>().anchoredPosition.y);
+        //Debug.Log("Node: " + node.GetComponent<RectTransform>().anchoredPosition.y);
+        //Debug.Log("Base: " + baseNode.GetComponent<RectTransform>().anchoredPosition.y);
 
         float diff = Mathf.CeilToInt((node.GetComponent<RectTransform>().anchoredPosition.y - baseNode.GetComponent<RectTransform>().anchoredPosition.y));
         //diff = Mathf.Abs(diff);
-        Debug.Log("Distance to base: " + diff + ", DepthSpacing: " + depthSpacing);
+        //Debug.Log("Distance to base: " + diff + ", DepthSpacing: " + depthSpacing);
         
         diff = diff / depthSpacing;
         //Debug.Log("Depth: " + Mathf.RoundToInt(diff));
@@ -85,7 +85,7 @@ public class TreeEditor : MonoBehaviour {
         {
             leaves[leafDepth] = new List<NodeControl>() { node };
         }
-        Debug.Log("ADDING LEAF: " + leaves[leafDepth][0].abilityName + " @ DEPTH: " + leafDepth);
+        //Debug.Log("ADDING LEAF: " + leaves[leafDepth][0].abilityName + " @ DEPTH: " + leafDepth);
         return true;
     }
 

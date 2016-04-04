@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Reflection;
 
 public class SkillTreeScreen : UFEScreen
 {
+    private bool saveSkills = false;
+    public GameObject captionPrefab;
+    private GameObject instCaption = null;
+
     public virtual void Quit()
     {
         UFE.Quit();
@@ -57,7 +62,7 @@ public class SkillTreeScreen : UFEScreen
 
     public virtual void SaveSkillTree()
     {
-        Debug.Log("Attempting to save");
+        //Debug.Log("Attempting to save");
         GameObject[] temp = GameObject.FindGameObjectsWithTag("Node");
         NodeControl reference = null;
 
@@ -71,8 +76,8 @@ public class SkillTreeScreen : UFEScreen
             foreach(GameObject node in temp)
             {
                 NodeControl tempNC = node.GetComponent<NodeControl>();
-                Debug.Log("Ability Name: " + tempNC.abilityName);
-                Debug.Log("Parent: " + tempNC.parent);
+                //Debug.Log("Ability Name: " + tempNC.abilityName);
+                //Debug.Log("Parent: " + tempNC.parent);
                 if (tempNC.parent > -1 && tempNC.connections[tempNC.parent].abilityName == "Root")
                 {
                     reference = tempNC;
@@ -82,16 +87,41 @@ public class SkillTreeScreen : UFEScreen
         }
 
         if (reference == null)
-            Debug.Log("Fuk");
+            Debug.Log("Could not get NodeControl");
         
         if (reference == null)
         {
             Debug.Log("Could not output");
             return;
         }
-        else Debug.Log("Found Node");
+        //else Debug.Log("Found Node");
 
+        BlackBoardController bbc = GameObject.Find("Skills").GetComponent<BlackBoardController>();
+        if (!bbc.SaveSkills())
+        {
+            Debug.Log("Could not save skills");
+        }
+        else
+        {
+            //Debug.Log("Save success");
+        }
+
+        Debug.Log(bbc.savedSkillList.Count + " Skill(s) Saved");
+        string output = "";
+        int i = 0;
+        foreach(string s in bbc.savedSkillList)
+        {
+            if (bbc.savedSkillList.Count < (i + 1))
+            {
+                output += (s + " ");
+            } else
+            {
+                output += (s + ", ");
+            }
+        }
+        Debug.Log(output);
         Debug.Log(reference.ToString());
-        Debug.Log("Save success");
+
+        bbc.DisplaySavedSkills(output);
     }
 }

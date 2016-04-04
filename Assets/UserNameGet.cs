@@ -12,7 +12,7 @@ public class UserNameGet : MonoBehaviour {
             userEntry = this.GetComponent<Text>();
         }
         string currName = GameObject.Find("Name").GetComponent<NameHolder>().username;
-        Debug.Log("Setting skills for " + currName);
+        //Debug.Log("Setting skills for " + currName);
         userEntry.text = (currName == null || currName == "" ? initText : currName);
     }
 	

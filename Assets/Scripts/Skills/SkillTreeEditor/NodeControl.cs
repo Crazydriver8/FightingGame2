@@ -23,12 +23,14 @@ public class NodeControl : MonoBehaviour {
 
     private bool baseChild;
 
+    private BlackBoardController bbc = null;
+    public bool isInmotion = false;
 
 	// Use this for initialization
 	void Start () {
         initPos = transform.position;
         currPos = transform.position;
-
+        bbc = GameObject.Find("Skills").GetComponent<BlackBoardController>();
 	}
 	
 	// Update is called once per frame
@@ -44,28 +46,30 @@ public class NodeControl : MonoBehaviour {
     }
     public void OnDrag()
     {
+        isInmotion = true;
         //display image moving with mouse
         this.transform.position = Input.mousePosition;
     }
     public void OnEndDrag()
     {
-
+        isInmotion = false;
         // Grab all nearby for this.depth() - 1, then this.depth()
         List<NodeControl> leavesOnVertical;
         List<NodeControl> leavesOnHorizontal;
 
         int depth = TreeEditor.S.GetDepthOf(this);
-        Debug.Log(TreeEditor.S.GetDepthOf(this));
+        //Debug.Log(TreeEditor.S.GetDepthOf(this));
 
         // Check to insert above... on success, quit out to prevent execution of anything else
         if(TreeEditor.S.leaves.TryGetValue(depth - 1, out leavesOnVertical) && leavesOnVertical.Count > 0 && this.parent == -1)
         {
-            Debug.Log("Found leaves on vertical");
+            //Debug.Log("Found leaves on vertical");
             NodeControl vertNode = GetNearestNode(leavesOnVertical);
             if (!vertNode.CheckChildren((int)Constants.Branch.DOWN))
             {
                 vertNode.SetChild(this);
                 drawLine(vertNode, this);
+                bbc.AddSkill(this.abilityName);
                 return;
             }
         }
@@ -73,7 +77,7 @@ public class NodeControl : MonoBehaviour {
         // Check to insert left or right... on success, quit out to prevent execution of anything else
         if (TreeEditor.S.leaves.TryGetValue(depth, out leavesOnHorizontal) && leavesOnHorizontal.Count > 0 && this.parent == -1)
         {
-            Debug.Log("Found leaves on horizontal");
+            //Debug.Log("Found leaves on horizontal");
             NodeControl horizNode = GetNearestNode(leavesOnHorizontal);
             switch (this.CheckLeft(horizNode))
             {
@@ -82,6 +86,7 @@ public class NodeControl : MonoBehaviour {
                     {
                         horizNode.SetChild(this, (int)Constants.Branch.LEFT);
                         drawLine(horizNode, this);
+                        bbc.AddSkill(this.abilityName);
                     }
 
                     return;
@@ -91,6 +96,7 @@ public class NodeControl : MonoBehaviour {
                     {
                         horizNode.SetChild(this, (int)Constants.Branch.RIGHT);
                         drawLine(horizNode, this);
+                        bbc.AddSkill(this.abilityName);
                     }
 
                     return;
@@ -146,7 +152,7 @@ public class NodeControl : MonoBehaviour {
                 numChild++;
             }
         }
-        Debug.Log(node.name + " has " + numChild + " children");
+        //Debug.Log(node.name + " has " + numChild + " children");
         return numChild;
     }
 
@@ -160,7 +166,7 @@ public class NodeControl : MonoBehaviour {
             if (NodeC != this)
             {
                 float dist = Vector3.Distance(NodeC.transform.position, this.transform.position);
-                Debug.Log("Node " + NodeC.abilityName + "is dist: " + dist);
+                //Debug.Log("Node " + NodeC.abilityName + "is dist: " + dist);
 
                 //if it is within range, update heldnode to current acting node
                 if (dist < minDist)
@@ -265,7 +271,7 @@ public class NodeControl : MonoBehaviour {
                 // Check if there is already a DOWN child
                 if (this.connections[(int)Constants.Branch.DOWN] == null || this.connections[(int)Constants.Branch.DOWN] == null)
                 {
-                    Debug.Log("Setting down child");
+                    //Debug.Log("Setting down child");
                     this.connections[(int)Constants.Branch.DOWN] = child;
                     child.SetParent(this, (int)Constants.Branch.UP);
 
@@ -282,7 +288,7 @@ public class NodeControl : MonoBehaviour {
             case (int)Constants.Branch.LEFT:
                 if (this.connections[(int)Constants.Branch.LEFT] == null || this.connections[(int)Constants.Branch.LEFT])
                 {
-                    Debug.Log("Setting left child");
+                    //Debug.Log("Setting left child");
                     this.connections[(int)Constants.Branch.LEFT] = child;
                     child.SetParent(this, (int)Constants.Branch.RIGHT);
                     TreeEditor.S.AddLeaf(depth, child);
@@ -296,7 +302,7 @@ public class NodeControl : MonoBehaviour {
             case (int)Constants.Branch.RIGHT:
                 if (this.connections[(int)Constants.Branch.RIGHT] == null || this.connections[(int)Constants.Branch.RIGHT] == null)
                 {
-                    Debug.Log("Setting right child");
+                    //Debug.Log("Setting right child");
                     this.connections[(int)Constants.Branch.RIGHT] = child;
                     child.SetParent(this, (int)Constants.Branch.LEFT);
                     TreeEditor.S.AddLeaf(depth, child);
@@ -416,18 +422,18 @@ public class NodeControl : MonoBehaviour {
         // Children (in resolution order)
         if (this.connections != null)
         {
-            Debug.Log(this.abilityName + " : checking positions");
+            //Debug.Log(this.abilityName + " : checking positions");
             if (!(this.connections[(int)Constants.Branch.LEFT] == null) && this.parent != (int)Constants.Branch.LEFT) { 
-                Debug.Log("Left node exists");
+                //Debug.Log("Left node exists");
                 str += "\n\"left\" : \"" + connections[(int)Constants.Branch.LEFT].ToString() + ",\n";
             }
             if (!(this.connections[(int)Constants.Branch.RIGHT] == null) && this.parent != (int)Constants.Branch.RIGHT)
             {
-                Debug.Log("Right node exists");
+                //Debug.Log("Right node exists");
                 str += "\n\"right\" : \"" + connections[(int)Constants.Branch.RIGHT].ToString() + ",\n";
             }
             if (!(this.connections[(int)Constants.Branch.DOWN] == null) && this.parent != (int)Constants.Branch.DOWN) {
-                Debug.Log("Down node exists");
+                //Debug.Log("Down node exists");
                 str += "\n\"down\" : \"" + connections[(int)Constants.Branch.DOWN].ToString() + ",\n";
             }
         }
@@ -447,30 +453,30 @@ public class NodeControl : MonoBehaviour {
                 // Check and remove references to the soon-deleted node
                 if (this.parent == ((int)Constants.Branch.UP))
                 {
-                    Debug.Log("Removing Down Child");
+                    //Debug.Log("Removing Down Child");
                     tempParent = this.connections[this.parent];
                     tempParent.RemoveChild((int)Constants.Branch.DOWN);                    
 
                 } else if (this.parent == ((int)Constants.Branch.LEFT))
                 {
-                    Debug.Log("Removing Right Child");
+                    //Debug.Log("Removing Right Child");
                     tempParent = this.connections[this.parent];
                     tempParent.RemoveChild((int)Constants.Branch.RIGHT);
 
                 } else if (this.parent == ((int)Constants.Branch.RIGHT))
                 {
-                    Debug.Log("Removing Left Child");
+                    //Debug.Log("Removing Left Child");
                     tempParent = this.connections[this.parent];
                     tempParent.RemoveChild((int)Constants.Branch.LEFT);
                 } else
                 {
-                    Debug.Log("Removing Up Child (Shouldn't happen)");
+                    //Debug.Log("Removing Up Child (Shouldn't happen)");
                     tempParent = this.connections[this.parent];
                     tempParent.RemoveChild((int)Constants.Branch.UP);
                 }
             }
 
-            Debug.Log("Remove parent reference and reset to skill bank");
+            //Debug.Log("Remove parent reference and reset to skill bank");
             
             this.UnsetParent();
             this.deleteLine();
@@ -481,4 +487,6 @@ public class NodeControl : MonoBehaviour {
             Debug.Log("Could not reset due to children");
         }
     }
+
+    
 }

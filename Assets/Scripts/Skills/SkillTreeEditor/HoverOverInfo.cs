@@ -15,28 +15,24 @@ public class HoverOverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData ped)
     {
-        Canvas canvasRef = Canvas.FindObjectOfType<Canvas>();
         //Debug.Log("Hovering over" + gameObject.name);
-        hovering = true;
-
-        instCaption = GameObject.Instantiate(captionPrefab);
-
-        instCaption.transform.SetParent(canvasRef.transform, false);
-        instCaption.transform.position = gameObject.transform.position + Vector3.up;
-
-        capTitle = instCaption.GetComponentInChildren<Text>();
-        capTitle.text = abilityName;
-
+        if (!gameObject.GetComponent<NodeControl>().isInmotion)
+        {
+            InstCaption();
+            hovering = true;
+        } else
+        {
+            DeleteCaption();
+            hovering = false;
+        }
+        
     }
 
     public void OnPointerExit(PointerEventData ped)
     {
         //Debug.Log("Leaving " + gameObject.name);
         hovering = false;
-        if (instCaption != null)
-        {
-            Destroy(instCaption, 0f);
-        }
+        
     }
 
     void Update()
@@ -49,6 +45,10 @@ public class HoverOverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             nodeRef.ResetToOrigin();
             Destroy(instCaption, 0f);
         }
+        if (!hovering)
+        {
+            DeleteCaption();
+        }
     }
 
     void Start()
@@ -60,6 +60,30 @@ public class HoverOverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         } else
         {
             Debug.Log("Could not find ability name");
+        }
+    }
+
+    public void InstCaption()
+    {
+        Canvas canvasRef = Canvas.FindObjectOfType<Canvas>();
+        instCaption = GameObject.Instantiate(captionPrefab);
+
+        instCaption.transform.SetParent(canvasRef.transform, false);
+        instCaption.transform.position = gameObject.transform.position + Vector3.up;
+
+        Text[] captionContents = instCaption.GetComponentsInChildren<Text>();
+        Text captionTitle = captionContents[0];
+        captionTitle.text = this.abilityName;
+
+        Text captionText = captionContents[1];
+        captionText.text = "Summary";
+    }
+
+    public void DeleteCaption()
+    {
+        if (instCaption != null)
+        {
+            Destroy(instCaption, 0f);
         }
     }
 }
