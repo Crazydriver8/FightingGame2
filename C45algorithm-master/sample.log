@@ -1,0 +1,51 @@
+Player1
+9.716667
+BlackBoard Update
+{
+	"Player1": {
+		"Current Life Points" : "1000",
+		"Favor" : "0",
+		"Rally" : "0",
+		"Balance" : "33",
+		"Last Hit" : "0",
+		"Last Attack by Player" : "",
+		"Landed Last Attack" : "",
+		"Last Evade" : "",
+		"Successful Evade" : "",
+		"Last Attack by Opponent" : "",
+		"Opponent Landed Last Attack" : "",
+		"[Surprise] Number of Attacks" : "0",
+		"[Surprise] Number of Evades" : "0",
+		"Winner" : "false",
+	},
+	"Player2": {
+		"Current Life Points" : "1000",
+		"Favor" : "0",
+		"Rally" : "0",
+		"Balance" : "33",
+		"Last Hit" : "0",
+		"Last Attack by Player" : "",
+		"Landed Last Attack" : "",
+		"Last Evade" : "",
+		"Successful Evade" : "",
+		"Last Attack by Opponent" : "",
+		"Opponent Landed Last Attack" : "",
+		"[Surprise] Number of Attacks" : "0",
+		"[Surprise] Number of Evades" : "0",
+		"Winner" : "false",
+	},
+}
+
+Player1
+11.76667
+Foward
+
+
+Player1
+12.15
+Foward
+
+
+Player1
+12.16667
+Up

@@ -97,8 +97,46 @@ public class BlackBoard : MonoBehaviour
         Dictionary<string, string> properties;
         if (flags.TryGetValue(key, out properties))
         {
-            properties[index] = value;
-            
+            string oldProperty;
+            if(properties.TryGetValue(index, out oldProperty))
+            {
+                properties[index] = value;
+
+                DumpBlackBoard();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Update a set of properties
+    public bool UpdateProperties(string key, Dictionary<string, string> newProperties)
+    {
+        Dictionary<string, string> properties;
+        Dictionary<string, string> oldProperties = new Dictionary<string, string>();
+        if (flags.TryGetValue(key, out properties))
+        {
+            foreach (KeyValuePair<string, string> newProperty in newProperties)
+            {
+                string oldValue;
+                if (properties.TryGetValue(newProperty.Key, out oldValue))
+                {
+                    oldProperties.Add(newProperty.Key, oldValue);
+                    properties[newProperty.Key] = newProperty.Value;
+                }
+                else
+                {
+                    // Revert; it is already known that these properties exist
+                    foreach(KeyValuePair<string, string> oldProperty in oldProperties)
+                    {
+                        properties[oldProperty.Key] = oldProperty.Value;
+                    }
+
+                    return false;
+                }
+            }
+
             DumpBlackBoard();
             return true;
         }

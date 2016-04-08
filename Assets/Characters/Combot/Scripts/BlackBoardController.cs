@@ -198,58 +198,78 @@ public class BlackBoardController : MonoBehaviour {
         // Record the button that was pressed and the time it was pressed
         //Debug.Log("[" + Time.time + "] Player " + player.GetInstanceID() + " inputted " + (int)move.buttonExecution[0]);
 
+        // New values
+        Dictionary<string, string> p1Changes = new Dictionary<string, string>(),
+                                   p2Changes = new Dictionary<string, string>();
+
         // Record move information
         if (player.GetInstanceID() == p1.GetInstanceID())
         {
             if (move.moveName != Constants.EVADE)
             {
-                bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByPlayer, move.moveName);
-                bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByOpponent, move.moveName);
+                //bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByPlayer, move.moveName);
+                //bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByOpponent, move.moveName);
+                p1Changes.Add(Constants.lastAttackByPlayer, move.moveName);
+                p2Changes.Add(Constants.lastAttackByOpponent, move.moveName);
 
                 // This is an attack
-                bb.UpdateProperty(Constants.p1Key, Surprise.attackCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.attackCount]) + 1).ToString());
+                //bb.UpdateProperty(Constants.p1Key, Surprise.attackCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.attackCount]) + 1).ToString());
+                p1Changes.Add(Surprise.attackCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.attackCount]) + 1).ToString());
 
                 // Wait to see if it missed
                 AttackMissed(move, player);
             }
             else
             {
-                bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.TRUE);
+                //bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.TRUE);
+                p1Changes.Add(Constants.lastEvade, Constants.TRUE);
 
                 // This is an evade
-                bb.UpdateProperty(Constants.p1Key, Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.evadeCount]) + 1).ToString());
+                //bb.UpdateProperty(Constants.p1Key, Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.evadeCount]) + 1).ToString());
+                p1Changes.Add(Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p1Key)[Surprise.evadeCount]) + 1).ToString());
             }
             
             // Update distance
-            bb.UpdateProperty(Constants.p1Key, Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString());
+            //bb.UpdateProperty(Constants.p1Key, Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString());
         }
         else
         {
             if (move.moveName != Constants.EVADE)
             {
-                bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByPlayer, move.moveName);
-                bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByOpponent, move.moveName);
+                //bb.UpdateProperty(Constants.p2Key, Constants.lastAttackByPlayer, move.moveName);
+                //bb.UpdateProperty(Constants.p1Key, Constants.lastAttackByOpponent, move.moveName);
+                p2Changes.Add(Constants.lastAttackByPlayer, move.moveName);
+                p1Changes.Add(Constants.lastAttackByOpponent, move.moveName);
 
                 // This is an attack
-                bb.UpdateProperty(Constants.p2Key, Surprise.attackCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.attackCount]) + 1).ToString());
+                //bb.UpdateProperty(Constants.p2Key, Surprise.attackCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.attackCount]) + 1).ToString());
+                p2Changes.Add(Surprise.attackCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.attackCount]) + 1).ToString());
 
                 // Wait to see if it missed
                 AttackMissed(move, player);
             }
             else
             {
-                bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.TRUE);
+                //bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.TRUE);
+                p2Changes.Add(Constants.lastEvade, Constants.TRUE);
 
                 // This is an evade
-                bb.UpdateProperty(Constants.p2Key, Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.evadeCount]) + 1).ToString());
+                //bb.UpdateProperty(Constants.p2Key, Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.evadeCount]) + 1).ToString());
+                p2Changes.Add(Surprise.evadeCount, (int.Parse(bb.GetProperties(Constants.p2Key)[Surprise.evadeCount]) + 1).ToString());
             }
 
             // Update distance
-            bb.UpdateProperty(Constants.p2Key, Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString());
+            //bb.UpdateProperty(Constants.p2Key, Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString());
         }
-        
+
+        // Update distances
+        p1Changes.Add(Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString());
+        p2Changes.Add(Constants.distToOpponent, Vector3.Distance(UFE.GetPlayer1Controller().transform.position, UFE.GetPlayer2Controller().transform.position).ToString());
+
         // Save the state of the BlackBoard
         //Debug.Log("Saved BlackBoard state");
+        bb.UpdateProperties(Constants.p1Key, p1Changes);
+        bb.UpdateProperties(Constants.p2Key, p2Changes);
     }
 
     void OnHit(HitBox strokeHitBox, MoveInfo move, CharacterInfo hitter)
@@ -258,33 +278,51 @@ public class BlackBoardController : MonoBehaviour {
         // Record the amount of damage done
         //Debug.Log("Hit damage: " + move.hits[0].damageOnHit);
 
+        // New values
+        Dictionary<string, string> p1Changes = new Dictionary<string, string>(),
+                                   p2Changes = new Dictionary<string, string>();
+
         // Update BlackBoard with new life totals
         if (p1.GetInstanceID() == hitter.GetInstanceID())
         {
-            bb.UpdateProperty(Constants.p2Key, Constants.indexLifePoints, p2.currentLifePoints.ToString()); // Hitter is p1 -> p2 got hit
-            bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.TRUE);
-            bb.UpdateProperty(Constants.p1Key, Constants.landedLastAttack, Constants.TRUE);
+            //bb.UpdateProperty(Constants.p2Key, Constants.indexLifePoints, p2.currentLifePoints.ToString()); // Hitter is p1 -> p2 got hit
+            //bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.TRUE);
+            //bb.UpdateProperty(Constants.p1Key, Constants.landedLastAttack, Constants.TRUE);
+            p2Changes.Add(Constants.indexLifePoints, p2.currentLifePoints.ToString());
+            p2Changes.Add(Constants.opponentLandedLastAttack, Constants.TRUE);
+            p1Changes.Add(Constants.landedLastAttack, Constants.TRUE);
 
             // Did the other player try to evade?
             if (bb.GetProperties(Constants.p2Key)[Constants.lastEvade] == Constants.TRUE)
             {
-                bb.UpdateProperty(Constants.p2Key, Constants.lastEvadeSuccessful, Constants.FALSE);
-                bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.FALSE);
+                //bb.UpdateProperty(Constants.p2Key, Constants.lastEvadeSuccessful, Constants.FALSE);
+                //bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.FALSE);
+                p2Changes.Add(Constants.lastEvadeSuccessful, Constants.FALSE);
+                p2Changes.Add(Constants.lastEvade, Constants.FALSE);
             }
         }
         else
         {
-            bb.UpdateProperty(Constants.p1Key, Constants.indexLifePoints, p1.currentLifePoints.ToString()); // And vice versa
-            bb.UpdateProperty(Constants.p1Key, Constants.opponentLandedLastAttack, Constants.TRUE);
-            bb.UpdateProperty(Constants.p2Key, Constants.landedLastAttack, Constants.TRUE);
+            //bb.UpdateProperty(Constants.p1Key, Constants.indexLifePoints, p1.currentLifePoints.ToString()); // And vice versa
+            //bb.UpdateProperty(Constants.p1Key, Constants.opponentLandedLastAttack, Constants.TRUE);
+            //bb.UpdateProperty(Constants.p2Key, Constants.landedLastAttack, Constants.TRUE);
+            p1Changes.Add(Constants.indexLifePoints, p1.currentLifePoints.ToString());
+            p1Changes.Add(Constants.opponentLandedLastAttack, Constants.TRUE);
+            p2Changes.Add(Constants.landedLastAttack, Constants.TRUE);
 
             // Did the other player try to evade?
             if (bb.GetProperties(Constants.p1Key)[Constants.lastEvade] == Constants.TRUE)
             {
-                bb.UpdateProperty(Constants.p1Key, Constants.lastEvadeSuccessful, Constants.FALSE);
-                bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.FALSE);
+                //bb.UpdateProperty(Constants.p1Key, Constants.lastEvadeSuccessful, Constants.FALSE);
+                //bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.FALSE);
+                p1Changes.Add(Constants.lastEvadeSuccessful, Constants.FALSE);
+                p1Changes.Add(Constants.lastEvade, Constants.FALSE);
             }
         }
+
+        // Flush BlackBoard changes
+        bb.UpdateProperties(Constants.p1Key, p1Changes);
+        bb.UpdateProperties(Constants.p2Key, p2Changes);
 
         // Calculate passive effects
         Func<MoveInfo, bool, bool, Modifier> resolver;
@@ -323,8 +361,13 @@ public class BlackBoardController : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.6f);
 
-        Dictionary<string, string> p1Properties = bb.GetProperties(Constants.p1Key);
-        Dictionary<string, string> p2Properties = bb.GetProperties(Constants.p2Key);
+        // Old values
+        Dictionary<string, string> p1Properties = bb.GetProperties(Constants.p1Key),
+                                   p2Properties = bb.GetProperties(Constants.p2Key);
+
+        // New values
+        Dictionary<string, string> p1Changes = new Dictionary<string, string>(),
+                                   p2Changes = new Dictionary<string, string>();
 
         if (player.GetInstanceID() == p1.GetInstanceID())
         {
@@ -332,17 +375,21 @@ public class BlackBoardController : MonoBehaviour {
             if (p1Properties[Constants.landedLastAttack] != Constants.TRUE)
             {
                 // Updates that happen regardless of ambient effects
-                bb.UpdateProperty(Constants.p1Key, Constants.landedLastAttack, Constants.FALSE);
+                //bb.UpdateProperty(Constants.p1Key, Constants.landedLastAttack, Constants.FALSE);
+                p1Changes.Add(Constants.landedLastAttack, Constants.FALSE);
 
                 // Did the other player evade?
                 if (p2Properties[Constants.lastEvade] == Constants.TRUE)
                 {
-                    bb.UpdateProperty(Constants.p2Key, Constants.lastEvadeSuccessful, Constants.TRUE);
-                    bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.FALSE);
+                    //bb.UpdateProperty(Constants.p2Key, Constants.lastEvadeSuccessful, Constants.TRUE);
+                    //bb.UpdateProperty(Constants.p2Key, Constants.lastEvade, Constants.FALSE);
+                    p2Changes.Add(Constants.lastEvadeSuccessful, Constants.TRUE);
+                    p2Changes.Add(Constants.lastEvade, Constants.FALSE);
                 }
                 else
                 {
-                    bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.TRUE);
+                    //bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.TRUE);
+                    p2Changes.Add(Constants.opponentLandedLastAttack, Constants.TRUE);
                 }
             }
         }
@@ -352,20 +399,28 @@ public class BlackBoardController : MonoBehaviour {
             if (p2Properties[Constants.landedLastAttack] != Constants.TRUE)
             {
                 // Updates that happen regardless of ambient effects
-                bb.UpdateProperty(Constants.p2Key, Constants.landedLastAttack, Constants.FALSE);
+                //bb.UpdateProperty(Constants.p2Key, Constants.landedLastAttack, Constants.FALSE);
+                p2Changes.Add(Constants.landedLastAttack, Constants.FALSE);
 
                 // Did the other player evade?
                 if (p1Properties[Constants.lastEvade] == Constants.TRUE)
                 {
-                    bb.UpdateProperty(Constants.p1Key, Constants.lastEvadeSuccessful, Constants.TRUE);
-                    bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.FALSE);
+                    //bb.UpdateProperty(Constants.p1Key, Constants.lastEvadeSuccessful, Constants.TRUE);
+                    //bb.UpdateProperty(Constants.p1Key, Constants.lastEvade, Constants.FALSE);
+                    p1Changes.Add(Constants.lastEvadeSuccessful, Constants.TRUE);
+                    p1Changes.Add(Constants.lastEvade, Constants.FALSE);
                 }
                 else
                 {
-                    bb.UpdateProperty(Constants.p2Key, Constants.opponentLandedLastAttack, Constants.FALSE);
+                    //bb.UpdateProperty(Constants.p1Key, Constants.opponentLandedLastAttack, Constants.FALSE);
+                    p1Changes.Add(Constants.opponentLandedLastAttack, Constants.FALSE);
                 }
             }
         }
+
+        // Flush changes
+        bb.UpdateProperties(Constants.p1Key, p1Changes);
+        bb.UpdateProperties(Constants.p2Key, p2Changes);
 
         yield return null;
     }
