@@ -80,6 +80,7 @@ namespace SimpleJSON
         public virtual JSONNode Remove(JSONNode aNode) { return aNode; }
  
         public virtual IEnumerable<JSONNode> Childs { get { yield break;} }
+        public virtual IEnumerable<string> Keys { get { yield break; } }
         public IEnumerable<JSONNode> DeepChilds
         {
             get
@@ -767,7 +768,16 @@ namespace SimpleJSON
                     yield return N.Value;
             }
         }
- 
+
+        public override IEnumerable<string> Keys
+        {
+            get
+            {
+                foreach (KeyValuePair<string, JSONNode> N in m_Dict)
+                    yield return N.Key;
+            }
+        }
+
         public IEnumerator GetEnumerator()
         {
             foreach(KeyValuePair<string, JSONNode> N in m_Dict)

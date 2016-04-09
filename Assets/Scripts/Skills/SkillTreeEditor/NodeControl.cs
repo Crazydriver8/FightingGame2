@@ -417,25 +417,44 @@ public class NodeControl : MonoBehaviour {
         string str = "{";
 
         // Name
-        str += "\n\"name\" : \"" + this.abilityName + "\",";
+        str += "\"name\" : \"" + this.abilityName + "\",";
 
         // Children (in resolution order)
+        // Keep an empty string for no children
         if (this.connections != null)
         {
-            //Debug.Log(this.abilityName + " : checking positions");
-            if (!(this.connections[(int)Constants.Branch.LEFT] == null) && this.parent != (int)Constants.Branch.LEFT) { 
+
+            str += "\"left\" : ";
+            if (!(this.connections[(int)Constants.Branch.LEFT] == null) && this.parent != (int)Constants.Branch.LEFT) {
                 //Debug.Log("Left node exists");
-                str += "\n\"left\" : \"" + connections[(int)Constants.Branch.LEFT].ToString() + ",\n";
+                str += connections[(int)Constants.Branch.LEFT].ToString() + ",";
             }
+            else
+            {
+                str += "\"\",";
+            }
+
+            str += "\"right\" : ";
             if (!(this.connections[(int)Constants.Branch.RIGHT] == null) && this.parent != (int)Constants.Branch.RIGHT)
             {
                 //Debug.Log("Right node exists");
-                str += "\n\"right\" : \"" + connections[(int)Constants.Branch.RIGHT].ToString() + ",\n";
+                str += connections[(int)Constants.Branch.RIGHT].ToString() + ",";
             }
+            else
+            {
+                str += "\"\",";
+            }
+
+            str += "\"down\" : ";
             if (!(this.connections[(int)Constants.Branch.DOWN] == null) && this.parent != (int)Constants.Branch.DOWN) {
                 //Debug.Log("Down node exists");
-                str += "\n\"down\" : \"" + connections[(int)Constants.Branch.DOWN].ToString() + ",\n";
+                str += connections[(int)Constants.Branch.DOWN].ToString();
             }
+            else
+            {
+                str += "\"\"";
+            }
+
         }
 
         return str + "}";

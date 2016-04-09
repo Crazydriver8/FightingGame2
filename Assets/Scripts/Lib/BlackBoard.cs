@@ -102,7 +102,7 @@ public class BlackBoard : MonoBehaviour
             {
                 properties[index] = value;
 
-                DumpBlackBoard();
+                DumpBlackBoard(key);
                 return true;
             }
         }
@@ -137,7 +137,7 @@ public class BlackBoard : MonoBehaviour
                 }
             }
 
-            DumpBlackBoard();
+            DumpBlackBoard(key);
             return true;
         }
 
@@ -266,21 +266,27 @@ public class BlackBoard : MonoBehaviour
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
 
         // Enqueue for POSTing to server
-        if (UFE.GetLocalPlayer() == 1)
+        if (player == Constants.p1Key)
             PostDataToServer.postQueueP1.Add(new WWW(write_to));
-        else
+        else if (player == Constants.p2Key)
             PostDataToServer.postQueueP2.Add(new WWW(write_to));
+        else
+            Debug.Log("Why is there a third player?");
         yield return null;
     }
     public string DumpBlackBoard(string player = null)
     {
+        Debug.Log(player);
         if (player == null)
         {
-            StartCoroutine(BlackBoardLog(Constants.p1Key));
-            StartCoroutine(BlackBoardLog(Constants.p2Key));
+            if (UFE.GetLocalPlayer() == 1)
+                StartCoroutine(BlackBoardLog(Constants.p1Key));
+            else
+                StartCoroutine(BlackBoardLog(Constants.p2Key));
         }
         else
         {
+            Debug.Log(player + " is using the correct thing");
             StartCoroutine(BlackBoardLog(player));
         }
 

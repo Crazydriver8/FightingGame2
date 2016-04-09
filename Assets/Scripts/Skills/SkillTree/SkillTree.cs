@@ -199,7 +199,93 @@ public struct SkillTreeStructure
         this.parent = parent;
     }
 
+    // From JSON
+    public SkillTreeStructure FromJSON(string aJSON)
+    {
+        // Parse JSON using SimpleJSON library
+        JSONNode N = JSON.Parse(aJSON);
 
+        // Fill in default information
+        this.name = "";
+        this.connections = new SkillTreeStructure[4] { new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure() };
+        this.parent = -1;
+
+        // Build the children
+        foreach (string child in N.Keys)
+        {
+            switch(child)
+            {
+                case "name":
+                    this.name = N[child];
+                    break;
+
+                case "left":
+                    this.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure(N[child], (int)Constants.Branch.RIGHT);
+                    this.connections[(int)Constants.Branch.LEFT].connections[(int)Constants.Branch.RIGHT] = this;
+                    break;
+
+                case "right":
+                    this.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure(N[child], (int)Constants.Branch.LEFT);
+                    this.connections[(int)Constants.Branch.RIGHT].connections[(int)Constants.Branch.LEFT] = this;
+                    break;
+
+                case "down":
+                    this.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure(N[child], (int)Constants.Branch.UP);
+                    this.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = this;
+                    break;
+
+                default:
+                    break;
+            }
+
+            //Debug.Log(child);
+        }
+
+        Debug.Log(this.ToString());
+        Debug.Log(this.ToString() == aJSON);
+
+        return this;
+    }
+    // Helper for building children from JSONNodes
+    public SkillTreeStructure(JSONNode node, int parent)
+    {
+        // Fill in default information
+        this.name = "";
+        this.connections = new SkillTreeStructure[4] { new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure() };
+        this.parent = parent;
+
+        // Build the children
+        foreach (string child in node.Keys)
+        {
+            switch (child)
+            {
+                case "name":
+                    this.name = node[child];
+                    break;
+
+                case "left":
+                    this.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure(node[child], (int)Constants.Branch.RIGHT);
+                    this.connections[(int)Constants.Branch.LEFT].connections[(int)Constants.Branch.RIGHT] = this;
+                    break;
+
+                case "right":
+                    this.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure(node[child], (int)Constants.Branch.LEFT);
+                    this.connections[(int)Constants.Branch.RIGHT].connections[(int)Constants.Branch.LEFT] = this;
+                    break;
+
+                case "down":
+                    this.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure(node[child], (int)Constants.Branch.UP);
+                    this.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = this;
+                    break;
+
+                default:
+                    break;
+            }
+
+            //Debug.Log(child);
+        }
+    }
+    
     /* Builds a skill tree
      */
     public bool SetParent(SkillTreeStructure parent, int position)
@@ -292,17 +378,42 @@ public struct SkillTreeStructure
         string str = "{";
 
         // Name
-        str += "\n\"name\" : \"" + this.name +"\",";
+        str += "\"name\" : \"" + this.name + "\",";
 
         // Children (in resolution order)
+        // Keep an empty string for no children
         if (this.connections != null)
         {
+
+            str += "\"left\" : ";
             if (!this.connections[(int)Constants.Branch.LEFT].IsNull() && this.parent != (int)Constants.Branch.LEFT)
-                str += "\n\"left\" : \"" + connections[(int)Constants.Branch.LEFT].ToString() + ",\n";
+            {
+                str += connections[(int)Constants.Branch.LEFT].ToString() + ",";
+            }
+            else
+            {
+                str += "\"\",";
+            }
+
+            str += "\"right\" : ";
             if (!this.connections[(int)Constants.Branch.RIGHT].IsNull() && this.parent != (int)Constants.Branch.RIGHT)
-                str += "\n\"right\" : \"" + connections[(int)Constants.Branch.RIGHT].ToString() + ",\n";
+            {
+                str += connections[(int)Constants.Branch.RIGHT].ToString() + ",";
+            }
+            else
+            {
+                str += "\"\",";
+            }
+
+            str += "\"down\" : ";
             if (!this.connections[(int)Constants.Branch.DOWN].IsNull() && this.parent != (int)Constants.Branch.DOWN)
-                str += "\n\"down\" : \"" + connections[(int)Constants.Branch.DOWN].ToString() + ",\n";
+            {
+                str += connections[(int)Constants.Branch.DOWN].ToString();
+            }
+            else
+            {
+                str += "\"\"";
+            }
         }
 
         return str + "}";

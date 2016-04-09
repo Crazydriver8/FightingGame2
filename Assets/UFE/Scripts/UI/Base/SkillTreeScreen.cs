@@ -123,5 +123,6 @@ public class SkillTreeScreen : UFEScreen
         Debug.Log(reference.ToString());
 
         bbc.DisplaySavedSkills(output);
+        SkillTreeStructure newTree = new SkillTreeStructure().FromJSON("{\"name\" : \"Aggression\",\"left\" : {\"name\" : \"Power\",\"left\" : \"\",\"right\" : \"\",\"down\" : {\"name\" : \"Safety\",\"left\" : \"\",\"right\" : \"\",\"down\" : \"\"}},\"right\" : \"\",\"down\" : \"\"}");
     }
 }

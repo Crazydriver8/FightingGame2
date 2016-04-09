@@ -1,4 +1,5 @@
 import json
+import sys
 
 # C4.5 implementation by geerk
 import mine
@@ -64,35 +65,37 @@ class StateDependentMoves(object):
 				row = [block[2]]
 				# Player 1 data
 				row.append(self.hp_level(float(self.curr_state["Player1"]["Current Life Points"])))
-				row.append(self.curr_state["Player1"]["Favor"])
-				row.append(self.curr_state["Player1"]["Rally"])
-				row.append(self.curr_state["Player1"]["Balance"])
-				row.append(self.curr_state["Player1"]["Last Hit"])
+				row.append(self.favor(self.curr_state["Player1"]["Favor"]))
+				row.append(self.rally(self.curr_state["Player1"]["Rally"]))
+				row.append(self.balance(self.curr_state["Player1"]["Balance"]))
+				row.append(self.last_hit_damage(self.curr_state["Player1"]["Last Hit"]))
 				row.append(self.curr_state["Player1"]["Last Attack by Player"] if self.curr_state["Player1"]["Last Attack by Player"] != "" else "None")
 				row.append(self.curr_state["Player1"]["Landed Last Attack"] if self.curr_state["Player1"]["Landed Last Attack"] != "" else "None")
 				row.append(self.curr_state["Player1"]["Last Evade"] if self.curr_state["Player1"]["Last Evade"] != "" else "None")
 				row.append(self.curr_state["Player1"]["Successful Evade"] if self.curr_state["Player1"]["Successful Evade"] != "" else "None")
 				row.append(self.curr_state["Player1"]["Last Attack by Opponent"] if self.curr_state["Player1"]["Last Attack by Opponent"] != "" else "None")
 				row.append(self.curr_state["Player1"]["Opponent Landed Last Attack"] if self.curr_state["Player1"]["Opponent Landed Last Attack"] != "" else "None")
-				row.append(self.curr_state["Player1"]["[Surprise] Number of Attacks"])
-				row.append(self.curr_state["Player1"]["[Surprise] Number of Evades"])
-				row.append("Close" if float(self.curr_state["Player1"]["Distance to Opponent"]) < 3.5 else "Far")
+				atk_eva = self.attack_evade(self.curr_state["Player1"]["[Surprise] Number of Attacks"], self.curr_state["Player1"]["[Surprise] Number of Evades"])
+				row.append(atk_eva[0])
+				row.append(atk_eva[1])
+				row.append(self.is_close(self.curr_state["Player1"]["Distance to Opponent"]))
 				row.append(self.curr_state["Player1"]["Winner"])
 				# Player 2 data
 				row.append(self.hp_level(float(self.curr_state["Player2"]["Current Life Points"])))
-				row.append(self.curr_state["Player2"]["Favor"])
-				row.append(self.curr_state["Player2"]["Rally"])
-				row.append(self.curr_state["Player2"]["Balance"])
-				row.append(self.curr_state["Player2"]["Last Hit"])
+				row.append(self.favor(self.curr_state["Player2"]["Favor"]))
+				row.append(self.rally(self.curr_state["Player2"]["Rally"]))
+				row.append(self.balance(self.curr_state["Player2"]["Balance"]))
+				row.append(self.last_hit_damage(self.curr_state["Player2"]["Last Hit"]))
 				row.append(self.curr_state["Player2"]["Last Attack by Player"] if self.curr_state["Player2"]["Last Attack by Player"] != "" else "None")
 				row.append(self.curr_state["Player2"]["Landed Last Attack"] if self.curr_state["Player2"]["Landed Last Attack"] != "" else "None")
 				row.append(self.curr_state["Player2"]["Last Evade"] if self.curr_state["Player2"]["Last Evade"] != "" else "None")
 				row.append(self.curr_state["Player2"]["Successful Evade"] if self.curr_state["Player2"]["Successful Evade"] != "" else "None")
 				row.append(self.curr_state["Player2"]["Last Attack by Opponent"] if self.curr_state["Player2"]["Last Attack by Opponent"] != "" else "None")
 				row.append(self.curr_state["Player2"]["Opponent Landed Last Attack"] if self.curr_state["Player2"]["Opponent Landed Last Attack"] != "" else "None")
-				row.append(self.curr_state["Player2"]["[Surprise] Number of Attacks"])
-				row.append(self.curr_state["Player2"]["[Surprise] Number of Evades"])
-				row.append("Close" if float(self.curr_state["Player2"]["Distance to Opponent"]) < 3.5 else "Far")
+				atk_eva = self.attack_evade(self.curr_state["Player2"]["[Surprise] Number of Attacks"], self.curr_state["Player2"]["[Surprise] Number of Evades"])
+				row.append(atk_eva[0])
+				row.append(atk_eva[1])
+				row.append(self.is_close(self.curr_state["Player2"]["Distance to Opponent"]))
 				row.append(self.curr_state["Player2"]["Winner"])
 				
 				# The last entry is a "phase" (early, mid, late) based on game time
@@ -143,16 +146,74 @@ class StateDependentMoves(object):
 			return "> 2500"
 		else:
 			return "<= 2500"
+	
+	def last_hit_damage(self, last_hit):
+		last_hit_damage = float(last_hit)
+		if last_hit_damage == 0:
+			return "0"
+		elif last_hit_damage <= 50:
+			return "<= 50"
+		else:
+			return "> 50"
+	
+	def favor(self, favor):
+		favor_level = float(favor)
+		if favor_level == 0:
+			return "0"
+		elif favor_level <= 25:
+			return "<= 25"
+		elif favor_level <= 50:
+			return "<= 50"
+		elif favor_level <= 75:
+			return "<= 75"
+		else:
+			return "<= 100"
+	
+	def rally(self, rally):
+		rally_level = float(rally)
+		if rally_level == 0:
+			return "0"
+		elif rally_level <= 25:
+			return "<= 25"
+		elif rally_level <= 50:
+			return "<= 50"
+		elif rally_level <= 75:
+			return "<= 75"
+		else:
+			return "<= 100"
+	
+	def balance(self, balance):
+		balance_level = float(balance)
+		if balance == 33:
+			return "33"
+		elif balance < 33:
+			return "< 33"
+		else:
+			return "> 33"
+	
+	def attack_evade(self, attack_count, evade_count):
+		total_moves = float(attack_count) + float(evade_count)
+		if total_moves == 0:
+			return ["about the same", "about the same"]
+		elif abs((float(attack_count) - float(evade_count))/total_moves) < .05:
+			return ["about the same", "about the same"]
+		elif float(attack_count) > float(evade_count):
+			return ["more", "less"]
+		else:
+			return ["less", "more"]
+	
+	def is_close(self, dist_to_opponent):
+		return "Close" if float(dist_to_opponent) < 3.5 else "Far"
 
 
 if __name__ == "__main__":
 	# Build the data table
-	data_table = StateDependentMoves("idgaff.log").build_table()
+	data_table = StateDependentMoves(sys.argv[1] if len(sys.argv) == 2 else "jojo.log").build_table()
 	#print json.dumps(data_table)
 	
 	# Build decision tree rules
 	mine.validate_table(data_table)
-	print mine.tree_to_rules(mine.mine_c45(data_table, "result"))
+	print mine.mine_c45(data_table, "result")
 	
 	#with open("table.json") as f:
 	#	print mine.tree_to_rules(mine.mine_c45(json.loads(f.read()), "result"))
