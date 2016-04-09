@@ -1,3 +1,5 @@
+import json
+
 from utils import get_subtables, formalize_rules, is_mono
 from c45 import gain
 
@@ -55,6 +57,29 @@ def __tree_to_rules(tree, rule=''):
         return rules
     return [rule]
 
+def tree_to_json(tree):
+    return json.dumps(__tree_to_dict(tree))
+
+def __tree_to_dict(tree, parent = {}):
+    curr_key = ""
+    
+    for node in tree:
+        if isinstance(node, basestring):
+            if "result" in node:
+                parent[curr_key] = parent[curr_key] if curr_key in parent and parent[curr_key] else []
+                parent[curr_key].append(node[7:])
+            elif not parent or not node in parent:
+                parent[node] = {}
+                curr_key = node
+            else:
+                curr_key = node
+        else:
+            if curr_key != "":
+                parent[curr_key] = __tree_to_dict(node, parent[curr_key])
+            else:
+                parent = __tree_to_dict(node, parent)
+    
+    return parent
 
 def validate_table(table):
     assert isinstance(table, dict)

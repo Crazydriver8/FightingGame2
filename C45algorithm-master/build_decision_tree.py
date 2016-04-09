@@ -213,7 +213,10 @@ if __name__ == "__main__":
 	
 	# Build decision tree rules
 	mine.validate_table(data_table)
-	print mine.mine_c45(data_table, "result")
+	#print mine.mine_c45(data_table, "result")
+	#mine.__tree_to_rules(mine.mine_c45(data_table, "result"))
+	#print mine.__tree_to_dict(mine.mine_c45(data_table, "result"))
+	print mine.tree_to_json(mine.mine_c45(data_table, "result"))
 	
 	#with open("table.json") as f:
 	#	print mine.tree_to_rules(mine.mine_c45(json.loads(f.read()), "result"))
