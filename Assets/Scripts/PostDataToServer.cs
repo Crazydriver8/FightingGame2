@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public static class PostDataToServer {
     public static List<WWW> postQueueP1 = new List<WWW>();
     public static List<WWW> postQueueP2 = new List<WWW>();
+    public static bool isPosting = false;
 
     public static IEnumerator PostData(bool p1 = true)
     {
@@ -18,6 +19,7 @@ public static class PostDataToServer {
                 // Attempt to POST the first thing in the queue
                 if (postQueueP1.Count > 0)
                 {
+                    isPosting = true;
                     yield return postQueueP1[0];
 
                     // Check for errors
@@ -32,6 +34,7 @@ public static class PostDataToServer {
                     postQueueP1.RemoveAt(0);
                 }
                 else // Nothing to write; standby
+
                     yield return null;
             }
             else

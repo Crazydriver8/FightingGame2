@@ -472,6 +472,7 @@ public class BlackBoardController : MonoBehaviour {
         }
     }
 
+    // Return true if able to find and remove abilityName
     public bool RemoveSkill(string abilityName)
     {
         if (skillList.Contains(abilityName)) {
@@ -484,6 +485,7 @@ public class BlackBoardController : MonoBehaviour {
         }
     }
 
+    // Remove skills from list
     public bool RemoveAllSkills()
     {
         skillList.Clear();
@@ -502,6 +504,7 @@ public class BlackBoardController : MonoBehaviour {
         }
     }
 
+    // Returns true if able to save skills, false otherwise
     public bool SaveSkills()
     {
         if (CheckForExistingSkills())
@@ -515,11 +518,13 @@ public class BlackBoardController : MonoBehaviour {
         return false;
     }
 
+    // Returns list created through call to SaveSkills(), null otherwise
     public List<String> GetSavedSkills()
     {
         return savedSkillList;
     }
 
+    // Creates and populates window displayed upon save
     public void DisplaySavedSkills(string output)
     {
         Canvas canvasRef = Canvas.FindObjectOfType<Canvas>();
