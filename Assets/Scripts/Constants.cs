@@ -9,6 +9,8 @@ public static class Constants {
     /* Data logging */
     public const string notSoSecretKey = "TheCakeIsALie";
     public const string addLogUrl = "legacy.moonlit-spring.org/datalog/keyloggertext.php?";
+    public const string getTreeUrl = "legacy.moonlit-spring.org/skilltrees/readtree.php?";
+    public const string postTreeUrl = "legacy.moonlit-spring.org/skilltrees/writetree.php?";
 
     /* The basic move types */
     public const string BASIC = "Basic";
@@ -26,6 +28,17 @@ public static class Constants {
 
     // Directory where the skill tree data will be stored
     public static readonly string SKILL_TREE_DIR = Application.dataPath + "/PlayerData/";
+
+    // Default tree for demonstration purposes
+    public static SkillTreeStructure defaultTree = new SkillTreeStructure();
+    public static SkillTreeStructure BuildDefaultTree()
+    {
+        defaultTree = new SkillTreeStructure("Ghost", new SkillTreeStructure("Root"), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure());
+        defaultTree.Attach(new SkillTreeStructure("Surprise"), (int)Constants.Branch.DOWN);
+        defaultTree.connections[(int)Constants.Branch.DOWN].Attach(new SkillTreeStructure("Applause"), (int)Constants.Branch.LEFT);
+
+        return defaultTree;
+    }
 
 
     /* Ambient effects */

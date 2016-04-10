@@ -20,12 +20,9 @@
 		}
 		else
 		{
-			// Read from file
+			// Read from file and output it to page
 			$treefile = fopen($treefile_name, "r");
-			fread($treefile, filesize($treefile_name));
-			
-			// Confirmation mesaage
-			echo $treefile_path . "/" . $treefile_name;
+			echo fread($treefile, filesize($treefile_name));
 			
 			fclose($treefile);
 		}

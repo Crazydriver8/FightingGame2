@@ -119,10 +119,13 @@ public class SkillTreeScreen : UFEScreen
                 output += (s + ", ");
             }
         }
-        Debug.Log(output);
-        Debug.Log(reference.ToString());
+        //Debug.Log(output);
+        //Debug.Log(reference.ToString());
 
         bbc.DisplaySavedSkills(output);
-        SkillTreeStructure newTree = new SkillTreeStructure().FromJSON("{\"name\" : \"Aggression\",\"left\" : {\"name\" : \"Power\",\"left\" : \"\",\"right\" : \"\",\"down\" : {\"name\" : \"Safety\",\"left\" : \"\",\"right\" : \"\",\"down\" : \"\"}},\"right\" : \"\",\"down\" : \"\"}");
+        NameHolder store = GameObject.Find("Name").GetComponent<NameHolder>();
+        //PostDataToServer.PostSkillTree(store.username, reference.ToString());
+        //SkillTreeStructure newTree = new SkillTreeStructure().FromJSON("{\"name\" : \"Aggression\",\"left\" : {\"name\" : \"Power\",\"left\" : \"\",\"right\" : \"\",\"down\" : {\"name\" : \"Safety\",\"left\" : \"\",\"right\" : \"\",\"down\" : \"\"}},\"right\" : \"\",\"down\" : \"\"}");
+        store.skillTree = new SkillTreeStructure().FromJSON(reference.ToString());
     }
 }

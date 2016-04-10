@@ -73,9 +73,14 @@ public class SkillTree : MonoBehaviour {
             // Build the tree by converting the JSON to the summary struct
 
             // Default tree for demonstration purposes only
-            p1Root = new SkillTreeStructure("Ghost", RootSkill(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure());
-            p1Root.Attach(new SkillTreeStructure("Surprise"), (int)Constants.Branch.DOWN);
-            p1Root.connections[(int)Constants.Branch.DOWN].Attach(new SkillTreeStructure("Applause"), (int)Constants.Branch.LEFT);
+            //p1Root = new SkillTreeStructure("Ghost", RootSkill(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure());
+            //p1Root.Attach(new SkillTreeStructure("Surprise"), (int)Constants.Branch.DOWN);
+            //p1Root.connections[(int)Constants.Branch.DOWN].Attach(new SkillTreeStructure("Applause"), (int)Constants.Branch.LEFT);
+            NameHolder store = GameObject.Find("Name").GetComponent<NameHolder>();
+            if (store.ExistsTree())
+                p1Root = store.skillTree;
+            else
+                p1Root = Constants.BuildDefaultTree();
         }
         else
         {
@@ -93,9 +98,14 @@ public class SkillTree : MonoBehaviour {
             // Build the tree by converting the JSON to the summary struct
 
             // Default tree for demonstration purposes only
-            p2Root = new SkillTreeStructure("Ghost", RootSkill(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure());
-            p2Root.Attach(new SkillTreeStructure("Surprise"), (int)Constants.Branch.DOWN);
-            p2Root.connections[(int)Constants.Branch.DOWN].Attach(new SkillTreeStructure("Applause"), (int)Constants.Branch.LEFT);
+            //p2Root = new SkillTreeStructure("Ghost", RootSkill(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure());
+            //p2Root.Attach(new SkillTreeStructure("Surprise"), (int)Constants.Branch.DOWN);
+            //p2Root.connections[(int)Constants.Branch.DOWN].Attach(new SkillTreeStructure("Applause"), (int)Constants.Branch.LEFT);
+            NameHolder store = GameObject.Find("Name").GetComponent<NameHolder>();
+            if (store.ExistsTree())
+                p2Root = store.skillTree;
+            else
+                p2Root = Constants.BuildDefaultTree();
         }
     }
 

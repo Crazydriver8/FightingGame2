@@ -34,7 +34,6 @@ public static class PostDataToServer {
                     postQueueP1.RemoveAt(0);
                 }
                 else // Nothing to write; standby
-
                     yield return null;
             }
             else
@@ -59,5 +58,20 @@ public static class PostDataToServer {
                     yield return null;
             }
         }
+    }
+
+
+    /* Skill trees */
+    public static IEnumerator PostSkillTree(string playerName, string json)
+    {
+        WWW write_to = new WWW(Constants.postTreeUrl + "playerName=" + playerName + "&json=" + json);
+        yield return write_to;
+
+        if (write_to.error != null)
+        {
+            Debug.Log("There was a logging error: " + write_to.error);
+        }
+
+        Debug.Log(write_to.text);
     }
 }
