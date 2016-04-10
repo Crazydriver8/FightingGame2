@@ -64,7 +64,8 @@ public static class PostDataToServer {
     /* Skill trees */
     public static IEnumerator PostSkillTree(string playerName, string json)
     {
-        WWW write_to = new WWW(Constants.postTreeUrl + "playerName=" + playerName + "&json=" + json);
+        Debug.Log("Attempting to post skill tree to server");
+        WWW write_to = new WWW(Constants.postTreeUrl + "playerName=" + playerName + "&json=" + WWW.EscapeURL(json));
         yield return write_to;
 
         if (write_to.error != null)

@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DecisionTree {
+public static class DecisionTree {
     // Generates key without corresponding value
-    public string GenerateKey(string player, string property)
+    public static string GenerateKey(string player, string property)
     {
         return player + " " + property + "=";
     }
 
     // Generates values
-    public string Hp_level(string hp)
+    public static string Hp_level(string hp)
     {
         float hpVal = float.Parse(hp);
         if (hpVal > 7500)
@@ -27,7 +27,7 @@ public class DecisionTree {
         }
     }
 
-    public string LastHitDamage(string last_hit)
+    public static string LastHitDamage(string last_hit)
     {
         float damage = float.Parse(last_hit);
         if (damage == 0)
@@ -42,7 +42,7 @@ public class DecisionTree {
         }
     }
 
-    public string Favor(string favor)
+    public static string Favor(string favor)
     {
         float favorLevel = float.Parse(favor);
         if (favorLevel == 0)
@@ -63,7 +63,7 @@ public class DecisionTree {
         }
     }
 
-    public string Rally(string rally)
+    public static string Rally(string rally)
     {
         float rallyLevel = float.Parse(rally);
         if (rallyLevel == 0)
@@ -84,7 +84,7 @@ public class DecisionTree {
         }
     }
 
-    public string Balance(string balance)
+    public static string Balance(string balance)
     {
         float balanceLevel = float.Parse(balance);
         if (balanceLevel == 33)
@@ -99,7 +99,7 @@ public class DecisionTree {
         }
     }
 
-    public string[] attackEvade(string attackCount, string evadeCount)
+    public static string[] attackEvade(string attackCount, string evadeCount)
     {
         float attackNum = float.Parse(attackCount);
         float evadeNum = float.Parse(evadeCount);
@@ -118,7 +118,7 @@ public class DecisionTree {
         }
     }
 
-    public string IsClose(string distance)
+    public static string IsClose(string distance)
     {
         return (float.Parse(distance) < 3.5 ? "Close" : "Far");
     }

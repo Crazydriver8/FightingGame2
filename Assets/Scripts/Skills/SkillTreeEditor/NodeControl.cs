@@ -38,6 +38,21 @@ public class NodeControl : MonoBehaviour {
         
 	}
 
+    public bool CheckConstraints()
+    {
+
+        if (bbc.numSkill + 1 <= 3)
+        {
+            return true;
+        }
+        else
+        {
+            Debug.Log("Too many skills");
+            return false;
+        }
+    }
+
+
     /* Events */
     public void OnBeginDrag()
     {
@@ -56,6 +71,20 @@ public class NodeControl : MonoBehaviour {
         // Grab all nearby for this.depth() - 1, then this.depth()
         List<NodeControl> leavesOnVertical;
         List<NodeControl> leavesOnHorizontal;
+
+        if (!CheckConstraints())
+        {
+            Debug.Log("Did not add skill");
+            if (!CheckChildren())
+            {
+                this.transform.position = initPos;
+            }
+            else
+            {
+                this.transform.position = currPos;
+            }
+            return;
+        }
 
         int depth = TreeEditor.S.GetDepthOf(this);
         //Debug.Log(TreeEditor.S.GetDepthOf(this));

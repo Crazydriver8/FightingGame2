@@ -286,7 +286,7 @@ public class BlackBoard : MonoBehaviour
         }
         else
         {
-            Debug.Log(player + " is using the correct thing");
+            //Debug.Log(player + " is using the correct thing");
             StartCoroutine(BlackBoardLog(player));
         }
 

@@ -124,7 +124,8 @@ public class SkillTreeScreen : UFEScreen
 
         bbc.DisplaySavedSkills(output);
         NameHolder store = GameObject.Find("Name").GetComponent<NameHolder>();
-        //PostDataToServer.PostSkillTree(store.username, reference.ToString());
+        Debug.Log(store.username + " has a skilltree = " + reference.ToString());
+        StartCoroutine(PostDataToServer.PostSkillTree(store.username, reference.ToString()));
         //SkillTreeStructure newTree = new SkillTreeStructure().FromJSON("{\"name\" : \"Aggression\",\"left\" : {\"name\" : \"Power\",\"left\" : \"\",\"right\" : \"\",\"down\" : {\"name\" : \"Safety\",\"left\" : \"\",\"right\" : \"\",\"down\" : \"\"}},\"right\" : \"\",\"down\" : \"\"}");
         store.skillTree = new SkillTreeStructure().FromJSON(reference.ToString());
     }

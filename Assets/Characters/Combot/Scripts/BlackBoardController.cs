@@ -27,7 +27,7 @@ public class BlackBoardController : MonoBehaviour {
     BlackBoard bb;
 
     // Skills
-    private int numSkill = 0;
+    public int numSkill = 0;
     public int maxSkill = 3;
     private List<String> skillList = null;
     public List<String> savedSkillList = null;

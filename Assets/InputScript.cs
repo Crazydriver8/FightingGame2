@@ -8,25 +8,24 @@ public class InputScript : MonoBehaviour {
     private string initText = null;
     private InputField userEntry = null;
     private Image versusButton = null;
+    private Image skillTreeButton = null;
 
 	// Use this for initialization
 	void Start () {
+        userEntry = this.GetComponent<InputField>();
         versusButton = GameObject.Find("Button_VersusMode").GetComponent<Image>();
+        skillTreeButton = GameObject.Find("Button_SkillTree").GetComponent<Image>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (userEntry == null)
-        {
-            userEntry = this.GetComponent<InputField>();
-        }
-
         if (userEntry != null)
         {
             if (initText == null)
             {
                 initText = userEntry.text;
                 versusButton.color = Color.gray;
+                skillTreeButton.color = Color.gray;
             }
             else
             {
@@ -35,12 +34,14 @@ public class InputScript : MonoBehaviour {
                     string currName = GameObject.Find("Name").GetComponent<NameHolder>().username;
                     userEntry.text = (currName == null || currName == "" ? initText : currName);
                     versusButton.color = Color.gray;
+                    skillTreeButton.color = Color.gray;
                 }
                 else if (userEntry.text != initText)
                 {
                     GameObject.Find("Name").GetComponent<NameHolder>().SetName(userEntry.text);
                     //Debug.Log("Different text entered");
                     versusButton.color = Color.white;
+                    skillTreeButton.color = Color.white;
                     //Debug.Log(versusButton.color.ToString());
                 }
             }
