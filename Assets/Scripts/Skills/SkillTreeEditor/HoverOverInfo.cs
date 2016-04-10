@@ -76,7 +76,36 @@ public class HoverOverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         captionTitle.text = this.abilityName;
 
         Text captionText = captionContents[1];
-        captionText.text = "Summary";
+        string cap = "";
+
+        GameObject skillNodes = GameObject.Find("SkillTreeNodes");
+        if (skillNodes != null)
+        {
+            switch (this.abilityName)
+            {
+                case "Ghost":
+                    Ghost g = skillNodes.GetComponent<Ghost>();
+                    cap = g.skillDescription;
+                    break;
+                case "Applause":
+                    Applause a = skillNodes.GetComponent<Applause>();
+                    cap = a.skillDescription;
+                    break;
+                case "Coach":
+                    Coach c = skillNodes.GetComponent<Coach>();
+                    cap = c.skillDescription;
+                    break;
+                case "Surprise":
+                    Surprise s = skillNodes.GetComponent<Surprise>();
+                    cap = s.skillDescription;
+                    break;
+                case "Golf Clap":
+                    GolfClap gc = skillNodes.GetComponent<GolfClap>();
+                    cap = gc.skillDescription;
+                    break;
+            }
+        }
+        captionText.text = cap;
     }
 
     public void DeleteCaption()
