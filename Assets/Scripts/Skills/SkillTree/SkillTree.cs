@@ -33,11 +33,11 @@ public class SkillTree : MonoBehaviour {
     // Player1
     CharacterInfo p1;
     public SkillTreeStructure p1Root;
-    public string p1Filename = "skilltree1.json";
+    //public string p1Filename = "skilltree1.json";
     // Player2
     CharacterInfo p2;
     public SkillTreeStructure p2Root;
-    public string p2Filename = "skilltree2.json";
+    //public string p2Filename = "skilltree2.json";
 
 
     /* Use this on initialization

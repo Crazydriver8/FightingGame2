@@ -1,7 +1,7 @@
 <?php
 	// Variables passed in to the script
 	$json = $_GET['json'];
-	$playerName = $_GET['playerName']
+	$playerName = $_GET['playerName'];
 	
 	// Go to the /trees folder
 	$treefile_path = getcwd() . "/trees";
@@ -20,12 +20,13 @@
 	}
 	
 	// Write to file
-	$treefile = fopen($treefile_name, "a+");
+	$treefile = fopen($treefile_name, "a+") or die('Failed to open file');
 	
-	fwrite($treefile, $json . "\n");
+	fwrite($treefile, $json) or die("Failed to write file");
 	
 	fclose($treefile);
 		
 	// Confirmation mesaage
 	echo $treefile_path . "/" . $treefile_name;
+	echo $json;
 ?>

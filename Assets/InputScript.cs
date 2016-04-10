@@ -62,9 +62,9 @@ public class InputScript : MonoBehaviour {
 
     public void flickerName()
     {
-        float shakeAmount = 30;
-        float shareOffset = 0;
-        bool bShake = true;
+        //float shakeAmount = 30;
+        //float shareOffset = 0;
+        //bool bShake = true;
         //Debug.Log("Attempting to shake");
         Vector3 initPos = this.transform.position;
         this.transform.position = new Vector3(-26, Mathf.Lerp(0,10,0.5f), 0);

@@ -1,6 +1,6 @@
 <?php
 	// Variables passed in to the script
-	$playerName = $_GET['playerName']
+	$playerName = $_GET['playerName'];
 	
 	// Go to the /trees folder
 	$treefile_path = getcwd() . "/trees";
