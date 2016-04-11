@@ -8,9 +8,9 @@ using System.Collections.Generic;
 public static class Constants {
     /* Data logging */
     public const string notSoSecretKey = "TheCakeIsALie";
-    public const string addLogUrl = "legacy.moonlit-spring.org/datalog/keyloggertext.php?";
-    public const string getTreeUrl = "legacy.moonlit-spring.org/skilltrees/readtree.php?";
-    public const string postTreeUrl = "legacy.moonlit-spring.org/skilltrees/writetree.php?";
+    public const string addLogUrl = "http://legacy.moonlit-spring.org/datalog/keyloggertext.php?";
+    public const string getTreeUrl = "http://legacy.moonlit-spring.org/skilltrees/readtree.php?";
+    public const string postTreeUrl = "http://legacy.moonlit-spring.org/skilltrees/writetree.php?";
 
     /* The basic move types */
     public const string BASIC = "Basic";

@@ -481,7 +481,7 @@ MonoBehaviour:
     cInputNegativeAlternativeKey: Joy1 Axis 1-
     inputViewerIcon1: {fileID: 2800000, guid: f029529e09f1c12428dcc1a8c7dcb91c, type: 3}
     inputViewerIcon2: {fileID: 2800000, guid: 0f1eb58df8917b74f804b8cb97615fd5, type: 3}
-    activeIcon: {fileID: 2800000, guid: 0f1eb58df8917b74f804b8cb97615fd5, type: 3}
+    activeIcon: {fileID: 2800000, guid: f029529e09f1c12428dcc1a8c7dcb91c, type: 3}
   - inputType: 1
     inputButtonName: P1KeyboardVertical
     engineRelatedButton: 3
@@ -494,7 +494,7 @@ MonoBehaviour:
     cInputNegativeAlternativeKey: Joy1 Axis 2-
     inputViewerIcon1: {fileID: 2800000, guid: 0f803e1627a596e468c46d268cea841a, type: 3}
     inputViewerIcon2: {fileID: 2800000, guid: 7681f77e08529604096afaded862f563, type: 3}
-    activeIcon: {fileID: 2800000, guid: 7681f77e08529604096afaded862f563, type: 3}
+    activeIcon: {fileID: 2800000, guid: 0f803e1627a596e468c46d268cea841a, type: 3}
   - inputType: 2
     inputButtonName: P1Button1
     engineRelatedButton: 4

@@ -74,7 +74,7 @@ InputManager:
     descriptiveName: Light Punch
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: t
+    positiveButton: u
     altNegativeButton: 
     altPositiveButton: joystick button 0
     gravity: 1000
@@ -90,7 +90,7 @@ InputManager:
     descriptiveName: Medium Punch
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: y
+    positiveButton: i
     altNegativeButton: 
     altPositiveButton: joystick button 3
     gravity: 1000
@@ -106,7 +106,7 @@ InputManager:
     descriptiveName: Hard Punch
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: u
+    positiveButton: o
     altNegativeButton: 
     altPositiveButton: joystick button 5
     gravity: 1000
@@ -122,7 +122,7 @@ InputManager:
     descriptiveName: Light Kick
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: g
+    positiveButton: j
     altNegativeButton: 
     altPositiveButton: joystick button 1
     gravity: 1000
@@ -138,7 +138,7 @@ InputManager:
     descriptiveName: Medium Kick
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: h
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick button 2
     gravity: 1000
@@ -154,7 +154,7 @@ InputManager:
     descriptiveName: Hard Kick
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: j
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick button 7
     gravity: 1000
@@ -252,7 +252,7 @@ InputManager:
     negativeButton: 
     positiveButton: insert
     altNegativeButton: 
-    altPositiveButton: 8
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 3
@@ -268,7 +268,7 @@ InputManager:
     negativeButton: 
     positiveButton: home
     altNegativeButton: 
-    altPositiveButton: 9
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 3
@@ -284,7 +284,7 @@ InputManager:
     negativeButton: 
     positiveButton: page up
     altNegativeButton: 
-    altPositiveButton: 0
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 3
@@ -300,7 +300,7 @@ InputManager:
     negativeButton: 
     positiveButton: delete
     altNegativeButton: 
-    altPositiveButton: i
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 3
@@ -316,7 +316,7 @@ InputManager:
     negativeButton: 
     positiveButton: end
     altNegativeButton: 
-    altPositiveButton: o
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 3
@@ -332,7 +332,7 @@ InputManager:
     negativeButton: 
     positiveButton: page down
     altNegativeButton: 
-    altPositiveButton: p
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 3
