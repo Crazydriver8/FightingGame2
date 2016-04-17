@@ -41,7 +41,7 @@ public class NameHolder : MonoBehaviour {
             else
             {
                 skillTree = new SkillTreeStructure().FromJSON(getTree.text);
-                Debug.Log("Built tree from: " + getTree.text);
+                //Debug.Log("Built tree from: " + getTree.text);
                 return true;
             }
         }

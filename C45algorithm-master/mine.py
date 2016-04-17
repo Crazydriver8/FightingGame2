@@ -23,7 +23,7 @@ def mine_c45(table, result):
     if len(table.keys()) == 1:
         key_distr = get_distribution(table[result])
         for k in key_distr[1].keys():
-            tree.append(['probability %f' % (key_distr[1][k] / key_distr[0]),
+            tree.append(['probability=%f' % (key_distr[1][k] / key_distr[0]),
                          '%s=%s' % (result, k)])
         
         return tree

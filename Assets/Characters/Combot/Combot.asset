@@ -1655,3 +1655,5 @@ MonoBehaviour:
     behavior: 3
   - aiInfo: {fileID: 11400000, guid: 68a028838c8be5947880fd975acc4ca7, type: 2}
     behavior: 2
+  - aiInfo: {fileID: 0}
+    behavior: 0

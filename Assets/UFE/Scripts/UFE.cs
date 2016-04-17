@@ -1755,8 +1755,10 @@ public class UFE : MonoBehaviour {
 			p1Controller.humanController = gameObject.AddComponent<InputController>();
 		}
 		if (UFE.isAiAddonInstalled){
-            p1Controller.cpuController = gameObject.AddComponent(UFE.SearchClass("RuleBasedAI")) as AbstractInputController;
-		}else{
+            //p1Controller.cpuController = gameObject.AddComponent(UFE.SearchClass("RuleBasedAI")) as AbstractInputController;
+            p1Controller.cpuController = gameObject.AddComponent(UFE.SearchClass("DecisionAITest")) as AbstractInputController;
+        }
+        else{
 			p1Controller.cpuController = gameObject.AddComponent<RandomAI>();
 		}
 		p1Controller.isCPU = config.p1CPUControl;
@@ -1765,8 +1767,10 @@ public class UFE : MonoBehaviour {
 		p2Controller = gameObject.AddComponent<UFEController> ();
 		p2Controller.humanController = gameObject.AddComponent<InputController>();
 		if (UFE.isAiAddonInstalled){
-            p2Controller.cpuController = gameObject.AddComponent(UFE.SearchClass("RuleBasedAI")) as AbstractInputController;
-		}else{
+            //p2Controller.cpuController = gameObject.AddComponent(UFE.SearchClass("RuleBasedAI")) as AbstractInputController;
+            p2Controller.cpuController = gameObject.AddComponent(UFE.SearchClass("DecisionAITest")) as AbstractInputController;
+        }
+        else{
 			p2Controller.cpuController = gameObject.AddComponent<RandomAI>();
 		}
 		p2Controller.isCPU = config.p2CPUControl;

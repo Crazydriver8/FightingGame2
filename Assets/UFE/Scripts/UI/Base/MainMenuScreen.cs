@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
+using SimpleJSON;
+using System.IO;
 
 public class MainMenuScreen : UFEScreen {
 	public virtual void Quit(){
@@ -27,6 +30,37 @@ public class MainMenuScreen : UFEScreen {
             temp.flickerName();
         }
 	}
+
+    public virtual void TestJSONFile()
+    {
+        DecisionTreeAI test = new DecisionTreeAI();
+        string path = EditorUtility.OpenFilePanel("Get JSON", "", "json");
+        Debug.Log("Path is : " + path);
+        //path = path.Replace(".json", "");
+        //Debug.Log(path);
+        if (path.Length != 0)
+        {
+            //WWW w = new WWW("file:///" + path);
+            TextAsset targetFile = Resources.Load<TextAsset>(path);
+            string jsonInput;
+            using (StreamReader r = new StreamReader(path)) {
+                jsonInput = r.ReadToEnd();        
+            }
+            if (jsonInput == "" || jsonInput == null)
+            {
+                Debug.Log("No json found");
+            }
+            else
+            {
+                Debug.Log("JSON found : " + jsonInput);
+                test.PopulateMoves(jsonInput);
+                test.BestMove();
+            }
+            //Debug.Log(targetFile.text);
+            
+        }
+        
+    }
 
 	public virtual void GoToTrainingModeScreen(){
 		UFE.StartTrainingMode();

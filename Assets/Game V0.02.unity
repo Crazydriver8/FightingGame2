@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 290129291}
   - 114: {fileID: 290129290}
+  - 114: {fileID: 290129292}
   m_Layer: 0
   m_Name: BlackBoard
   m_TagString: Untagged
@@ -126,6 +127,17 @@ Transform:
   - {fileID: 1119733527}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &290129292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290129289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2b5730ae4f7a346b3208d03162f804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1051212052
 Prefab:
   m_ObjectHideFlags: 0

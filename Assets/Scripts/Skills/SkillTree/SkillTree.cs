@@ -222,7 +222,7 @@ public struct SkillTreeStructure
         this.parent = -1;
         if (N == null || N.Keys == null)
         {
-            Debug.Log("No skill tree found");
+            //Debug.Log("No skill tree found");
         }
         else
         {
@@ -258,8 +258,8 @@ public struct SkillTreeStructure
             }
         }
 
-        Debug.Log(this.ToString());
-        Debug.Log(this.ToString() == aJSON);
+        //Debug.Log(this.ToString());
+        //Debug.Log(this.ToString() == aJSON);
 
         return this;
     }

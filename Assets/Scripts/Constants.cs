@@ -102,5 +102,5 @@ public static class Constants {
 
 
     /* Player-emulating AI */
-    public static string[] moveNames = { "Foward", "Backward", "Left", "Right", "Button1", "Button2", "Button3", "Button4" };
+    public static string[] moveNames = { "Foward", "Backward", "Up", "Down", "Button1", "Button2", "Button3", "Button4" };
 }
