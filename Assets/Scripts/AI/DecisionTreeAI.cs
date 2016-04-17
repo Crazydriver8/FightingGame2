@@ -213,7 +213,7 @@ public class DecisionTreeAI : MonoBehaviour {
 }
 
 
-public struct AIMoveInfo
+public class AIMoveInfo
 {
     public string buttonName;
     public List<Dictionary<string, Dictionary<string, string>>> rules; // A list of faux BlackBoards that stores conditions
