@@ -44,14 +44,15 @@ public class DecisionAITest : AbstractInputController {
                 {
                     Debug.Log("No blackboard");
                 }
-                //Debug.Log("Deliberating...");
+                Debug.Log("Deliberating...");
                 //dta.Deliberate(bb);
                 //string temp = dta.BestMove()
                 string temp = dta.Deliberate(bb);
                 Debug.Log("Best move is " + temp);
-				/*foreach (InputReferences input in this.inputReferences) {
-					this.currentFrameInputs[input] = this.ReadInput(input);
-				}*/
+				foreach (InputReferences input in this.inputReferences) {
+					//this.currentFrameInputs[input] = this.ReadInput(input);
+                    this.currentFrameInputs[input] = this.DoBestMove(input, temp);
+                }
 			} else {
 				foreach (InputReferences input in this.inputReferences) {
 					this.currentFrameInputs[input] = InputEvents.Default;
@@ -59,6 +60,64 @@ public class DecisionAITest : AbstractInputController {
 			}
 		}
 	}
+
+    public InputEvents DoBestMove(InputReferences inputReference, string bestMove)
+    {
+        Debug.Log("Trying to fire " + bestMove);
+        ControlsScript self = UFE.GetControlsScript(this.player);
+        if (self != null)
+        {
+            ControlsScript opponent = self.opControlsScript;
+
+            if (opponent != null)
+            {
+                bool isOpponentDown = opponent.currentState == PossibleStates.Down;
+                float dx = opponent.transform.position.x - self.transform.position.x;
+                float axis = 0f;
+                int distance = Mathf.RoundToInt(100f * Mathf.Clamp01(self.normalizedDistance));
+                if (bestMove == "Foward")
+                {
+                    Debug.Log("Trying to move forward");
+                    axis = Mathf.Sign(dx) * 1f;
+                    return new InputEvents(axis);
+                }
+                if (bestMove == "Down")
+                {
+
+                    return new InputEvents(axis);
+                }
+                switch (inputReference.engineRelatedButton) {
+                    case ButtonPress.Button1:
+                        if (bestMove == "Button1")
+                        {
+                            return new InputEvents(true);
+                        }
+                        break;
+                    case ButtonPress.Button2:
+                        if (bestMove == "Button2")
+                        {
+                            return new InputEvents(true);
+                        }
+                        break;
+                    case ButtonPress.Button3:
+                        if (bestMove == "Button3")
+                        {
+                            return new InputEvents(true);
+                        }
+                        break;
+                    case ButtonPress.Button4:
+                        if (bestMove == "Button4")
+                        {
+                            return new InputEvents(true);
+                        }
+                        break;
+                    default:
+                        return InputEvents.Default;
+                }
+            }
+        }
+        return InputEvents.Default;
+    }
 
 	public override InputEvents ReadInput (InputReferences inputReference){
 		ControlsScript self = UFE.GetControlsScript(this.player);

@@ -153,7 +153,7 @@ public class DecisionTreeAI : MonoBehaviour {
         //Debug.Log("BestMove calculating...");
         float max = 0.0f;
         List<AIMoveInfo> results = new List<AIMoveInfo>();
-        Debug.Log("Possible moves " + this.possibleMoves.Count);
+        //Debug.Log("Possible moves " + this.possibleMoves.Count);
         foreach(KeyValuePair<string, AIMoveInfo> move in this.possibleMoves)
         {
             if (move.Value.goodness > max)
@@ -166,7 +166,7 @@ public class DecisionTreeAI : MonoBehaviour {
                 results.Add(move.Value);
             }
         }
-        Debug.Log("Found " + results.Count + " valid moves");
+        //Debug.Log("Found " + results.Count + " valid moves");
 
         // Tiebreaker using RNGsus
         return TieBreaker(results);
@@ -185,14 +185,14 @@ public class DecisionTreeAI : MonoBehaviour {
         float seed = Random.value;
         foreach (AIMoveInfo move in moves)
         {
-            Debug.Log(move.ToString());
+            //Debug.Log(move.ToString());
             //Debug.Log(move.ruleMet);
             if (move.ruleMet >= 0) {
                 distribution += move.likelihoods[move.ruleMet];
             }
             if(seed <= distribution)
             {
-                Debug.Log("Best move: " + move.buttonName);
+                //Debug.Log("Best move: " + move.buttonName);
                 return move.buttonName;
             }
         }
@@ -472,15 +472,15 @@ public class AIMoveInfo
                 }
             }
 
-            Debug.Log("Rules met: " + numRulesMet);
+            //Debug.Log("Rules met: " + numRulesMet);
             //Debug.Log("at " + this.rules.IndexOf(rule));
             //Debug.Log("Current Goodness: " + this.goodness);
-            Debug.Log(numRulesMet >= this.goodness);
+            //Debug.Log(numRulesMet >= this.goodness);
             if (numRulesMet >= this.goodness)
             {
                 this.goodness = numRulesMet;
                 this.ruleMet = this.rules.IndexOf(rule);
-                Debug.Log(this.ToString());
+                //Debug.Log(this.ToString());
             }
         }
     }
