@@ -50,7 +50,32 @@ public class DecisionTreeAI : MonoBehaviour {
         public void Deliberate(BlackBoard bb)
         {
             // Get the maximal match and save its index
+            foreach (Dictionary<string, Dictionary<string, string>> rule in rules)
+            {
+                int numRulesMet = 0;
 
+                foreach(KeyValuePair<string, string> r in rule[Constants.p1Key])
+                {
+                    if (bb.GetValue(Constants.p1Key, r.Key) == r.Value)
+                    {
+                        numRulesMet += 1;
+                    }
+                }
+
+                foreach (KeyValuePair<string, string> r in rule[Constants.p2Key])
+                {
+                    if (bb.GetValue(Constants.p2Key, r.Key) == r.Value)
+                    {
+                        numRulesMet += 1;
+                    }
+                }
+
+                if (numRulesMet > this.goodness)
+                {
+                    this.goodness = numRulesMet;
+                    this.ruleMet = this.rules.IndexOf(rule);
+                }
+            }
         }
 
         /* Reset counts to get ready for next round of deliberation
@@ -77,66 +102,50 @@ public class DecisionTreeAI : MonoBehaviour {
         // Populate
         _PopulateMoves(JSON.Parse(aJSON));
     }
-    List<string> _PopulateMoves(JSONNode tree, int depth = 0)
+    void _PopulateMoves(JSONNode tree, List<string> path = null)
     {
-        List<string> rules = new List<string>();
-        string buttonName = null;
+        List<string> rules = (path == null ? new List<string>() : path);
+        string buttonName = null,
+               probability = null;
 
         foreach (string key in tree.Keys)
         {
             if (key == "result")
             {
-                return new List<string>() { "result=" + tree[key] };
-            }
+                // Button press is result
+                buttonName = tree[key];
 
-            rules.AddRange(_PopulateMoves(tree[key]));
-
-            if (depth == 0)
-            {
-                // Parse rules and add them to a dictionary
+                // Process the list of rules
                 Dictionary<string, Dictionary<string, string>> ruleDict = new Dictionary<string, Dictionary<string, string>>();
-                foreach(string rule in rules)
-                {
-                    if (!rule.Contains("result") && !rule.Contains("probability"))
-                    {
-                        AddRule(ruleDict, rule);
-                    }
-                }
                 foreach (string rule in rules)
                 {
-                    if (rule.Contains("result"))
+                    if (rule.Contains("probability"))
                     {
-                        buttonName = rule.Substring(rule.IndexOf('=') + 1, rule.Length - (rule.IndexOf('=') + 1))
-                        break;
+                        probability = rule;
+                    }
+                    else
+                    {
+                        // Parse the condition
+                        string player = rule.Substring(0, Constants.keyLength),
+                               index = rule.Substring(Constants.keyLength + 1, rule.IndexOf("=") - (Constants.keyLength + 1)),
+                               value = rule.Substring(rule.IndexOf("=") + 1, rule.Length - (rule.IndexOf("=") + 1));
+
+                        // Add as dictionary entry
+                        ruleDict[player][index] = value;
                     }
                 }
-                foreach (string rule in rules)
-                {
-                    if (rule.Contains("probability") && buttonName != null)
-                    {
-                        possibleMoves[buttonName].AddRule(ruleDict, rule);
-                        break;
-                    }
-                }
+
+                this.possibleMoves[buttonName].AddRule(ruleDict, probability);
+            }
+            else
+            {
+                rules.Add(key);
+                _PopulateMoves(tree[key], rules);
             }
         }
-
-        return rules;
     }
 
-    /* Converts a rule into its dicitonary entry form
-     */
-    void AddRule(Dictionary<string, Dictionary<string, string>> ruleDict, string rule)
-    {
-        // Parse the condition
-        string player = rule.Substring(0, Constants.keyLength),
-               key = rule.Substring(Constants.keyLength + 1, rule.IndexOf("=") - (Constants.keyLength + 1)),
-               value = rule.Substring(rule.IndexOf("=") + 1, rule.Length - (rule.IndexOf("=") + 1));
 
-        ruleDict[player][key] = value;
-    }
-
-    
     // Use this for initialization
     void Start () {
         
