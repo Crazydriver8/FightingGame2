@@ -220,36 +220,42 @@ public struct SkillTreeStructure
         this.name = "";
         this.connections = new SkillTreeStructure[4] { new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure(), new SkillTreeStructure() };
         this.parent = -1;
-
-        // Build the children
-        foreach (string child in N.Keys)
+        if (N == null || N.Keys == null)
         {
-            switch(child)
+            Debug.Log("No skill tree found");
+        }
+        else
+        {
+            // Build the children
+            foreach (string child in N.Keys)
             {
-                case "name":
-                    this.name = N[child];
-                    break;
+                switch (child)
+                {
+                    case "name":
+                        this.name = N[child];
+                        break;
 
-                case "left":
-                    this.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure(N[child], (int)Constants.Branch.RIGHT);
-                    this.connections[(int)Constants.Branch.LEFT].connections[(int)Constants.Branch.RIGHT] = this;
-                    break;
+                    case "left":
+                        this.connections[(int)Constants.Branch.LEFT] = new SkillTreeStructure(N[child], (int)Constants.Branch.RIGHT);
+                        this.connections[(int)Constants.Branch.LEFT].connections[(int)Constants.Branch.RIGHT] = this;
+                        break;
 
-                case "right":
-                    this.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure(N[child], (int)Constants.Branch.LEFT);
-                    this.connections[(int)Constants.Branch.RIGHT].connections[(int)Constants.Branch.LEFT] = this;
-                    break;
+                    case "right":
+                        this.connections[(int)Constants.Branch.RIGHT] = new SkillTreeStructure(N[child], (int)Constants.Branch.LEFT);
+                        this.connections[(int)Constants.Branch.RIGHT].connections[(int)Constants.Branch.LEFT] = this;
+                        break;
 
-                case "down":
-                    this.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure(N[child], (int)Constants.Branch.UP);
-                    this.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = this;
-                    break;
+                    case "down":
+                        this.connections[(int)Constants.Branch.DOWN] = new SkillTreeStructure(N[child], (int)Constants.Branch.UP);
+                        this.connections[(int)Constants.Branch.DOWN].connections[(int)Constants.Branch.UP] = this;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
+
+                //Debug.Log(child);
             }
-
-            //Debug.Log(child);
         }
 
         Debug.Log(this.ToString());
