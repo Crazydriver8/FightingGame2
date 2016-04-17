@@ -21,7 +21,7 @@ public class NodeControl : MonoBehaviour {
     public GameObject linePrefab = null;
     private GameObject instLine = null;
 
-    private bool baseChild;
+    //private bool baseChild;
 
     private BlackBoardController bbc = null;
     public bool isInmotion = false;
@@ -226,7 +226,7 @@ public class NodeControl : MonoBehaviour {
         if (TreeEditor.S.leaves.TryGetValue(TreeEditor.S.GetDepthOf(this) - (up ? 1 : 0), out leavesOnDepth))
         {
             //Debug.Log("found leaves on depth");
-            baseChild = false;
+            //baseChild = false;
             int i = 0;
             foreach (NodeControl NodeC in leavesOnDepth)
             {
@@ -264,10 +264,10 @@ public class NodeControl : MonoBehaviour {
                 if (dist < minDist)
                 {
                     heldNode = baseNode;
-                    baseChild = true;
+                    //baseChild = true;
                 } else
                 {
-                    baseChild = false;
+                    //baseChild = false;
                 }
             }
         }

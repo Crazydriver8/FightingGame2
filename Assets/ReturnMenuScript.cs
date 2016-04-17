@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class ReturnMenuScript : MonoBehaviour {
@@ -11,7 +12,8 @@ public class ReturnMenuScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Q)) {
-			Application.LoadLevel ("Menu");
+			//Application.LoadLevel ("Menu");
+            SceneManager.LoadScene("Menu");
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();

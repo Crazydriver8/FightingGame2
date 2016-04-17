@@ -8,9 +8,9 @@ public class HoverOverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public bool hovering = false;
     public GameObject captionPrefab;
     private GameObject instCaption = null;
-    private Transform tempTrans = null;
-    private Text capTitle = null;
-    private Text capSum = null;
+    //private Transform tempTrans = null;
+    //private Text capTitle = null;
+    //private Text capSum = null;
     private string abilityName = "";
 
     public void OnPointerEnter(PointerEventData ped)

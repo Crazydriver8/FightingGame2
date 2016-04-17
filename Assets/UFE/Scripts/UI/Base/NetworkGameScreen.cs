@@ -31,7 +31,7 @@ public class NetworkGameScreen : UFEScreen{
         IPAddress[] ipAddresses = ipHostEntry.AddressList;
         string address =  ipAddresses[ipAddresses.Length - 1].ToString();
         Debug.Log(address);
-        te.content = new GUIContent(address);
+        te.text = address;
         te.SelectAll();
         te.Copy();
     }

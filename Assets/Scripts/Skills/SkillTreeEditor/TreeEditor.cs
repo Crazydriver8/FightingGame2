@@ -38,11 +38,11 @@ public class TreeEditor : MonoBehaviour {
         leaves.Add(0, new List<NodeControl>() { baseNode });
 
         // Get all nodes by tag
-        foreach(GameObject node in GameObject.FindGameObjectsWithTag(nodeTag))
+        /*foreach(GameObject node in GameObject.FindGameObjectsWithTag(nodeTag))
         {
             NodeControl nodeControl = node.GetComponent<NodeControl>();
-            //skills[nodeControl.abilityName] = nodeControl;
-        }
+            skills[nodeControl.abilityName] = nodeControl;
+        }*/
 
         // Static reference to editor
         S = this;

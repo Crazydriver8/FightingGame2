@@ -5,9 +5,9 @@ using System.Reflection;
 
 public class SkillTreeScreen : UFEScreen
 {
-    private bool saveSkills = false;
+    //private bool saveSkills = false;
     public GameObject captionPrefab;
-    private GameObject instCaption = null;
+    //private GameObject instCaption = null;
 
     public virtual void Quit()
     {

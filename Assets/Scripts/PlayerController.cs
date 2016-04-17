@@ -131,8 +131,8 @@ public class PlayerController : NetworkBehaviour {
 		}
 	}
 
-	int maxX = 7;
-	int maxZ = 7;
+	//int maxX = 7;
+	//int maxZ = 7;
 	float easing = 0.1f;
 	float spacing = 0.1f;
 }
