@@ -91,6 +91,22 @@ public class BlackBoard : MonoBehaviour
         return null;
     }
 
+    // Get value by two keys
+    public string GetValue(string key, string index)
+    {
+        Dictionary<string, string> properties;
+        if (flags.TryGetValue(key, out properties))
+        {
+            string value;
+            if (properties.TryGetValue(key, out value))
+            {
+                return value;
+            }
+        }
+
+        return null;
+    }
+
     // Update a property by key, index, and value
     public bool UpdateProperty(string key, string index, string value)
     {

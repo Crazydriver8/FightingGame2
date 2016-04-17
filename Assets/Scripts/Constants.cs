@@ -91,10 +91,16 @@ public static class Constants {
     /* Keeping track of players */
     public static string p1Key = "Player1",
                          p2Key = "Player2";
+    public static int keyLength = 7;
+
 
     // Gets the right key for a player
     public static string WhichPlayer(CharacterInfo player, CharacterInfo p1)
     {
         return (player.GetInstanceID() == p1.GetInstanceID() ? p1Key : p2Key);
     }
+
+
+    /* Player-emulating AI */
+    public static string[] moveNames = { "Foward", "Backward", "Left", "Right", "Button1", "Button2", "Button3", "Button4" };
 }
