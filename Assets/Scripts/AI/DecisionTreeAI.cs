@@ -104,7 +104,7 @@ public class DecisionTreeAI : MonoBehaviour {
     }
     void _PopulateMoves(JSONNode tree, List<string> path = null)
     {
-        List<string> rules = (path == null ? new List<string>() : path);
+        List<string> rules = (path == null ? new List<string>() : path.ConvertAll(rule => rule));
         string buttonName = null,
                probability = null;
 
@@ -141,6 +141,9 @@ public class DecisionTreeAI : MonoBehaviour {
             {
                 rules.Add(key);
                 _PopulateMoves(tree[key], rules);
+
+                // Reset for the next key
+                rules = (path == null ? new List<string>() : path.ConvertAll(rule => rule));
             }
         }
     }
