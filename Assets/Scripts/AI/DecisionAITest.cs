@@ -77,13 +77,22 @@ public class DecisionAITest : AbstractInputController {
                 int distance = Mathf.RoundToInt(100f * Mathf.Clamp01(self.normalizedDistance));
                 if (bestMove == "Foward")
                 {
-                    Debug.Log("Trying to move forward");
+                    //Debug.Log("Trying to move forward");
                     axis = Mathf.Sign(dx) * 1f;
+                    return new InputEvents(axis);
+                }
+                if (bestMove == "Backward")
+                {
+                    axis = Mathf.Sign(dx) * 0f;
                     return new InputEvents(axis);
                 }
                 if (bestMove == "Down")
                 {
-
+                    return new InputEvents(axis);
+                }
+                if (bestMove == "Up")
+                {
+                    axis = 1f;
                     return new InputEvents(axis);
                 }
                 switch (inputReference.engineRelatedButton) {
