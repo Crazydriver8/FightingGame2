@@ -102,6 +102,17 @@ public class BlackBoardController : MonoBehaviour {
         // Reset the BlackBoard to clear out information from the previous round
         bb.ClearBlackBoard();
 
+        // Set diagnostics on battle screen
+        GameObject nameObj = GameObject.Find("Name");
+        if (nameObj != null)
+        {
+            NameHolder name = nameObj.GetComponent<NameHolder>();
+            if (name != null)
+            {
+                name.setRoundStarted(true);
+            }
+        }
+
         // Add information about each player to Blackboard
         bb.Register(Constants.p1Key, new Dictionary<string, string>() {
             // Who am I?
@@ -198,7 +209,7 @@ public class BlackBoardController : MonoBehaviour {
         foreach (InputReferences inRef in inputReferences)
         {
             StartCoroutine(InputLog(inRef.engineRelatedButton.ToString(), (player == 1 ? Constants.p1Key : Constants.p2Key)));
-            Debug.Log(inRef.engineRelatedButton.ToString() + " by Player " + player);
+            //Debug.Log(inRef.engineRelatedButton.ToString() + " by Player " + player);
         }
     }
     
@@ -348,6 +359,17 @@ public class BlackBoardController : MonoBehaviour {
         // Save the winner
         //Debug.Log(Constants.WhichPlayer(winner, p1) + " wins");
         bb.UpdateProperty(Constants.WhichPlayer(winner, p1), Constants.winner, "true");
+
+        // Diagnostic reset
+        GameObject nameObj = GameObject.Find("Name");
+        if (nameObj != null)
+        {
+            NameHolder name = nameObj.GetComponent<NameHolder>();
+            if (name != null)
+            {
+                name.setRoundStarted(false);
+            }
+        }
     }
 
     // Which of the 4 types of move (Basic, Strong, Evade, Grab) is this move?

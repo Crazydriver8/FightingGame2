@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
+//using UnityEditor;
 using SimpleJSON;
 using System.IO;
 
@@ -31,7 +31,7 @@ public class MainMenuScreen : UFEScreen {
         }
 	}
 
-    public virtual void TestJSONFile()
+    /*public virtual void TestJSONFile()
     {
         DecisionTreeAI test = new DecisionTreeAI();
         string path = EditorUtility.OpenFilePanel("Get JSON", "", "json");
@@ -60,7 +60,7 @@ public class MainMenuScreen : UFEScreen {
             
         }
         
-    }
+    }*/
 
 	public virtual void GoToTrainingModeScreen(){
 		UFE.StartTrainingMode();

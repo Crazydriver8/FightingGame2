@@ -85,7 +85,29 @@ public class OptionsScreen : UFEScreen{
 		}
 	}
 
-	public virtual void ToggleDebugMode(){
+    /*
+        SET BEHAVIOR FOR DIAGNOSTIC MODE HERE
+        */
+    public virtual void ToggleDiagnosticMode()
+    {
+        //Debug.Log("Diagnostic toggled");
+        GameObject nameObject = GameObject.Find("Name");
+        if (nameObject == null)
+        {
+            Debug.Log("Could not find name object");
+            return;
+        }
+        NameHolder hold = nameObject.GetComponent<NameHolder>();
+        if (hold == null)
+        {
+            Debug.Log("Name object does not have required script");
+        }
+        if (hold.diagnosticMode) hold.SetDiagnosticMode(false);
+        else hold.SetDiagnosticMode(true);
+        Debug.Log("Diagnostic mode set to " + hold.diagnosticMode.ToString());
+    }
+
+    public virtual void ToggleDebugMode(){
 		this.SetDebugMode(!UFE.config.debugOptions.debugMode);
 	}
 	

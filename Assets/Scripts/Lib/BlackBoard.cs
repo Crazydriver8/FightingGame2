@@ -292,7 +292,7 @@ public class BlackBoard : MonoBehaviour
     }
     public string DumpBlackBoard(string player = null)
     {
-        Debug.Log(player);
+        //Debug.Log(player);
         if (player == null)
         {
             if (UFE.GetLocalPlayer() == 1)

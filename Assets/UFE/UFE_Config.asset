@@ -47,7 +47,7 @@ MonoBehaviour:
     rightBoundary: 37
   p1CPUControl: 0
   p2CPUControl: 0
-  gameName: Go Fight Yourself
+  gameName: Mirror Match
   gameGUI:
     hasGauge: 1
     screenFadeDuration: 0.5

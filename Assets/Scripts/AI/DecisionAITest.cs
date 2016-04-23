@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class DecisionAITest : AbstractInputController {
 	#region protected instance fields
@@ -8,6 +9,18 @@ public class DecisionAITest : AbstractInputController {
 
     BlackBoard bb;
     DecisionTreeAI dta;
+    Canvas c;
+    GameObject moveText = null;
+    Text best = null;
+    private float timeLeft = 0;
+    public string bestMove = "";
+    public string bestDirection = "";
+
+    private bool setDiagnostic;
+    private bool setDiagnosticSet = false;
+    private bool setRoundBegin;
+    private GameObject nameObj;
+    private NameHolder nameScript;
 
     #region public override methods
     public override void Initialize (IEnumerable<InputReferences> inputs, int bufferSize){
@@ -18,9 +31,100 @@ public class DecisionAITest : AbstractInputController {
         //dta = GameObject.FindObjectOfType<DecisionTreeAI>();
         dta = GameObject.Find("BlackBoard").GetComponent<DecisionTreeAI>();
         dta.LoadJSON("D:/Work/FightingGame2/C45algorithm-master/out.json");
+
+        c = GameObject.FindObjectOfType<Canvas>();
+
+        nameObj = GameObject.Find("Name");
+        if (nameObj != null)
+        {
+            nameScript = nameObj.GetComponent<NameHolder>();
+        }
     }
 
-	public override void DoUpdate (){
+    public override void DoUpdate() {
+        //-------------------------
+        // Diagnostic mode settings
+        //-------------------------
+        if (nameScript != null) setRoundBegin = nameScript.getRoundStarted();
+        if (setRoundBegin == false) setDiagnosticSet = false;
+        else
+        {
+            setDiagnostic = nameScript.diagnosticMode;
+            setDiagnosticSet = true;
+        }
+        if (moveText != null && setRoundBegin && !setDiagnosticSet) {
+
+            if (nameScript != null)
+            {
+                
+                Debug.Log("Diagnostic read as " + setDiagnostic.ToString());
+                moveText = GameObject.Find("Text_Move");
+                if (moveText == null)
+                {
+                    Debug.Log("Could not find text");
+                }
+                else
+                {
+                }
+                best = moveText.GetComponent<Text>();
+                if (best == null)
+                {
+                    Debug.Log("Could not find text");
+                }
+                else
+                {
+                    best.text = "";
+                }
+            }
+        }
+
+        if (setDiagnostic && setDiagnosticSet) {
+            // Timer to prevent too many updates
+            if (timeLeft > 0)
+            {
+                timeLeft -= Time.deltaTime;
+            }
+
+            if (moveText == null)
+            {
+                moveText = GameObject.Find("Text_Move");
+                if (moveText == null)
+                {
+                    Debug.Log("Could not find text");
+                } else
+                {
+                }
+                best = moveText.GetComponent<Text>();
+                if (best == null)
+                {
+                    Debug.Log("Could not find text");
+                } else { 
+                    best.text = "";
+                }
+            } else if (timeLeft < 1)
+            {
+                best.text = bestDirection + " " + bestMove;
+                timeLeft = 1.25f;
+            }
+        } else
+        {
+            if (moveText == null)
+            {
+                GameObject moveHeader = GameObject.Find("Text_MoveTitle");
+                if (moveHeader != null)
+                {
+                    Text head = moveHeader.GetComponent<Text>();
+                    head.text = "";
+                }
+                moveText = GameObject.Find("Text_Move");
+                if (moveText != null)
+                {
+                    Text tex = moveText.GetComponent<Text>();
+                    tex.text = "";
+                }
+            }
+        }
+
 		if (this.inputReferences != null){
 			//---------------------------------------------------------------------------------------------------------
 			// Check the time that has passed since the last update.
@@ -44,11 +148,12 @@ public class DecisionAITest : AbstractInputController {
                 {
                     Debug.Log("No blackboard");
                 }
-                Debug.Log("Deliberating...");
+                //Debug.Log("Deliberating...");
                 //dta.Deliberate(bb);
                 //string temp = dta.BestMove()
                 string temp = dta.Deliberate(bb);
-                Debug.Log("Best move is " + temp);
+                //Debug.Log("Best move is " + temp);
+                this.SetBestMove(temp);
 				foreach (InputReferences input in this.inputReferences) {
 					//this.currentFrameInputs[input] = this.ReadInput(input);
                     this.currentFrameInputs[input] = this.DoBestMove(input, temp);
@@ -63,7 +168,7 @@ public class DecisionAITest : AbstractInputController {
 
     public InputEvents DoBestMove(InputReferences inputReference, string bestMove)
     {
-        Debug.Log("Trying to fire " + bestMove);
+        //Debug.Log("Trying to fire " + bestMove);
         ControlsScript self = UFE.GetControlsScript(this.player);
         if (self != null)
         {
@@ -224,5 +329,32 @@ public class DecisionAITest : AbstractInputController {
 		}
 		return InputEvents.Default;
 	}
+
+    private void SetBestMove(string move)
+    {
+        switch (move)
+        {
+            case "Foward":
+            case "Backward":
+            case "Up":
+            case "Down":
+                this.bestDirection = move;
+                break;
+            case "Button1":
+            case "Button2":
+            case "Button3":
+            case "Button4":
+                this.bestMove = move;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public string GetBestMove()
+    {
+        return this.bestMove;
+    }
+    
 	#endregion
 }

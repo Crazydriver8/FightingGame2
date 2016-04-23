@@ -18,6 +18,7 @@ public class DefaultOptionsScreen : OptionsScreen{
 	public Text difficultyName;
 	public Text aiEngineName;
 	public Toggle debugModeToggle;
+    public Toggle diagnosticModeToggle;
 	public Button changeControlsButton;
 	public Button cancelButton;
 	public float sliderSpeed = 0.1f;
@@ -101,8 +102,21 @@ public class DefaultOptionsScreen : OptionsScreen{
 		if (this.debugModeToggle != null){
 			this.debugModeToggle.isOn = UFE.config.debugOptions.debugMode;
 		}
-		
-		
+
+        if (this.diagnosticModeToggle != null)
+        {
+            GameObject nameObj = GameObject.Find("Name");
+            if (nameObj != null)
+            {
+                NameHolder name = nameObj.GetComponent<NameHolder>();
+                if (name != null)
+                {
+                    this.diagnosticModeToggle.isOn = name.diagnosticMode;
+                }
+                else Debug.Log("Could not find nameholder script");
+            }
+            else Debug.Log("Could not find name object");
+        }
 		if (this.changeControlsButton != null){
 			this.changeControlsButton.gameObject.SetActive(
 				UFE.isCInputInstalled && UFE.config.inputOptions.inputManagerType == InputManagerType.cInput

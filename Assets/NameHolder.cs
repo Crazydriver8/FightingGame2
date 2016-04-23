@@ -3,7 +3,10 @@ using System.Collections;
 
 public class NameHolder : MonoBehaviour {
     public string username;
+    public bool diagnosticMode = false;
+    private bool roundStarted = false;
     public SkillTreeStructure skillTree;
+    
 
     void Start()
     {
@@ -13,6 +16,10 @@ public class NameHolder : MonoBehaviour {
     public void SetName(string outName)
     {
         username = outName;
+    }
+    public void SetDiagnosticMode(bool mode)
+    {
+        diagnosticMode = mode;
     }
     void update()
     {
@@ -47,5 +54,15 @@ public class NameHolder : MonoBehaviour {
         }
         else
             return true;
+    }
+
+    public bool getRoundStarted()
+    {
+        return roundStarted;
+    }
+
+    public void setRoundStarted(bool roundUp)
+    {
+        this.roundStarted = roundUp;
     }
 }

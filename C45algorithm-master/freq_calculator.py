@@ -44,7 +44,7 @@ Stores distributions from a file
 '''
 class Distributions(object):
 	def __init__(self, filename):
-		self.src = open(file)
+		self.src = open(filename)
 		self.params = {"P1 Wins" : 0, "P2 Wins" : 0, "Foward" : 0, "Backward" : 0, "Up" : 0, "Down" : 0, "Button1" : 0, "Button2" : 0, "Button3" : 0, "Button4" : 0}
 		self.buttons = 0
 		self.games = 0
@@ -70,7 +70,8 @@ class Distributions(object):
 
 if __name__ == "__main__":
 	# Build the data table
-	data_table = Distributions(sys.argv[1] if len(sys.argv) == 2 else "jojo.log").get_distribution_table()
+	data_table = Distributions(sys.argv[1] if len(sys.argv) == 2 else "jojo.log")
+	data_table.get_distribution_table()
 	
 	print data_table.buttons,
 	print " buttons pressed"
