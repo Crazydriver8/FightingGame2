@@ -28,7 +28,7 @@ public static class PostDataToServer {
                         Debug.Log("There was a logging error: " + postQueueP1[0].error);
                     }
 
-                    //Debug.Log(postQueueP1[0].text);
+                    Debug.Log(postQueueP1[0].text);
 
                     // Remove the first element
                     postQueueP1.RemoveAt(0);
@@ -49,7 +49,7 @@ public static class PostDataToServer {
                         Debug.Log("There was a logging error: " + postQueueP2[0].error);
                     }
 
-                    //Debug.Log(postQueueP2[0].text);
+                    Debug.Log(postQueueP2[0].text);
 
                     // Remove the first element
                     postQueueP2.RemoveAt(0);

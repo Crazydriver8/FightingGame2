@@ -308,14 +308,14 @@ public class BlackBoard : MonoBehaviour
         KeyData data;
         if (ai)
         {
-            data = new KeyData(UFE.GetTimer(), "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName] + "_AI"), BlackBoardToString());
+            data = new KeyData(UFE.GetTimer(), "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player + "_AI" : flags[player][Constants.playerName] + "_AI"), BlackBoardToString());
         }
         else {
             data = new KeyData(UFE.GetTimer(), "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName]), BlackBoardToString());
         }
 
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
-        Debug.Log("Write to: " + write_to);
+        //Debug.Log("Write to: " + write_to);
         // Enqueue for POSTing to server
 
         if (player == Constants.p1Key)
