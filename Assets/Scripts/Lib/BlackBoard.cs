@@ -277,11 +277,47 @@ public class BlackBoard : MonoBehaviour
     // Output the blackboard as a string
     public IEnumerator BlackBoardLog(string player)
     {
+        bool ai = false;
+        //Debug.Log("Logging for " + player);
+        
+        // Check if player is AI
+        if (player == Constants.p1Key)
+        {
+            UFEController p1Control = UFE.GetPlayer1Controller();
+            if (p1Control.isCPU)
+            {
+                Debug.Log(player + " is cpu");
+                ai = true;
+            }
+        }
+        if (player == Constants.p2Key)
+        {
+            UFEController p2Control = UFE.GetPlayer2Controller();
+            if (p2Control.isCPU)
+            {
+                Debug.Log(player + " is cpu");
+                ai = true;
+            }
+        }
+        //player = (UFE.iscpu ? player + "_AI" : player);
+
+        //Debug.Log(player + " is an ai: " + ai);
+
         // Record data for this player
-        KeyData data = new KeyData(UFE.GetTimer(), "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName]), BlackBoardToString());
+        // Append _AI to all AI players
+        KeyData data;
+        if (ai)
+        {
+            data = new KeyData(UFE.GetTimer(), "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName] + "_AI"), BlackBoardToString());
+        }
+        else {
+            data = new KeyData(UFE.GetTimer(), "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName]), BlackBoardToString());
+        }
+
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
         Debug.Log("Write to: " + write_to);
         // Enqueue for POSTing to server
+
         if (player == Constants.p1Key)
             PostDataToServer.postQueueP1.Add(new WWW(write_to));
         else if (player == Constants.p2Key)
