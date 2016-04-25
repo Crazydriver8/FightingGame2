@@ -280,14 +280,14 @@ public class BlackBoard : MonoBehaviour
         // Record data for this player
         KeyData data = new KeyData(UFE.GetTimer(), "BlackBoard Update", (flags[player][Constants.playerName] == "" ? player : flags[player][Constants.playerName]), BlackBoardToString());
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
-
+        Debug.Log("Write to: " + write_to);
         // Enqueue for POSTing to server
         if (player == Constants.p1Key)
             PostDataToServer.postQueueP1.Add(new WWW(write_to));
         else if (player == Constants.p2Key)
             PostDataToServer.postQueueP2.Add(new WWW(write_to));
         else
-            Debug.Log("Why is there a third player?");
+            Debug.Log("Error: 3 Players");
         yield return null;
     }
     public string DumpBlackBoard(string player = null)
@@ -371,6 +371,11 @@ public struct KeyData
     // Output data in URL parameter form
     public string AsUrlParams()
     {
-        return "time=" + time + "&keyPress=" + keyPress + "&playerName=" + playerName + "&bbState=" + WWW.EscapeURL(blackBoard);
+        if (playerName != "Player2") {
+            return "time=" + time + "&keyPress=" + keyPress + "&playerName=" + playerName + "&bbState=" + WWW.EscapeURL(blackBoard);
+        } else
+        {
+            return "time=" + time + "&keyPress=" + keyPress + "&playerName=" + playerName + "_AI" + "&bbState=" + WWW.EscapeURL(blackBoard);
+        }
     }
 }
