@@ -30,7 +30,7 @@ public class DecisionAITest : AbstractInputController {
         bb = GameObject.Find("BlackBoard").GetComponent<BlackBoard>();
         //dta = GameObject.FindObjectOfType<DecisionTreeAI>();
         dta = GameObject.Find("BlackBoard").GetComponent<DecisionTreeAI>();
-        dta.LoadJSON("D:/Work/FightingGame2/C45algorithm-master/out.json");
+        dta.LoadJSON("./C45algorithm-master/out.json");
 
         c = GameObject.FindObjectOfType<Canvas>();
 
