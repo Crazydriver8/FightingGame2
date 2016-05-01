@@ -48,3 +48,8 @@ sysinfo.txt
 /Assets/UFE/*.txt
 /Assets/UFE/*.prefab
 /Assets/UFE Addons/FuzzyAI/*
+
+
+#Python
+**/venv/*
+*.whl

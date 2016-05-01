@@ -79,7 +79,9 @@ if __name__ == "__main__":
 	print data_table.games,
 	print " games played"
 	
-	for key in data_table.params:
-		print key,
-		print " : ",
-		print data_table.params[key]
+	#for key in data_table.params:
+	#	print key,
+	#	print " : ",
+	#	print data_table.params[key]
+	
+	print json.dumps(data_table.params)
