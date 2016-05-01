@@ -22,8 +22,8 @@ def distr_to_percent(distr):
 	return [distr["P1 Wins"] * 1.0 / rounds, distr["P2 Wins"] * 1.0 / rounds, distr["Foward"] * 1.0 / buttons_pressed, distr["Backward"] * 1.0 / buttons_pressed, distr["Up"] * 1.0 / buttons_pressed, distr["Down"] * 1.0 / buttons_pressed, distr["Button1"] * 1.0 / buttons_pressed, distr["Button2"] * 1.0 / buttons_pressed, distr["Button3"] * 1.0 / buttons_pressed, distr["Button4"] * 1.0 / buttons_pressed]
 
 if __name__ == "__main__":
-	player_distr = read_distr(sys.argv[1])
-	ai_distr = read_distr(sys.argv[2])
+	player_distr = read_distr(sys.argv[1]) if len(sys.argv) == 3 else None
+	ai_distr = read_distr(sys.argv[2]) if len(sys.argv) == 3 else None
 	
 	if player_distr and ai_distr:
 		# Convert to percentages
