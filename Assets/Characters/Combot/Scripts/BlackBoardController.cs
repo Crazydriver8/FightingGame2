@@ -32,14 +32,20 @@ public class BlackBoardController : MonoBehaviour {
     private List<String> skillList = null;
     public List<String> savedSkillList = null;
 
+    // On-screen feedback
     public GameObject captionPrefab;
     private GameObject instCaption = null;
+
+    Distribution distr = null;
 
     // Happens when the object is enabled
     void OnEnable()
     {
         // Get the BlackBoard
         bb = GameObject.Find("BlackBoard").GetComponent<BlackBoard>();
+
+        // Get the distribution object
+        distr = this.gameObject.GetComponent<Distribution>();
 
         // Subscribe to UFE events
         UFE.OnGameBegin += OnGameBegin;
@@ -101,6 +107,9 @@ public class BlackBoardController : MonoBehaviour {
     public void OnRoundBegins(int roundNumber) {
         // Reset the BlackBoard to clear out information from the previous round
         bb.ClearBlackBoard();
+
+        // Reset Distribution if enabled
+        distr.ResetCount();
 
         // Set diagnostics on battle screen
         GameObject nameObj = GameObject.Find("Name");
@@ -210,6 +219,10 @@ public class BlackBoardController : MonoBehaviour {
         {
             StartCoroutine(InputLog(inRef.engineRelatedButton.ToString(), (player == 1 ? Constants.p1Key : Constants.p2Key)));
             //Debug.Log(inRef.engineRelatedButton.ToString() + " by Player " + player);
+
+            // Reloads the distribution graph
+            distr.Increment(inRef.engineRelatedButton.ToString());
+            distr.Visualize();
         }
     }
     

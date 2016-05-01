@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   username: 
+  diagnosticMode: 0
 --- !u!4 &1132302658
 Transform:
   m_ObjectHideFlags: 0
@@ -352,6 +353,7 @@ GameObject:
   - 114: {fileID: 1918475680}
   - 114: {fileID: 1918475682}
   - 114: {fileID: 1918475681}
+  - 114: {fileID: 1918475683}
   m_Layer: 0
   m_Name: Skills
   m_TagString: Untagged
@@ -488,6 +490,18 @@ MonoBehaviour:
   playerObjects:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &1918475683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1918475676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8322bbaedf97b488080df14abd489c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphLength: 1000
 --- !u!1 &2117260263
 GameObject:
   m_ObjectHideFlags: 0

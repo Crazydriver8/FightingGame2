@@ -7,8 +7,8 @@ using UnityEngine.UI;
  */
 public class GraphPortion
 {
-	float start = 0;
-		  end = 0;
+	public float start = 0.0f,
+				 end = 0.0f;
 	
 	public GraphPortion(float start, float end)
 	{
