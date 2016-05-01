@@ -3,40 +3,27 @@ import sys, json
 from scipy.stats import chisquare
 
 
+# Read distribution from file
+def read_distr(filename):
+	if filename:
+		with open(filename) as f:
+			distr = json.loads(f.read())
+			f.close()
+			return distr
+	else:
+		return None
+
 # Converts a dictionary of frequencies to a list of percentages in order to do chi-squared testing
 # Format is already known
 def distr_to_percent(distr):
-	# The first 2 are win rates
-	rounds = distr["P1 Wins"] + distr["P2 Wins"]
-	p1_win_rate = distr["P1 Wins"] * 1.0 / rounds
-	p2_win_rate = distr["P2 Wins"] * 1.0 / rounds
+	rounds = distr["P1 Wins"] + distr["P2 Wins"] # Get total rounds played
+	buttons_pressed = distr["Foward"] + distr["Backward"] + distr["Up"] + distr["Down"] + distr["Button1"] + distr["Button2"] + distr["Button3"] + distr["Button4"] # Get total buttons pressed
 	
-	# The rest are button presses
-	buttons_pressed = distr["Foward"] + distr["Backward"] + distr["Up"] + distr["Down"] + distr["Button1"] + distr["Button2"] + distr["Button3"] + distr["Button4"]
-	foward_rate = distr["Foward"] * 1.0 / buttons_pressed
-	backward_rate = distr["Backward"] * 1.0 / buttons_pressed
-	up_rate = distr["Up"] * 1.0 / buttons_pressed
-	down_rate = distr["Down"] * 1.0 / buttons_pressed
-	button1_rate = distr["Button1"] * 1.0 / buttons_pressed
-	button2_rate = distr["Button2"] * 1.0 / buttons_pressed
-	button3_rate = distr["Button3"] * 1.0 / buttons_pressed
-	button4_rate = distr["Button4"] * 1.0 / buttons_pressed
-	
-	return [p1_win_rate, p2_win_rate, foward_rate, backward_rate, up_rate, down_rate, button1_rate, button2_rate, button3_rate, button4_rate]
-
+	return [distr["P1 Wins"] * 1.0 / rounds, distr["P2 Wins"] * 1.0 / rounds, distr["Foward"] * 1.0 / buttons_pressed, distr["Backward"] * 1.0 / buttons_pressed, distr["Up"] * 1.0 / buttons_pressed, distr["Down"] * 1.0 / buttons_pressed, distr["Button1"] * 1.0 / buttons_pressed, distr["Button2"] * 1.0 / buttons_pressed, distr["Button3"] * 1.0 / buttons_pressed, distr["Button4"] * 1.0 / buttons_pressed]
 
 if __name__ == "__main__":
-	player_distr = None
-	if sys.argv[1]:
-		with open(sys.argv[1]) as player_file:
-			player_distr = json.loads(player_file.read())
-			player_file.close()
-	
-	ai_distr = None
-	if sys.argv[2]:
-		with open(sys.argv[2]) as ai_file:
-			ai_distr = json.loads(ai_file.read())
-			ai_file.close()
+	player_distr = read_distr(sys.argv[1])
+	ai_distr = read_distr(sys.argv[2])
 	
 	if player_distr and ai_distr:
 		# Convert to percentages
