@@ -1,5 +1,4 @@
-import json
-import sys
+import json, sys, math
 
 # C4.5 implementation by geerk
 import mine
@@ -51,16 +50,28 @@ class StateDependentMoves(object):
 		self.curr_state = None
 		self.table = []
 		self.columns = ["result", "Player1 Current Life Points", "Player1 Favor", "Player1 Rally", "Player1 Balance", "Player1 Last Hit", "Player1 Last Attack by Player", "Player1 Landed Last Attack", "Player1 Last Evade", "Player1 Successful Evade", "Player1 Last Attack by Opponent", "Player1 Opponent Landed Last Attack", "Player1 [Surprise] Number of Attacks", "Player1 [Surprise] Number of Evades", "Player1 Distance to Opponent", "Player1 Winner", "Player2 Current Life Points", "Player2 Favor", "Player2 Rally", "Player2 Balance", "Player2 Last Hit", "Player2 Last Attack by Player", "Player2 Landed Last Attack", "Player2 Last Evade", "Player2 Successful Evade", "Player2 Last Attack by Opponent", "Player2 Opponent Landed Last Attack", "Player2 [Surprise] Number of Attacks", "Player2 [Surprise] Number of Evades", "Player1 Distance to Opponent", "Player2 Winner", "phase"]
+		self.timing = {"Foward" : {"interval" : -1, "std_dev" : -1, "data_points" : []}, "Back" : {"interval" : -1, "std_dev" : -1, "data_points" : []}, "Down" : {"interval" : -1, "std_dev" : -1, "data_points" : []}, "Up" : {"interval" : -1, "std_dev" : -1, "data_points" : []}, "Button1" : {"interval" : -1, "std_dev" : -1, "data_points" : []}, "Button2" : {"interval" : -1, "std_dev" : -1, "data_points" : []}, "Button3" : {"interval" : -1, "std_dev" : -1, "data_points" : []}, "Button4" : {"interval" : -1, "std_dev" : -1, "data_points" : []}}
 	
 	'''
 	Builds a data table
 	'''
 	def build_table(self):
+		count = 0
+		prev_game_time = -1
+		prev_input = ""
 		for block in get_next_block(self.src):
 			if block[3] != "":
 				# Update BlackBoard
 				self.update_blackboard(block[3])
 			else:
+				# Compute timing information
+				game_time = float(block[1])
+				if prev_game_time > -1 and len(prev_input) > 0:
+					self.timing[prev_input]["interval"] = math.fabs(prev_game_time - game_time) if self.timing[prev_input]["interval"] == -1 else self.timing[prev_input]["interval"] + math.fabs(prev_game_time - game_time)
+					self.timing[prev_input]["data_points"].append(math.fabs(prev_game_time - game_time))
+				
+				prev_input = block[2]
+				
 				# Add a row to the data table; currently contains result
 				row = [block[2]]
 				# Player 1 data
@@ -99,7 +110,6 @@ class StateDependentMoves(object):
 				row.append(self.curr_state["Player2"]["Winner"])
 				
 				# The last entry is a "phase" (early, mid, late) based on game time
-				game_time = float(block[1])
 				if game_time < 99 * 1/3.0:
 					row.append("late")
 				elif game_time < 99 * 2/3.0:
@@ -109,6 +119,17 @@ class StateDependentMoves(object):
 				
 				# Add to data table
 				self.table.append(row)
+				
+				# Update game time
+				prev_game_time = game_time
+			
+			count += 1
+		
+		# Calculate average and standard deviation of move information table
+		for move in self.timing:
+			self.timing[move]["interval"] = self.timing[move]["interval"] / len(self.timing[move]["data_points"]) if len(self.timing[move]["data_points"]) > 0 else -1
+			self.timing[move]["std_dev"] = math.sqrt(sum([(self.timing[move]["interval"] - x_i) ** 2 for x_i in self.timing[move]["data_points"]])/(len(self.timing[move]["data_points"]))) if len(self.timing[move]["data_points"]) > 0 else -1
+			self.timing[move].pop("data_points");
 		
 		# Convert data table to correct format and output it
 		return self.to_dict()
@@ -207,8 +228,10 @@ class StateDependentMoves(object):
 
 
 if __name__ == "__main__":
+	sdm = StateDependentMoves(sys.argv[1] if len(sys.argv) == 2 else "sample.log")
+	
 	# Build the data table
-	data_table = StateDependentMoves(sys.argv[1] if len(sys.argv) == 2 else "jojo.log").build_table()
+	data_table = sdm.build_table()
 	#print json.dumps(data_table)
 	
 	# Build decision tree rules
@@ -216,7 +239,7 @@ if __name__ == "__main__":
 	#print mine.mine_c45(data_table, "result")
 	#mine.__tree_to_rules(mine.mine_c45(data_table, "result"))
 	#print mine.__tree_to_dict(mine.mine_c45(data_table, "result"))
-	print mine.tree_to_json(mine.mine_c45(data_table, "result"))
+	print "[" + mine.tree_to_json(mine.mine_c45(data_table, "result")) + "," + json.dumps(sdm.timing) + "]"
 	
 	#with open("table.json") as f:
 	#	print mine.tree_to_rules(mine.mine_c45(json.loads(f.read()), "result"))

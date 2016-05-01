@@ -348,7 +348,7 @@ public class BlackBoard : MonoBehaviour
     public string BlackBoardToString()
     {
         string bb = "{\n";
-
+		
         foreach(KeyValuePair<string, Dictionary<string, string>> f in flags)
         {
             bb += "\t\"" + f.Key + "\" : {\n";
@@ -356,11 +356,12 @@ public class BlackBoard : MonoBehaviour
             {
                 bb += "\t\t\"" + tuple.Key + "\" : \"" + tuple.Value + "\",\n";
             }
+			
             bb += "\t},\n";
         }
-
+		
         bb += "}";
-
+		
         return bb;
     }
 }
