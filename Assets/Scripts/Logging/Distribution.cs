@@ -49,6 +49,15 @@ public class Distribution : MonoBehaviour {
     private RectTransform but3Rect;
     private RectTransform but4Rect;
 
+    private GameObject upText;
+    private GameObject downText;
+    private GameObject fowardText;
+    private GameObject backwardText;
+    private GameObject but1Text;
+    private GameObject but2Text;
+    private GameObject but3Text;
+    private GameObject but4Text;
+
     List<GraphPortion> portions = new List<GraphPortion> ();
 	
 	NameHolder nh;
@@ -163,62 +172,102 @@ public class Distribution : MonoBehaviour {
 
         // Create a GraphPortion to represent this part of the distribution graph
         //Debug.Log("Ratio of " + moveName + " is " + (start + barLength));
-
-        switch(moveName)
+        barLength = barLength * 3;
+        switch (moveName)
         {
             case "Up":
                 if (upBar == null) upBar = GameObject.Find("upBar");
                 if (upRect == null) upRect = upBar.GetComponent<RectTransform>();
+                if (upText == null)
+                {
+                    upText = GameObject.Find("upText");
+                    upText.GetComponent<Text>().text = "Up";
+                }
                 //Debug.Log("Setting width to " + (barLength + start));
-                upRect.sizeDelta = new Vector2(barLength + start, 50);
+                upRect.sizeDelta = new Vector2(barLength, 50);
                 break;
             case "Down":
-                if(downBar == null) downBar = GameObject.Find("downBar");
+                if (downBar == null) downBar = GameObject.Find("downBar");
                 if (downRect == null) downRect = downBar.GetComponent<RectTransform>();
+                if (downText == null)
+                {
+                    downText = GameObject.Find("downText");
+                    downText.GetComponent<Text>().text = "Down";
+                }
                 //Debug.Log("Setting width to " + (barLength + start));
-                downRect.sizeDelta = new Vector2(barLength + start, 50);
+                downRect.sizeDelta = new Vector2(barLength, 50);
                 break;
             case "Foward":
                 if (fowardBar == null) fowardBar = GameObject.Find("fowardBar");
                 if (fowardRect == null) fowardRect = fowardBar.GetComponent<RectTransform>();
+                if (fowardText == null)
+                {
+                    fowardText = GameObject.Find("fowardText");
+                    fowardText.GetComponent<Text>().text = "Foward";
+                }
                 //Debug.Log("Setting width to " + (barLength + start));
-                fowardRect.sizeDelta = new Vector2(barLength + start, 50);
+                fowardRect.sizeDelta = new Vector2(barLength, 50);
                 break;
             case "Backward":
                 if (backwardBar == null) backwardBar = GameObject.Find("backwardBar");
                 if (backwardRect == null) backwardRect = backwardBar.GetComponent<RectTransform>();
+                if (backwardText == null) {
+                    backwardText = GameObject.Find("backwardText");
+                    backwardText.GetComponent<Text>().text = "Backward";
+                }
                 //Debug.Log("Setting width to " + (barLength + start));
-                backwardRect.sizeDelta = new Vector2(barLength + start, 50);
+                backwardRect.sizeDelta = new Vector2(barLength, 50);
                 break;
             case "Button1":
                 if (but1Bar == null) but1Bar = GameObject.Find("but1Bar");
                 if (but1Rect == null) but1Rect = but1Bar.GetComponent<RectTransform>();
+                if (but1Text == null)
+                {
+                    but1Text = GameObject.Find("but1Text");
+                    but1Text.GetComponent<Text>().text = "Button 1";
+                }
                 //Debug.Log("Setting width to " + (barLength + start));
-                but1Rect.sizeDelta = new Vector2(barLength + start, 50);
+                but1Rect.sizeDelta = new Vector2(barLength, 50);
                 break;
             case "Button2":
                 if (but2Bar == null) but2Bar = GameObject.Find("but2Bar");
                 if (but2Rect == null) but2Rect = but2Bar.GetComponent<RectTransform>();
+                if (but2Text == null)
+                {
+                    but2Text = GameObject.Find("but2Text");
+                    but2Text.GetComponent<Text>().text = "Button 2";
+                }
                 //Debug.Log("Setting width to " + (barLength + start));
-                but2Rect.sizeDelta = new Vector2(barLength + start, 50);
+                but2Rect.sizeDelta = new Vector2(barLength, 50);
                 break;
             case "Button3":
                 if (but3Bar == null) but3Bar = GameObject.Find("but3Bar");
                 if (but3Rect == null) but3Rect = but3Bar.GetComponent<RectTransform>();
+                if (but3Text == null)
+                {
+                    but3Text = GameObject.Find("but3Text");
+                    but3Text.GetComponent<Text>().text = "Button 3";
+                }
                 //Debug.Log("Setting width to " + (barLength + start));
-                but3Rect.sizeDelta = new Vector2(barLength + start, 50);
+                but3Rect.sizeDelta = new Vector2(barLength, 50);
                 break;
             case "Button4":
                 if (but4Bar == null) but4Bar = GameObject.Find("but4Bar");
                 if (but4Rect == null) but4Rect = but4Bar.GetComponent<RectTransform>();
+                if (but4Text == null)
+                {
+                    but4Text = GameObject.Find("but4Text");
+                    but4Text.GetComponent<Text>().text = "Button 4";
+                }
+
                 //Debug.Log("Setting width to " + (barLength + start));
-                but4Rect.sizeDelta = new Vector2(barLength + start, 50);
+                but4Rect.sizeDelta = new Vector2(barLength, 50);
                 break;
             default:
                 break;
         }
 
-		return start + barLength;
+		return start + (barLength / 2);
 	}
 	
 	// Cleans out the graph to be redrawn

@@ -924,5 +924,5 @@ MonoBehaviour:
     rollBackFrames: 0
   music: 0
   musicVolume: 1
-  soundfx: 1
+  soundfx: 0
   soundfxVolume: 1
