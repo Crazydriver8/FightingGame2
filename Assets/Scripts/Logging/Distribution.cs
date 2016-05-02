@@ -30,21 +30,53 @@ public class Distribution : MonoBehaviour {
 	int totalInputs = 0;
 	bool resetEveryRound;
 	public float graphLength = -1;
-	
-	List<GraphPortion> portions = new List<GraphPortion> ();
+
+    private GameObject upBar;
+    private GameObject downBar;
+    private GameObject fowardBar;
+    private GameObject backwardBar;
+    private GameObject but1Bar;
+    private GameObject but2Bar;
+    private GameObject but3Bar;
+    private GameObject but4Bar;
+
+    private RectTransform upRect;
+    private RectTransform downRect;
+    private RectTransform fowardRect;
+    private RectTransform backwardRect;
+    private RectTransform but1Rect;
+    private RectTransform but2Rect;
+    private RectTransform but3Rect;
+    private RectTransform but4Rect;
+
+    List<GraphPortion> portions = new List<GraphPortion> ();
 	
 	NameHolder nh;
 	
 	
 	void Start()
 	{
+        
 		nh = GameObject.Find("Name").GetComponent<NameHolder>();
 		resetEveryRound = false;
 		
 		// Default size of distribution graph
 		if (graphLength == -1)
 			graphLength = 1000;
-	}
+
+        this.moveFreq = new Dictionary<string, int>() {
+                {"Foward", 0},
+                {"Backward", 0},
+                {"Up", 0},
+                {"Down", 0},
+                {"Button1", 0},
+                {"Button2", 0},
+                {"Button3", 0},
+                {"Button4", 0}
+            };
+
+        this.totalInputs = 0;
+    }
 	
 	
 	/* Basic logging
@@ -57,6 +89,8 @@ public class Distribution : MonoBehaviour {
 		{
 			this.moveFreq[move] += 1;
 			this.totalInputs += 1;
+            //Debug.Log ("Total Inputs: " + totalInputs);
+            //Debug.Log("Inputs for " + move + " : " + this.moveFreq[move]);
 			return true;
 		}
 		else
@@ -126,9 +160,64 @@ public class Distribution : MonoBehaviour {
 	{
 		float barLength = this.graphLength * count / this.totalInputs; // Bar length proportional to number of inputs of the given name
 		float textStart = barLength / 2; // Draw a line from the middle and put the name of the move
-		
-		// Create a GraphPortion to represent this part of the distribution graph
-		
+
+        // Create a GraphPortion to represent this part of the distribution graph
+        //Debug.Log("Ratio of " + moveName + " is " + (start + barLength));
+
+        switch(moveName)
+        {
+            case "Up":
+                if (upBar == null) upBar = GameObject.Find("upBar");
+                if (upRect == null) upRect = upBar.GetComponent<RectTransform>();
+                //Debug.Log("Setting width to " + (barLength + start));
+                upRect.sizeDelta = new Vector2(barLength + start, 50);
+                break;
+            case "Down":
+                if(downBar == null) downBar = GameObject.Find("downBar");
+                if (downRect == null) downRect = downBar.GetComponent<RectTransform>();
+                //Debug.Log("Setting width to " + (barLength + start));
+                downRect.sizeDelta = new Vector2(barLength + start, 50);
+                break;
+            case "Foward":
+                if (fowardBar == null) fowardBar = GameObject.Find("fowardBar");
+                if (fowardRect == null) fowardRect = fowardBar.GetComponent<RectTransform>();
+                //Debug.Log("Setting width to " + (barLength + start));
+                fowardRect.sizeDelta = new Vector2(barLength + start, 50);
+                break;
+            case "Backward":
+                if (backwardBar == null) backwardBar = GameObject.Find("backwardBar");
+                if (backwardRect == null) backwardRect = backwardBar.GetComponent<RectTransform>();
+                //Debug.Log("Setting width to " + (barLength + start));
+                backwardRect.sizeDelta = new Vector2(barLength + start, 50);
+                break;
+            case "Button1":
+                if (but1Bar == null) but1Bar = GameObject.Find("but1Bar");
+                if (but1Rect == null) but1Rect = but1Bar.GetComponent<RectTransform>();
+                //Debug.Log("Setting width to " + (barLength + start));
+                but1Rect.sizeDelta = new Vector2(barLength + start, 50);
+                break;
+            case "Button2":
+                if (but2Bar == null) but2Bar = GameObject.Find("but2Bar");
+                if (but2Rect == null) but2Rect = but2Bar.GetComponent<RectTransform>();
+                //Debug.Log("Setting width to " + (barLength + start));
+                but2Rect.sizeDelta = new Vector2(barLength + start, 50);
+                break;
+            case "Button3":
+                if (but3Bar == null) but3Bar = GameObject.Find("but3Bar");
+                if (but3Rect == null) but3Rect = but3Bar.GetComponent<RectTransform>();
+                //Debug.Log("Setting width to " + (barLength + start));
+                but3Rect.sizeDelta = new Vector2(barLength + start, 50);
+                break;
+            case "Button4":
+                if (but4Bar == null) but4Bar = GameObject.Find("but4Bar");
+                if (but4Rect == null) but4Rect = but4Bar.GetComponent<RectTransform>();
+                //Debug.Log("Setting width to " + (barLength + start));
+                but4Rect.sizeDelta = new Vector2(barLength + start, 50);
+                break;
+            default:
+                break;
+        }
+
 		return start + barLength;
 	}
 	

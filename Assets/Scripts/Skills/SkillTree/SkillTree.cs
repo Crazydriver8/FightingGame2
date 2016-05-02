@@ -146,7 +146,7 @@ public class SkillTree : MonoBehaviour {
             frontier.AddRange(temp.GetChildren());
 
             // Add effects and modifiers
-            Debug.Log(temp.name);
+            //Debug.Log(temp.name);
             Modifier modToAdd = nodeLoader.handlers[temp.name](this, ufeMove, p1UsedMove, passive);
             mod = mod.Combine(modToAdd);
 

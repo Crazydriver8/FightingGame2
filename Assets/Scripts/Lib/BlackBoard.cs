@@ -295,7 +295,7 @@ public class BlackBoard : MonoBehaviour
             UFEController p2Control = UFE.GetPlayer2Controller();
             if (p2Control.isCPU)
             {
-                Debug.Log(player + " is cpu");
+                //Debug.Log(player + " is cpu");
                 ai = true;
             }
         }
