@@ -7,6 +7,7 @@ using System.IO;
 
 public class DecisionTreeAI : MonoBehaviour {
     Dictionary<string, AIMoveInfo> possibleMoves = new Dictionary<string, AIMoveInfo>();
+    public AITimingInfo timing;
 
     // Loads JSON file and populates dictionary based on contents
     public void LoadJSON(string path)
@@ -38,14 +39,16 @@ public class DecisionTreeAI : MonoBehaviour {
     public void PopulateMoves(string aJSON)
     {
         // Make a move for each moveName
-        foreach(string moveName in Constants.moveNames)
+        foreach (string moveName in Constants.moveNames)
         {
             Debug.Log(moveName + " entered");
             possibleMoves[moveName] = new AIMoveInfo(moveName);
         }
 
         // Populate
-        _PopulateMoves(JSON.Parse(aJSON));
+        JSONNode data = JSON.Parse(aJSON);
+        _PopulateMoves(data[0]);
+        this.timing = new AITimingInfo(data[1]);
     }
     void _PopulateMoves(JSONNode tree, List<string> path = null)
     {
@@ -254,7 +257,6 @@ public class AIMoveInfo
      */
     public void Deliberate(BlackBoard bb)
     {
-        
         // Get the maximal match and save its index
         foreach (Dictionary<string, Dictionary<string, string>> rule in rules)
         {
@@ -668,5 +670,62 @@ public class AIMoveInfo
     public override string ToString()
     {
         return "{\"name\" : " + this.buttonName + ", \"goodness\" : " + this.goodness + ", \"index\" : " + this.ruleMet + "}";
+    }
+}
+
+public class AITimingInfo
+{
+    Dictionary<string, List<float>> waitTime;
+
+    public AITimingInfo(JSONNode timings)
+    {
+        this.waitTime = new Dictionary<string, List<float>>();
+
+        foreach (string move in Constants.moveNames)
+        {
+            this.waitTime[move] = new List<float>() { timings[move]["interval"].AsFloat, timings[move]["std_dev"].AsFloat };
+        }
+    }
+
+
+    public float ButtonHoldTime(string button)
+    {
+        if (button != "Button1" || button != "Button2" || button != "Button3" || button != "Button4")
+        {
+            List<float> waitData;
+            if (waitTime.TryGetValue(button, out waitData))
+            {
+                // Calculate a random button hold time based on a Gaussian distribution
+                float u1 = Random.Range(0.0f, 1.0f),
+                      u2 = Random.Range(0.0f, 1.0f);
+                float randStdNormal = Mathf.Sqrt(-2 * Mathf.Log(u1)) * Mathf.Sin(2.0f * Mathf.PI * u2),
+                      randNormal = waitData[0] + waitData[1] * randStdNormal;
+
+                return randNormal;
+                //return 10.0f;
+            }
+        }
+
+        return 0.0f;
+    }
+
+    public float ButtonWaitTime(string button)
+    {
+        if (button != "Foward" || button != "Backward" || button != "Up" || button != "Down")
+        {
+            List<float> waitData;
+            if (waitTime.TryGetValue(button, out waitData))
+            {
+                // Calculate a random button wait time based on a Gaussian distribution
+                float u1 = Random.Range(0.0f, 1.0f),
+                      u2 = Random.Range(0.0f, 1.0f);
+                float randStdNormal = Mathf.Sqrt(-2 * Mathf.Log(u1)) * Mathf.Sin(2.0f * Mathf.PI * u2),
+                      randNormal = waitData[0] + waitData[1] * randStdNormal;
+
+                return randNormal;
+            }
+        }
+
+        return 0.0f;
     }
 }

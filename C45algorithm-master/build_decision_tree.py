@@ -228,7 +228,8 @@ class StateDependentMoves(object):
 
 
 if __name__ == "__main__":
-	sdm = StateDependentMoves(sys.argv[1] if len(sys.argv) == 2 else "sample.log")
+	logfile_name = sys.argv[1] if len(sys.argv) == 2 else "shahan.log"
+	sdm = StateDependentMoves(logfile_name)
 	
 	# Build the data table
 	data_table = sdm.build_table()
@@ -239,7 +240,9 @@ if __name__ == "__main__":
 	#print mine.mine_c45(data_table, "result")
 	#mine.__tree_to_rules(mine.mine_c45(data_table, "result"))
 	#print mine.__tree_to_dict(mine.mine_c45(data_table, "result"))
-	print "[" + mine.tree_to_json(mine.mine_c45(data_table, "result")) + "," + json.dumps(sdm.timing) + "]"
+	with open(logfile_name[:len(logfile_name) - len(".log")] + ".json", "w") as f:
+		json.dump([json.loads(mine.tree_to_json(mine.mine_c45(data_table, "result"))), sdm.timing], f)
+		f.close()
 	
 	#with open("table.json") as f:
 	#	print mine.tree_to_rules(mine.mine_c45(json.loads(f.read()), "result"))

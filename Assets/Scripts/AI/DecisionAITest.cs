@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -22,6 +23,9 @@ public class DecisionAITest : AbstractInputController {
     private GameObject nameObj;
     private NameHolder nameScript;
 
+    public bool waiting;
+    public string waitingMove;
+
     #region public override methods
     public override void Initialize (IEnumerable<InputReferences> inputs, int bufferSize){
 		this.timeLastDecision = float.NegativeInfinity;
@@ -30,7 +34,7 @@ public class DecisionAITest : AbstractInputController {
         bb = GameObject.Find("BlackBoard").GetComponent<BlackBoard>();
         //dta = GameObject.FindObjectOfType<DecisionTreeAI>();
         dta = GameObject.Find("BlackBoard").GetComponent<DecisionTreeAI>();
-        dta.LoadJSON("./C45algorithm-master/out.json");
+        dta.LoadJSON("./C45algorithm-master/KOSH.json");
 
         c = GameObject.FindObjectOfType<Canvas>();
 
@@ -39,6 +43,9 @@ public class DecisionAITest : AbstractInputController {
         {
             nameScript = nameObj.GetComponent<NameHolder>();
         }
+
+        waiting = false;
+        waitingMove = "";
     }
 
     public override void DoUpdate() {
@@ -93,16 +100,19 @@ public class DecisionAITest : AbstractInputController {
                     Debug.Log("Could not find text");
                 } else
                 {
+                    best = moveText.GetComponent<Text>();
                 }
-                best = moveText.GetComponent<Text>();
+                
                 if (best == null)
                 {
                     Debug.Log("Could not find text");
-                } else { 
+                } else
+                { 
                     best.text = "";
                 }
             } else if (timeLeft < 1)
             {
+                //Debug.Log(bestDirection + " " + bestMove);
                 best.text = bestDirection + " " + bestMove;
                 timeLeft = 1.25f;
             }
@@ -140,35 +150,155 @@ public class DecisionAITest : AbstractInputController {
 			// Otherwise, don't press any input.
 			//---------------------------------------------------------------------------------------------------------
 			this.currentFrameInputs.Clear();
-			if (currentTime - this.timeLastDecision >= UFE.config.aiOptions.inputFrequency){
-				this.timeLastDecision = currentTime;
+            
 
-                // Attempt to get the blackboard state
-                if (bb == null)
+            // Attempt to get the blackboard state
+            if (bb == null)
+            {
+                Debug.Log("No blackboard");
+            }
+			//Debug.Log("Deliberating...");
+			//dta.Deliberate(bb);
+			//string temp = dta.BestMove()
+			string temp = dta.Deliberate(bb);
+			//Debug.Log("Best move is " + temp);
+			this.SetBestMove(temp);
+            float tempDelay = 0.0f;
+            if (!waiting || waitingMove != "")
+            {
+                Debug.Log("not waiting");
+                foreach (InputReferences input in this.inputReferences)
                 {
-                    Debug.Log("No blackboard");
+                    //TEST AREA
+                    //Debug.Log(input.engineRelatedButton);
+                    switch (input.engineRelatedButton)
+                    {
+                        case ButtonPress.Button1:
+                            
+                            if (waitingMove == "")
+                            {
+                                waiting = true;
+                                waitingMove = "Button1";
+                            } else if (waitingMove != "Button1")
+                            {
+                                break;
+                            }
+                            
+                            tempDelay = dta.timing.ButtonWaitTime("Button1");
+                            if (currentTime - this.timeLastDecision >= UFE.config.aiOptions.inputFrequency)
+                            {
+                                StartCoroutine(Wait(tempDelay));
+                                //Debug.Log("Waiting to fire Button1");
+                                this.currentFrameInputs[input] = this.DoBestMove(input, temp);
+                                waiting = false;
+                                waitingMove = "";
+                            }
+                            
+                            break;
+                        case ButtonPress.Button2:
+
+                            if (waitingMove == "")
+                            {
+                                waiting = true;
+                                waitingMove = "Button2";
+                            }
+                            else if (waitingMove != "Button2")
+                            {
+                                break;
+                            }
+                            tempDelay = dta.timing.ButtonWaitTime("Button2");
+                            if (currentTime - this.timeLastDecision >= UFE.config.aiOptions.inputFrequency && waitingMove == "Button2")
+                            {
+                                StartCoroutine(Wait(tempDelay));
+                                //Debug.Log("Waiting to fire Button2");
+                                this.currentFrameInputs[input] = this.DoBestMove(input, temp);
+                                waiting = false;
+                                waitingMove = "";
+                            }
+                            
+                            break;
+                        case ButtonPress.Button3:
+
+                            if (waitingMove == "")
+                            {
+                                waiting = true;
+                                waitingMove = "Button3";
+                            }
+                            else if (waitingMove != "Button3")
+                            {
+                                break;
+                            }
+                            tempDelay = dta.timing.ButtonWaitTime("Button3");
+                            if (currentTime - this.timeLastDecision >= UFE.config.aiOptions.inputFrequency)
+                            {
+                                StartCoroutine(Wait(tempDelay));
+                                //Debug.Log("Waiting to fire Button3");
+                                this.currentFrameInputs[input] = this.DoBestMove(input, temp);
+                                waiting = false;
+                                waitingMove = "";
+                            }
+                            
+                            break;
+                        case ButtonPress.Button4:
+
+                            if (waitingMove == "")
+                            {
+                                waiting = true;
+                                waitingMove = "Button4";
+                            }
+                            else if (waitingMove != "Button4")
+                            {
+                                break;
+                            }
+
+                            tempDelay = dta.timing.ButtonWaitTime("Button4");
+                            if (currentTime - this.timeLastDecision >= UFE.config.aiOptions.inputFrequency)
+                            {
+                                StartCoroutine(Wait(tempDelay));
+                                //Debug.Log("Waiting to fire Button4");
+                                this.currentFrameInputs[input] = this.DoBestMove(input, temp);
+                                waiting = false;
+                                waitingMove = "";
+                            }
+                            break;
+                        default:
+                            //waiting = true;
+                            switch (input.engineRelatedButton)
+                            {
+                                case ButtonPress.Foward:
+                                    tempDelay = dta.timing.ButtonHoldTime("Foward");
+                                    break;
+                                case ButtonPress.Back:
+                                    tempDelay = dta.timing.ButtonHoldTime("Back");
+                                    break;
+                                case ButtonPress.Up:
+                                    tempDelay = dta.timing.ButtonHoldTime("Up");
+                                    break;
+                                case ButtonPress.Down:
+                                    tempDelay = dta.timing.ButtonHoldTime("Down");
+                                    break;
+                            }
+                            
+                            if (currentTime - this.timeLastDecision >= UFE.config.aiOptions.inputFrequency)
+                            {
+                                StartCoroutine(Wait(tempDelay));
+                                //Debug.Log("Waiting to move " + temp);
+                                this.currentFrameInputs[input] = this.DoBestMove(input, temp);
+                                
+                            }
+                            //waiting = false;
+                            break;
+                    }
                 }
-                //Debug.Log("Deliberating...");
-                //dta.Deliberate(bb);
-                //string temp = dta.BestMove()
-                string temp = dta.Deliberate(bb);
-                //Debug.Log("Best move is " + temp);
-                this.SetBestMove(temp);
-				foreach (InputReferences input in this.inputReferences) {
-					//this.currentFrameInputs[input] = this.ReadInput(input);
-                    this.currentFrameInputs[input] = this.DoBestMove(input, temp);
-                }
-			} else {
-				foreach (InputReferences input in this.inputReferences) {
-					this.currentFrameInputs[input] = InputEvents.Default;
-				}
-			}
+            }
 		}
 	}
 
     public InputEvents DoBestMove(InputReferences inputReference, string bestMove)
     {
         //Debug.Log("Trying to fire " + bestMove);
+        //StartCoroutine(Wait(Random.Range(0,1)));
+
         ControlsScript self = UFE.GetControlsScript(this.player);
         if (self != null)
         {
@@ -184,6 +314,7 @@ public class DecisionAITest : AbstractInputController {
                 {
                     //Debug.Log("Trying to move forward");
                     axis = Mathf.Sign(dx) * 1f;
+                    //StartCoroutine(HoldButton(0.5f, 1.0f));
                     return new InputEvents(axis);
                 }
                 if (bestMove == "Backward")
@@ -204,33 +335,47 @@ public class DecisionAITest : AbstractInputController {
                     case ButtonPress.Button1:
                         if (bestMove == "Button1")
                         {
+                            //StartCoroutine(Wait(0.05F));
+                            //Debug.Log("Waiting to fire Button1");
                             return new InputEvents(true);
                         }
                         break;
                     case ButtonPress.Button2:
                         if (bestMove == "Button2")
                         {
+                            //StartCoroutine(Wait(0.05F));
+                            //Debug.Log("Waiting to fire Button2");
                             return new InputEvents(true);
                         }
                         break;
                     case ButtonPress.Button3:
                         if (bestMove == "Button3")
                         {
+                            //StartCoroutine(Wait(0.05F));
+                            //Debug.Log("Waiting to fire Button3");
                             return new InputEvents(true);
                         }
                         break;
                     case ButtonPress.Button4:
                         if (bestMove == "Button4")
                         {
+                            //StartCoroutine(Wait(0.05F));
+                            //Debug.Log("Waiting to fire Button4");
                             return new InputEvents(true);
                         }
                         break;
                     default:
-                        return InputEvents.Default;
+                        //Debug.Log("Waiting to fire Button ERR");
+                        return new InputEvents(true);
                 }
             }
         }
         return InputEvents.Default;
+    }
+
+    public InputEvents returnTrueThing(float axis)
+    {
+        return new InputEvents(axis);
     }
 
 	public override InputEvents ReadInput (InputReferences inputReference){
@@ -355,6 +500,22 @@ public class DecisionAITest : AbstractInputController {
     {
         return this.bestMove;
     }
-    
-	#endregion
+
+    IEnumerator Wait(float f)
+    {
+        //Debug.Log("f is " + f);
+        yield return new WaitForSeconds(1f);
+        //Debug.Log(f + " " + Time.time);
+    }
+
+    IEnumerator HoldButton(float totalTime, float timeRate)
+    {
+        for (float i = 0f; i < totalTime; i += timeRate)
+        {
+            yield return new WaitForSeconds(timeRate);
+
+        }
+    }
+
+    #endregion
 }

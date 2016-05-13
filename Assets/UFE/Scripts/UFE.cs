@@ -1973,6 +1973,10 @@ public class UFE : MonoBehaviour {
             if (UFE.canvasGroup.alpha == 0) UFE.canvasGroup.alpha = 1;
 
 			if (gameRunning){
+                if (UFE.gameMode == GameMode.VersusMode)
+                {
+                    //Debug.Log("Versus Mode Entered");
+                }
 				if (config.roundOptions.hasTimer && timer > 0 && !pauseTimer){
                     if (UFE.gameMode != GameMode.TrainingRoom || !config.trainingModeOptions.freezeTime) timer -= Time.fixedDeltaTime * (config.roundOptions.timerSpeed * .01f);
 					if (timer < intTimer) {
