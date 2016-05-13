@@ -241,7 +241,7 @@ if __name__ == "__main__":
 	#mine.__tree_to_rules(mine.mine_c45(data_table, "result"))
 	#print mine.__tree_to_dict(mine.mine_c45(data_table, "result"))
 	with open(logfile_name[:len(logfile_name) - len(".log")] + ".json", "w") as f:
-		json.dump([json.loads(mine.tree_to_json(mine.mine_c45(data_table, "result"))), sdm.timing], f)
+		json.dump([json.loads(mine.tree_to_json(mine.mine_c45(data_table, "result"))), sdm.timing], f, indent=4, separators=(',', ': '))
 		f.close()
 	
 	#with open("table.json") as f:
