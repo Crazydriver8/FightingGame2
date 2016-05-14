@@ -103,4 +103,79 @@ public static class Constants {
 
     /* Player-emulating AI */
     public static string[] moveNames = { "Foward", "Back", "Up", "Down", "Button1", "Button2", "Button3", "Button4" };
+
+    public static bool IsHorizontal(string move)
+    {
+        return move == "Foward" || move == "Back";
+    }
+    public static bool IsVertical(string move)
+    {
+        return move == "Up" || move == "Down";
+    }
+
+    public static ButtonPress ToButtonPress(string move)
+    {
+        switch(move)
+        {
+            case "Foward":
+                return ButtonPress.Foward;
+
+            case "Back":
+                return ButtonPress.Back;
+
+            case "Up":
+                return ButtonPress.Up;
+
+            case "Down":
+                return ButtonPress.Down;
+
+            case "Button1":
+                return ButtonPress.Button1;
+
+            case "Button2":
+                return ButtonPress.Button2;
+            
+            case "Button3":
+                return ButtonPress.Button3;
+            
+            case "Button4":
+                return ButtonPress.Button4;
+            
+            default:
+                return ButtonPress.Button5;
+        }
+    }
+
+    public static string ToMove(ButtonPress b)
+    {
+        switch (b)
+        {
+            case ButtonPress.Foward:
+                return "Foward";
+
+            case ButtonPress.Back:
+                return "Back";
+
+            case ButtonPress.Up:
+                return "Up";
+
+            case ButtonPress.Down:
+                return "Down";
+
+            case ButtonPress.Button1:
+                return "Button1";
+
+            case ButtonPress.Button2:
+                return "Button2";
+
+            case ButtonPress.Button3:
+                return "Button3";
+
+            case ButtonPress.Button4:
+                return "Button4";
+
+            default:
+                return "Button5";
+        }
+    }
 }

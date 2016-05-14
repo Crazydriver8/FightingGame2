@@ -220,8 +220,11 @@ public class BlackBoardController : MonoBehaviour {
             StartCoroutine(InputLog(inRef.engineRelatedButton.ToString(), (player == 1 ? Constants.p1Key : Constants.p2Key)));
             //Debug.Log(inRef.engineRelatedButton.ToString() + " by Player " + player);
 
+            // Record move distribution
+            Debug.Log(Constants.ToMove(inRef.engineRelatedButton));
+            Debug.Log(distr.Increment(Constants.ToMove(inRef.engineRelatedButton)));
+
             // Reloads the distribution graph
-            distr.Increment(inRef.engineRelatedButton.ToString());
             distr.Visualize();
         }
     }

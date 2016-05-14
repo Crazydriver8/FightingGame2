@@ -711,7 +711,7 @@ public class AITimingInfo
 
     public float ButtonWaitTime(string button)
     {
-        if (button != "Foward" || button != "Backward" || button != "Up" || button != "Down")
+        if (button != "Foward" || button != "Back" || button != "Up" || button != "Down")
         {
             List<float> waitData;
             if (waitTime.TryGetValue(button, out waitData))

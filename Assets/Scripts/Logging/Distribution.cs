@@ -9,7 +9,11 @@ public class GraphPortion
 {
 	public float start = 0.0f,
 				 end = 0.0f;
-	
+
+    public GameObject bar,
+                      rect,
+                      text;
+
 	public GraphPortion(float start, float end)
 	{
 		this.start = start;
@@ -75,7 +79,7 @@ public class Distribution : MonoBehaviour {
 
         this.moveFreq = new Dictionary<string, int>() {
                 {"Foward", 0},
-                {"Backward", 0},
+                {"Back", 0},
                 {"Up", 0},
                 {"Down", 0},
                 {"Button1", 0},
@@ -113,7 +117,7 @@ public class Distribution : MonoBehaviour {
 		{
 			this.moveFreq = new Dictionary<string, int> () {
 				{"Foward", 0},
-				{"Backward", 0},
+				{"Back", 0},
 				{"Up", 0},
 				{"Down", 0},
 				{"Button1", 0},
@@ -208,12 +212,12 @@ public class Distribution : MonoBehaviour {
                 //Debug.Log("Setting width to " + (barLength + start));
                 fowardRect.sizeDelta = new Vector2(barLength, 50);
                 break;
-            case "Backward":
+            case "Back":
                 if (backwardBar == null) backwardBar = GameObject.Find("backwardBar");
                 if (backwardRect == null) backwardRect = backwardBar.GetComponent<RectTransform>();
                 if (backwardText == null) {
                     backwardText = GameObject.Find("backwardText");
-                    backwardText.GetComponent<Text>().text = "Backward";
+                    backwardText.GetComponent<Text>().text = "Back";
                 }
                 //Debug.Log("Setting width to " + (barLength + start));
                 backwardRect.sizeDelta = new Vector2(barLength, 50);
