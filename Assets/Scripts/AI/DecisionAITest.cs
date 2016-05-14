@@ -172,10 +172,10 @@ public class DecisionAITest : AbstractInputController {
             }
 			this.SetBestMove(temp);
             float tempDelay = 0.0f;
+            
+                //Debug.Log("not waiting");
+            foreach (InputReferences input in this.inputReferences)
             {
-                Debug.Log("not waiting");
-                foreach (InputReferences input in this.inputReferences)
-                {
                 //TEST AREA
                 //Debug.Log(input.engineRelatedButton);
                 this.currentFrameInputs[input] = this.DoBestMove(input, temp);
@@ -486,6 +486,7 @@ public class DecisionAITest : AbstractInputController {
 
     IEnumerator StartDeliberate(float f)
     {
+        yield return new WaitForSeconds(f);
         waitingDeliberate = false;
     }
 
