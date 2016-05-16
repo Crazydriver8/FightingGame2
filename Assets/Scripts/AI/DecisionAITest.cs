@@ -168,7 +168,7 @@ public class DecisionAITest : AbstractInputController {
                 temp = dta.Deliberate(bb);
                 Debug.Log("Best move is " + temp);
                 waitingDeliberate = true;
-                StartCoroutine(StartDeliberate(0.1f));
+                StartCoroutine(StartDeliberate(0.05f));
             }
 			this.SetBestMove(temp);
             float tempDelay = 0.0f;
