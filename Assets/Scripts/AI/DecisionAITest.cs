@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class DecisionAITest : AbstractInputController {
-	#region protected instance fields
-	protected float timeLastDecision = float.NegativeInfinity;
+    #region protected instance fields
+    protected float timeLastDecision = float.NegativeInfinity;
     #endregion
 
     BlackBoard bb;
@@ -32,9 +32,10 @@ public class DecisionAITest : AbstractInputController {
     InputReferences lastMove = null;
 
     #region public override methods
-    public override void Initialize (IEnumerable<InputReferences> inputs, int bufferSize){
-		this.timeLastDecision = float.NegativeInfinity;
-		base.Initialize (inputs, bufferSize);
+    public override void Initialize(IEnumerable<InputReferences> inputs, int bufferSize)
+    {
+        this.timeLastDecision = float.NegativeInfinity;
+        base.Initialize(inputs, bufferSize);
         //bb = GameObject.FindObjectOfType<BlackBoard>();
         bb = GameObject.Find("BlackBoard").GetComponent<BlackBoard>();
         //dta = GameObject.FindObjectOfType<DecisionTreeAI>();
@@ -50,7 +51,8 @@ public class DecisionAITest : AbstractInputController {
         }
     }
 
-    public override void DoUpdate() {
+    public override void DoUpdate()
+    {
         //-------------------------
         // Diagnostic mode settings
         //-------------------------
@@ -61,7 +63,8 @@ public class DecisionAITest : AbstractInputController {
             setDiagnostic = nameScript.diagnosticMode;
             setDiagnosticSet = true;
         }
-        if (moveText != null && setRoundBegin && !setDiagnosticSet) {
+        if (moveText != null && setRoundBegin && !setDiagnosticSet)
+        {
 
             if (nameScript != null)
             {
@@ -86,7 +89,8 @@ public class DecisionAITest : AbstractInputController {
             }
         }
 
-        if (setDiagnostic && setDiagnosticSet) {
+        if (setDiagnostic && setDiagnosticSet)
+        {
             // Timer to prevent too many updates
             if (timeLeft > 0)
             {
@@ -99,25 +103,29 @@ public class DecisionAITest : AbstractInputController {
                 if (moveText == null)
                 {
                     Debug.Log("Could not find text");
-                } else
+                }
+                else
                 {
                     best = moveText.GetComponent<Text>();
                 }
-                
+
                 if (best == null)
                 {
                     Debug.Log("Could not find text");
-                } else
-                { 
+                }
+                else
+                {
                     best.text = "";
                 }
-            } else if (timeLeft < 1)
+            }
+            else if (timeLeft < 1)
             {
                 //Debug.Log(bestDirection + " " + bestMove);
                 best.text = bestDirection + " " + bestMove;
                 timeLeft = 1.25f;
             }
-        } else
+        }
+        else
         {
             if (moveText == null)
             {
@@ -136,22 +144,24 @@ public class DecisionAITest : AbstractInputController {
             }
         }
 
-		if (this.inputReferences != null){
-			//---------------------------------------------------------------------------------------------------------
-			// Check the time that has passed since the last update.
-			//---------------------------------------------------------------------------------------------------------
-			float currentTime = Time.realtimeSinceStartup;
+        if (this.inputReferences != null)
+        {
+            //---------------------------------------------------------------------------------------------------------
+            // Check the time that has passed since the last update.
+            //---------------------------------------------------------------------------------------------------------
+            float currentTime = Time.realtimeSinceStartup;
 
-			if (this.timeLastDecision < 0f){
-				this.timeLastDecision = currentTime;
-			}
+            if (this.timeLastDecision < 0f)
+            {
+                this.timeLastDecision = currentTime;
+            }
 
-			//---------------------------------------------------------------------------------------------------------
-			// If the time since the last update is greater than the input frequency, read the AI input.
-			// Otherwise, don't press any input.
-			//---------------------------------------------------------------------------------------------------------
-			this.currentFrameInputs.Clear();
-            
+            //---------------------------------------------------------------------------------------------------------
+            // If the time since the last update is greater than the input frequency, read the AI input.
+            // Otherwise, don't press any input.
+            //---------------------------------------------------------------------------------------------------------
+            this.currentFrameInputs.Clear();
+
             // Attempt to get the blackboard state
             if (bb == null)
             {
@@ -161,7 +171,6 @@ public class DecisionAITest : AbstractInputController {
             {
                 // Decide what the best move is and fire it
                 string bestMove = dta.Deliberate(bb);
-                //Debug.Log("Best move is " + bestMove);
 
                 // Calculate wait times
                 float newHoldTime = dta.timing.ButtonHoldTime(bestMove),
@@ -170,12 +179,10 @@ public class DecisionAITest : AbstractInputController {
 
                 foreach (InputReferences input in this.inputReferences)
                 {
-                    Debug.Log("Attempting to match ["+ bestMove + "] with Input related button [" + input.engineRelatedButton.ToString() + "]");
-                    if(input.engineRelatedButton == Constants.ToButtonPress(bestMove))
+                    if (input.engineRelatedButton == Constants.ToButtonPress(bestMove))
                     {
-                        Debug.Log("     VALID MOVE [" + bestMove + "]");
                         // Is this a valid move?
-                        if (Constants.IsHorizontal(bestMove) || Constants.IsVertical(bestMove))
+                        if (Constants.IsHorizontal(bestMove))
                         {
                             // Is it OK to fire a move now?
                             // Movements can only fire if no other movement is firing
@@ -191,17 +198,12 @@ public class DecisionAITest : AbstractInputController {
 
                             // If the old move is still there, use it
                             // Otherwise, use the new move
-                            Debug.Log("     Fire 1:" + this.lastInputEvent.ToString());
                             this.currentFrameInputs[this.lastMove] = this.lastInputEvent;
                         }
-                        /*else if (Constants.IsVertical(bestMove))
+                        else if (Constants.IsHorizontal(bestMove))
                         {
-                            this.lastMove = input;
-                            this.lastInputEvent = this.ReadInput(input);
-                            this.lastMoveTime = now;
-                            this.holdTime = newHoldTime;
-                            this.currentFrameInputs[this.lastMove] = this.lastInputEvent;
-                        }*/
+
+                        }
                         else
                         {
                             // Attacks can fire if there is sufficient time between them
@@ -212,7 +214,6 @@ public class DecisionAITest : AbstractInputController {
                                 this.lastAttackTime = now;
                                 this.waitTime = newWaitTime;
 
-                                Debug.Log("     Fire 2:" + input.engineRelatedButton.ToString());
                                 this.currentFrameInputs[input] = this.ReadInput(input);
                                 this.bestMove = input.inputButtonName.Substring(2);
                             }
@@ -221,29 +222,24 @@ public class DecisionAITest : AbstractInputController {
                                 // Otherwise, attempt to move
                                 if (this.lastMove == null)
                                 {
-                                    Debug.Log("     Fire 3:" + input.engineRelatedButton.ToString());
                                     this.currentFrameInputs[input] = this.ReadInput(input);
                                 }
                                 else
                                 {
-                                    Debug.Log("     Fire 4:" + this.lastInputEvent.ToString());
                                     this.currentFrameInputs[this.lastMove] = this.lastInputEvent;
                                 }
                             }
                         }
 
                         break;
-                    } else
-                    {
-                        //Debug.Log("INVALID MOVE [" + bestMove + "]");
                     }
-
                 }
             }
-		}
-	}
+        }
+    }
 
-	public override InputEvents ReadInput (InputReferences inputReference){
+    public override InputEvents ReadInput(InputReferences inputReference)
+    {
         ControlsScript self = UFE.GetControlsScript(this.player);
 
         if (self != null)
@@ -253,30 +249,25 @@ public class DecisionAITest : AbstractInputController {
             if (opponent != null)
             {
                 float dx = opponent.transform.position.x - self.transform.position.x;
-                float sign = Mathf.Sign(opponent.transform.position.x - self.transform.position.x);
                 float axis = 0.0f;
-                Debug.Log("Trying to fire " + inputReference.engineRelatedButton.ToString());
+
                 // Decide what button to press
                 switch (inputReference.engineRelatedButton)
                 {
                     case ButtonPress.Foward:
-                        //axis = Mathf.Sign(dx) * 1f;
-                        return new InputEvents(1f * sign);
-                        //return new InputEvents(axis);
+                        axis = Mathf.Sign(dx) * 1f;
+                        return new InputEvents(axis);
 
                     case ButtonPress.Back:
-                        //axis = Mathf.Sign(dx) * 0f;
-                        //return new InputEvents(axis);
-                        return new InputEvents(-1f * sign);
+                        axis = Mathf.Sign(dx) * 0f;
+                        return new InputEvents(axis);
 
                     case ButtonPress.Down:
-                        return new InputEvents(-1f);
-                        //return new InputEvents(axis);
+                        return new InputEvents(axis);
 
                     case ButtonPress.Up:
                         axis = 1f;
-                        //return new InputEvents(axis);
-                        return new InputEvents(1f);
+                        return new InputEvents(axis);
 
                     case ButtonPress.Button1:
                     case ButtonPress.Button2:
