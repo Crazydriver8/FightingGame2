@@ -166,7 +166,7 @@ public class DecisionAITest : AbstractInputController {
             if (!waitingDeliberate)
             {
                 temp = dta.Deliberate(bb);
-                Debug.Log("Best move is " + temp);
+                //Debug.Log("Best move is " + temp);
                 waitingDeliberate = true;
                 StartCoroutine(StartDeliberate(0.1f));
             }

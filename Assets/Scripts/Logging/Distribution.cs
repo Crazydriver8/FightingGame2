@@ -157,6 +157,7 @@ public class Distribution : MonoBehaviour {
 				{
 					if (this.totalInputs > 0)
 					{
+                        //Debug.Log(entry.Key + ": " + entry.Value);
 						location += _DrawGraph(entry.Key, location, entry.Value);
 					}
 				}

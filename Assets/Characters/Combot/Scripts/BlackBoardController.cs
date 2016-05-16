@@ -221,11 +221,11 @@ public class BlackBoardController : MonoBehaviour {
             //Debug.Log(inRef.engineRelatedButton.ToString() + " by Player " + player);
 
             // Record move distribution
-            Debug.Log(Constants.ToMove(inRef.engineRelatedButton));
-            Debug.Log(distr.Increment(Constants.ToMove(inRef.engineRelatedButton)));
-
-            // Reloads the distribution graph
-            distr.Visualize();
+            if (distr.Increment(Constants.ToMove(inRef.engineRelatedButton)))
+            {
+                // Reloads the distribution graph on valid changes 
+                distr.Visualize();
+            }
         }
     }
     

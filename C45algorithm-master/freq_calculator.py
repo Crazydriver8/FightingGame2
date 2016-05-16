@@ -1,42 +1,7 @@
-import json
-import sys
+import json, sys
 
-
-'''
-Generator that gets blocks from an opened file
-A block is as follows: [player_name, timestamp, type, blackboard]
-'''
-def get_next_block(file):
-	while True:
-		next = file.readline()
-		while next == "\n":
-			next = file.readline()
-		
-		player_name = "".join(next.split("\n"))
-		
-		# EOF?
-		if not player_name:
-			break
-		else:
-			timestamp = "".join(file.readline().split("\n"))
-			type = "".join(file.readline().split("\n"))
-			blackboard = ""
-			
-			if type == "BlackBoard Update":
-				line = file.readline()
-				while line != "}\n":
-					# Ensure valid JSON format
-					if line[len(line) - 3:] == "},\n" and blackboard[-1] == ",":
-						blackboard = blackboard[:-1]
-					blackboard += "".join("".join(line.split("\n")).split("\t"))
-					line = file.readline()
-				
-				# Add the last part
-				if blackboard[-1] == ",":
-					blackboard = blackboard[:-1]
-				blackboard += "".join("".join(line.split("\n")).split("\t"))
-			
-			yield [player_name, timestamp, type, blackboard]
+# Parses .log files
+from log_parse import get_next_block
 
 
 '''
@@ -70,18 +35,16 @@ class Distributions(object):
 
 if __name__ == "__main__":
 	# Build the data table
-	data_table = Distributions(sys.argv[1] if len(sys.argv) == 2 else "jojo.log")
-	data_table.get_distribution_table()
+	data_table = Distributions(sys.argv[1]) if sys.argv[1:] else None
 	
-	print data_table.buttons,
-	print " buttons pressed"
+	# Build distribution
+	if data_table:
+		data_table.get_distribution_table()
+		
+		# Output distribution as JSON
+		with open(sys.argv[1][:len() - len(".log")] + "_distr.json", "w") as f:
+			print json.dump(data_table.params, f, indent=4, separators=(',', ': '))
 	
-	print data_table.games,
-	print " games played"
-	
-	#for key in data_table.params:
-	#	print key,
-	#	print " : ",
-	#	print data_table.params[key]
-	
-	print json.dumps(data_table.params)
+	else:
+		# Did not receive a .log file to process
+		print "Error : No data"
