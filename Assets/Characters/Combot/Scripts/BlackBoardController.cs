@@ -217,7 +217,7 @@ public class BlackBoardController : MonoBehaviour {
     {
         foreach (InputReferences inRef in inputReferences)
         {
-            StartCoroutine(InputLog(inRef.engineRelatedButton.ToString(), (player == 1 ? Constants.p1Key : Constants.p2Key)));
+            StartCoroutine(InputLog(inRef.engineRelatedButton.ToString(), (player == 1 ? GameObject.Find("Name").GetComponent<NameHolder>().username : Constants.p2Key) + (player == 1 && UFE.GetPlayer1Controller().isCPU || player == 2 && UFE.GetPlayer2Controller().isCPU ? "_AI" : "")));
             //Debug.Log(inRef.engineRelatedButton.ToString() + " by Player " + player);
 
             // Record move distribution
@@ -475,11 +475,11 @@ public class BlackBoardController : MonoBehaviour {
     // Input logger
     IEnumerator InputLog(string input, string player)
     {
-        Dictionary<string, string> playerProperties = bb.GetProperties(player);
-
         // Record for the player who pressed the key
-        KeyData data = new KeyData(UFE.GetTimer(), input, (playerProperties[Constants.playerName] == "" ? player : playerProperties[Constants.playerName]), null);
+        KeyData data = new KeyData(UFE.GetTimer(), input, player, null);
         string write_to = Constants.addLogUrl + data.AsUrlParams() + "&hash=" + data.Md5Sum(Constants.notSoSecretKey);
+
+        Debug.Log(write_to);
 
         // Enqueue for POSTing to server
         if (UFE.GetLocalPlayer() == 1)

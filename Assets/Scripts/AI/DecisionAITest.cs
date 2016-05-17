@@ -171,7 +171,7 @@ public class DecisionAITest : AbstractInputController {
 			this.SetBestMove(temp);
             float tempDelay = 0.0f;
             
-                //Debug.Log("not waiting");
+            //Debug.Log("not waiting");
             foreach (InputReferences input in this.inputReferences)
             {
                 //TEST AREA

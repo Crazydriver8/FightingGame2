@@ -136,8 +136,6 @@ public class KeyLogger : MonoBehaviour
         yield return hs_post; // Wait until the download is done
 
         if (hs_post.error != null)
-        {
-            print("There was an error posting the high score: " + hs_post.error);
-        }
+            print("There was an error posting the key press: " + hs_post.error);
     }
 }

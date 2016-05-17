@@ -278,7 +278,6 @@ public class BlackBoard : MonoBehaviour
     public IEnumerator BlackBoardLog(string player)
     {
         bool ai = false;
-        //Debug.Log("Logging for " + player);
         
         // Check if player is AI
         if (player == Constants.p1Key)
@@ -286,7 +285,6 @@ public class BlackBoard : MonoBehaviour
             UFEController p1Control = UFE.GetPlayer1Controller();
             if (p1Control.isCPU)
             {
-                //Debug.Log(player + " is cpu");
                 ai = true;
             }
         }
@@ -295,13 +293,9 @@ public class BlackBoard : MonoBehaviour
             UFEController p2Control = UFE.GetPlayer2Controller();
             if (p2Control.isCPU)
             {
-                //Debug.Log(player + " is cpu");
                 ai = true;
             }
         }
-        //player = (UFE.iscpu ? player + "_AI" : player);
-
-        //Debug.Log(player + " is an ai: " + ai);
 
         // Record data for this player
         // Append _AI to all AI players
