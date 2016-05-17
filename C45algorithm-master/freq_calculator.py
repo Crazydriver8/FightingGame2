@@ -42,8 +42,8 @@ if __name__ == "__main__":
 		data_table.get_distribution_table()
 		
 		# Output distribution as JSON
-		with open(sys.argv[1][:len() - len(".log")] + "_distr.json", "w") as f:
-			print json.dump(data_table.params, f, indent=4, separators=(',', ': '))
+		with open(sys.argv[1][:len(sys.argv[1]) - len(".log")] + "_distr.json", "w") as f:
+			json.dump(data_table.params, f, indent=4, separators=(',', ': '))
 	
 	else:
 		# Did not receive a .log file to process

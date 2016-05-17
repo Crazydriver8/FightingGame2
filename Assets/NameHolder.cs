@@ -6,6 +6,7 @@ public class NameHolder : MonoBehaviour {
     public bool diagnosticMode = false;
     private bool roundStarted = false;
     public SkillTreeStructure skillTree;
+    public string gameMode;
     
 
     void Start()
@@ -64,5 +65,10 @@ public class NameHolder : MonoBehaviour {
     public void setRoundStarted(bool roundUp)
     {
         this.roundStarted = roundUp;
+    }
+
+    public void setGameMode(string gm)
+    {
+        this.gameMode = gm;
     }
 }
