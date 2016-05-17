@@ -357,12 +357,12 @@ public class BlackBoard : MonoBehaviour
                 bb += "\t\t\"" + tuple.Key + "\" : \"" + tuple.Value + "\",\n";
             }
 			
-			bb = bb.Substring(0, bb.Length - 1); // Remove trailing comma
-            bb += "\t},\n";
+			bb = bb.Substring(0, bb.Length - 2); // Remove trailing comma
+            bb += "\n\t},\n";
         }
 		
-		bb = bb.Substring(0, bb.Length - 1); // Remove trailing comma
-        bb += "}";
+		bb = bb.Substring(0, bb.Length - 2); // Remove trailing comma
+        bb += "\n}";
 		
         return bb;
     }
