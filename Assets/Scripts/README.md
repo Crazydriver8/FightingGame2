@@ -18,7 +18,10 @@ None
 and
 
 ```
-
+Player1
+99
+BlackBoard Update
+{...}
 ```
 
 were mixed in the log file as follows...
