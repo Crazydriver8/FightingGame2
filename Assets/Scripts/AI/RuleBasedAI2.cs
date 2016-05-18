@@ -1828,7 +1828,7 @@ public class RuleBasedAI2 : RandomAI{
         bb = GameObject.Find("BlackBoard").GetComponent<BlackBoard>();
         //dta = GameObject.FindObjectOfType<DecisionTreeAI>();
         dta = GameObject.Find("BlackBoard").GetComponent<DecisionTreeAI>();
-        dta.LoadJSON("./C45algorithm-master/shahan.json");
+        dta.LoadJSON("./C45algorithm-master/QiDong.json");
 
         c = GameObject.FindObjectOfType<Canvas>();
 
